@@ -9,7 +9,7 @@ const Comment = sequelize.define('Comment', {
     type: DataTypes.INTEGER, 
     allowNull: false,
     references: {
-      model: User,
+      model: 'Users',
       key: 'id'
     }
   },
@@ -17,20 +17,13 @@ const Comment = sequelize.define('Comment', {
     type: DataTypes.INTEGER, 
     allowNull: false,
     references: {
-      model: Post,
+      model: 'Posts',
       key: 'id'
     }
   }
+}, {
+  freezeTableName: true,
+  tableName: 'Comments'
 });
-
-// Asociaciones
-Comment.belongsTo(User, { foreignKey: 'userId', as: 'usuarioComentario' });
-User.hasMany(Comment, { foreignKey: 'userId', as: 'comentariosUsuario' });
-
-Comment.belongsTo(Post, { foreignKey: 'postId', as: 'postRelacionado' });
-Post.hasMany(Comment, { foreignKey: 'postId', as: 'comentariosPost' });
-
-module.exports = Comment;
-
 
 module.exports = Comment;
