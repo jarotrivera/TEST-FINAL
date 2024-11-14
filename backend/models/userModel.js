@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
+const Venta = require('./ventaModel');
 
 const User = sequelize.define('User', {
   nombre: { type: DataTypes.STRING, allowNull: false },
@@ -13,5 +14,6 @@ const User = sequelize.define('User', {
 
 // Define la relación inversa con el alias 'ventasUsuario'
 User.hasMany(Venta, { foreignKey: 'usuarioId', as: 'ventasUsuario' });
+Venta.belongsTo(User, { foreignKey: 'usuarioId', as: 'VentaUser' });
 
 module.exports = User;

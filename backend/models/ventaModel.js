@@ -28,6 +28,6 @@ const Venta = sequelize.define('Venta', {
   },
 });
 
-Venta.belongsTo(User, { foreignKey: 'usuarioId', as: 'ventasUsuario' });
+Venta.belongsTo(User, { foreignKey: 'usuarioId', as: 'VentaUser' });
 
 module.exports = Venta;
