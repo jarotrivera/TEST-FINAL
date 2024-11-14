@@ -53,13 +53,26 @@ app.use('/api/parking', parkingRoutes);
 app.use('/api', reportRoutes);
 app.use('/api/historial', historialRoutes);
 
-// Sincronizar la base de datos
-sequelize.sync({ alter: true }).then(() => {
-  console.log('Base de datos sincronizada');
-  app.listen(3000, () => {
-    console.log('Servidor corriendo en el puerto 3000');
-  });
-}).catch((error) => {
-  console.error('Error al sincronizar la base de datos:', error);
-});
+// ** Servir el frontend compilado solo en producción **
+if (process.env.NODE_ENV === 'production') {
+  const frontendPath = path.join(__dirname, '../dist');
+  app.use(express.static(frontendPath));
 
+  // Cualquier ruta que no coincida con las rutas API, devolverá el `index.html`
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'index.html'));
+  });
+}
+
+// Sincronizar la base de datos y arrancar el servidor
+const PORT = process.env.PORT || 3000;
+sequelize.sync({ force: true })
+  .then(() => {
+    console.log('Conexión a la base de datos exitosa');
+    app.listen(PORT, () => {
+      console.log(`Servidor corriendo en el puerto ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error('Error al conectar con la base de datos:', error);
+  });
