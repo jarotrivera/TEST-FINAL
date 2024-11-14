@@ -1,0 +1,67 @@
+.areas-comunes {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.layout-container {
+  display: flex;
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: calc(100% - 80px);
+}
+
+.right-panel-container {
+  width: 300px;
+  min-width: 300px;
+  overflow-y: auto;
+}
+
+/* Estilos para las áreas comunes */
+.amenities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+}
+
+.amenity {
+  text-align: center;
+  width: 100%;
+}
+
+/* Estilos de los títulos */
+.title5 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+/* Contenedor de las imágenes, ahora ocupa el ancho completo */
+.image-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Ajuste de las imágenes en formato rectangular */
+.area-image {
+  width: 100%;
+  max-width: 400px; /* Puedes ajustar este valor para que las imágenes sean más anchas */
+  max-height: 180px; /* Controla la altura máxima de las imágenes */
+  border-radius: 8px;
+  object-fit: cover;
+}

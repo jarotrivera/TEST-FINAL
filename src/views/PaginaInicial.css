@@ -1,0 +1,158 @@
+.pagina-inicial-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  max-width: 80%; /* Reduce el ancho total para permitir más espacio a la derecha */
+  margin: 0 auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 100px);
+  margin-left: 152px; /* Ajusta para mover el bloque hacia la derecha */
+}
+
+.pagina-inicial-scroll {
+  overflow-y: auto;
+  max-height: calc(100vh - 150px); /* Ajusta el alto según sea necesario */
+  margin-right: 90px;
+}
+
+
+/* Estilos de la tarjeta con dimensiones flexibles */
+.pagina-inicial-card {
+  margin: 20px 0; /* Espacio vertical entre las tarjetas */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 90%; /* Ajusta este porcentaje para hacer la tarjeta más ancha */
+  max-width: 1200px; /* Amplía la tarjeta en píxeles específicos */
+  margin-right: 962px; /* Mueve las tarjetas ligeramente hacia la izquierda */
+  transition: box-shadow 0.3s ease;
+}
+
+.pagina-inicial-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Encabezado y detalles de la publicación */
+.pagina-inicial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagina-inicial-avatar-container {
+  display: flex;
+  align-items: center;
+}
+
+.pagina-inicial-user-info {
+  margin-left: 10px;
+}
+
+.pagina-inicial-title {
+  font-size: 1.2em;
+  margin: 0;
+  text-align: left; /* Alinea el título a la izquierda */
+}
+
+
+.pagina-inicial-date {
+  color: rgb(97, 96, 96);
+  font-size: 0.9em;
+}
+
+.pagina-inicial-content {
+  margin-top: 10px;
+}
+
+.pagina-inicial-image img {
+  width: auto;
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.pagina-inicial-user-info .MuiTypography-subtitle1 {
+  font-size: 1.30em; /* Ajusta el tamaño según lo que necesites */
+}
+
+.report-option {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.report-option:hover {
+  background-color: #e0e0e0;
+}
+
+.dialog-content {
+  overflow-y: auto;
+  max-height: 60vh;
+  padding-right: 10px;
+}
+
+.comment-input-container {
+  position: sticky;
+  bottom: 0;
+  background-color: #ffffff;
+  padding: 10px;
+}
+.comment-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.comment-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 8px;
+}
+
+.comment-text {
+  flex: 1;
+  margin-right: 10px;
+  word-break: break-word; /* Para evitar que comentarios largos se salgan del contenedor */
+}
+
+.delete-comment-button {
+  color: #ff4d4d;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.delete-comment-button:hover {
+  color: #e60000;
+}
+
+.delete-comment-button:focus {
+  outline: none;
+}
+
+
+.resizable-handle {
+  width: 15px;
+  height: 15px;
+  background-color: #ddd;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: nwse-resize;
+  border-top: 2px solid #ccc;
+  border-left: 2px solid #ccc;
+}

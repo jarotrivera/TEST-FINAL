@@ -1,0 +1,212 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--bg);
+  overflow: hidden;
+  font-family: var(--font-roboto);
+}
+
+.navbar2 {
+  align-self: stretch;
+  height: 86px;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: var(--padding-lg) var(--padding-18xl) var(--padding-4xl) 56px;
+  top: 0;
+  z-index: 99;
+  position: sticky;
+  gap: var(--gap-xl);
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--titel-text-color);
+  font-family: var(--font-roboto);
+}
+
+.content3 {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 86px);
+  width: 100%;
+}
+
+.info-wrapper {
+  width: 40%;
+  padding: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info1 {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xl);
+}
+
+.image-icon {
+  width: 60%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.logo-icon2 {
+  height: 42px;
+  width: 47px;
+  position: relative;
+}
+
+.comunidad-geocentro2 {
+  text-decoration: none;
+  position: relative;
+  letter-spacing: 0.05em;
+  color: inherit;
+  white-space: nowrap;
+  font-family: var(--font-roboto);
+}
+
+.community-name1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 0 var(--padding-11xs);
+}
+
+.logo-parent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--gap-4xs);
+}
+
+.navbar-inner {
+  width: 231px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 0 var(--padding-12xs);
+  box-sizing: border-box;
+}
+
+.bienvenido-a-la {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
+  font-weight: 1000;
+  font-family: var(--font-roboto);
+  display: inline-block;
+  max-width: 100%;
+  font-size: 32px;
+  margin-bottom: 55px;
+}
+
+.geocentro-el-foro {
+  align-self: stretch;
+  height: 20px;
+  position: relative;
+  font-size: var(--font-size-lg);
+  letter-spacing: 0.05em;
+  line-height: 30px;
+  font-weight: 300;
+  font-family: var(--font-roboto); /* Aplicar tipografía */
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  bottom: 25px;
+}
+
+.login-form {
+  margin: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+  max-width: 100%;
+  width: 100%;
+  padding: 1rem; /* Aumentar el padding */
+  background-color: var(--form-background); /* Color de fondo del formulario */
+}
+
+.input-full {
+  align-self: stretch;
+  background-color: transparent;
+  font-family: var(--font-roboto);
+  font-size: 15px; /* Aumentar el tamaño de la fuente */
+  color: var(--subtitle-text-color);
+  font-weight: 400;
+  max-width: 100%;
+  height: 55px;
+  margin-bottom: 1rem; /* Espacio inferior entre campos */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+.input-full label {
+  font-size: 1.1rem; /* Aumenta el tamaño de la fuente */
+  font-weight: 600; /* Engrosa el texto */
+  color: var(--titel-text-color); /* Color del texto */
+}
+
+.button-resize {
+  align-self: stretch;
+  white-space: nowrap;
+  width: 100%;
+  margin-top: 15px;
+  font-family: var(--font-roboto);
+  background-color: #F48023;
+  border: #F48023;
+  height: 50px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .content3 {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .info-wrapper,
+  .image-icon {
+    width: 100%;
+  }
+
+  .image-icon {
+    height: 50vh;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .user-buttons {
+    display: none;
+  }
+  .bienvenido-a-la {
+    font-size: var(--font-size-lgi);
+  }
+  .navbar2 {
+    padding-left: var(--padding-9xl);
+    box-sizing: border-box;
+  }
+}

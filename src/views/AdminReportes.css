@@ -1,0 +1,101 @@
+.admin-reportes-page {
+  display: flex;
+  padding: 20px;
+}
+
+.admin-reportes-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reporte-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.reporte-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.reporte-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.reporte-usuario {
+  font-size: 1em;
+  color: #555;
+}
+
+.detalles-button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.detalles-button:hover {
+  background-color: #0056b3;
+}
+
+.motivos-resumen {
+  background-color: #e9f7fe;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.motivos-resumen p {
+  margin: 5px 0;
+}
+
+.reporte-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.reporte-actions button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.reporte-actions .delete-button {
+  background-color: #dc3545;
+}
+
+.reporte-actions .delete-button:hover {
+  background-color: #c82333;
+}
+
+.reporte-actions .remove-report-button {
+  background-color: #28a745;
+}
+
+.reporte-actions .remove-report-button:hover {
+  background-color: #218838;
+}
+.reporte-usuario {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 10px;
+  font-weight: bold;
+}

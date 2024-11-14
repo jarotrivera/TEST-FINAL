@@ -1,0 +1,31 @@
+/* Estacionamiento.css */
+
+.estacionamiento-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Ajusta la separación horizontal entre los bloques */
+  padding: 20px;
+}
+
+.espacio {
+  width: 300px; /* Ajusta el ancho */
+  height: 400px; /* Ajusta la altura para que sean más grandes hacia abajo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px; /* Tamaño de letra grande */
+  font-weight: bold;
+  border-radius: 15px;
+  color: white;
+  transition: background-color 0.3s ease;
+  margin: 10px; /* Ajusta la separación general */
+}
+
+.espacio.ocupado {
+  background-color: red;
+}
+
+.espacio.libre {
+  background-color: green;
+}

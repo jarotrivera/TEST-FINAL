@@ -1,0 +1,140 @@
+.vista-hacer-una-venta { 
+  display: flex;
+  height: 100vh;
+}
+
+.content2 {
+  display: flex;
+  flex: 1;
+}
+
+.main-panel {
+  flex: 1;
+  padding: 30px;
+  background-color: #f9f9f9;
+  margin: 40px auto 0 auto;
+}
+
+.ask-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Bloque contenedor para centrar el formulario */
+.formulario-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px; /* Incrementa el ancho máximo del bloque contenedor */
+  margin: 5px; /* Margen superior para separar del borde */
+  margin-right: 200px;
+}
+
+.formulario-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%; /* Asegúrate de que ocupe el 100% del contenedor */
+  max-width: 1200px; /* Incrementa el ancho máximo del formulario */
+  margin: 0 auto;
+}
+
+.formulario-venta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formulario-venta div {
+  margin-bottom: 10px;
+}
+
+.formulario-venta label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.formulario-venta input,
+.formulario-venta textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.formulario-venta input[type="file"] {
+  margin-top: 5px;
+}
+
+.formulario-venta button {
+  padding: 10px;
+  background-color: #1682FD;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.formulario-venta button:hover {
+  background-color: #0a5ac6;
+}
+
+.previsualizacion-foto {
+  margin-top: 10px;
+}
+
+.previsualizacion-foto img {
+  max-width: 100%;
+  border-radius: 8px;
+  max-height: 200px; /* Ajusta según el tamaño deseado */
+}
+
+.ventas-lista {
+  margin-top: 20px;
+}
+
+.venta-item {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.venta-item-foto {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.venta-item-foto img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.venta-item-info {
+  flex: 2;
+}
+
+.venta-item-info h2 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.venta-item-info p {
+  font-size: 1em;
+  margin: 10px 0;
+}
+
+.venta-item-info .precio {
+  font-size: 1.2em;
+  color: #1682FD;
+}
+
+html, body {
+  overflow: hidden; /* Desactiva el scroll en la página */
+  height: 100%; /* Asegura que el body ocupe el 100% de la altura */
+  margin: 0; /* Elimina los márgenes por defecto */
+}
