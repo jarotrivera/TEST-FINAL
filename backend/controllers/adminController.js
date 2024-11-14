@@ -29,15 +29,26 @@ const deleteVenta = async (req, res) => {
 };
 // Eliminar publicación
 const deletePost = async (req, res) => {
+  const { id } = req.params;
   try {
-    const post = await Post.destroy({ where: { id: req.params.id } });
-    if (post) {
-      res.status(200).json({ message: 'Publicación eliminada con éxito' });
-    } else {
-      res.status(404).json({ message: 'Publicación no encontrada' });
+    // Verifica si la publicación existe
+    const post = await Post.findByPk(id, { include: { model: Comment, as: 'comments' } });
+    if (!post) {
+      return res.status(404).json({ message: 'Publicación no encontrada' });
     }
+
+    // Elimina los comentarios asociados antes de eliminar la publicación
+    if (post.comments.length > 0) {
+      await Comment.destroy({ where: { postId: id } });
+    }
+
+    // Elimina la publicación
+    await post.destroy();
+
+    res.status(200).json({ message: 'Publicación eliminada exitosamente' });
   } catch (error) {
-    res.status(500).json({ message: 'Error al eliminar publicación', error });
+    console.error('Error al eliminar la publicación:', error);
+    res.status(500).json({ message: 'Error al eliminar la publicación' });
   }
 };
 
@@ -127,9 +138,6 @@ const getUsersWithVentas = async (req, res) => {
   }
 };
 
-// Obtener todos los usuarios con sus comentarios
-
-
 // Eliminar un comentario por su ID
 const deleteComment = async (req, res) => {
   const { commentId } = req.params;
@@ -179,10 +187,5 @@ const getUsersWithComments = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener usuarios con comentarios' });
   }
 };
-
-module.exports = { getUsersWithComments };
-
-
-
 
 module.exports = { getAllUsers, deleteVenta, deletePost, deleteUser, getAllPosts, getAllVentas, getUsersWithPosts, getUsersWithVentas, getUsersWithComments , deleteComment };

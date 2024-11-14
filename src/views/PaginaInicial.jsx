@@ -305,85 +305,121 @@ const handleDeleteComment = async (commentId) => {
     console.error('Error al eliminar el comentario:', error);
   }
 };
-  return (
-    <div className="pagina-inicial">
-      <div className="content4">
-        <Sidebar />
-        <section className="main-content" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
-          <div className="pagina-inicial-container">
-            <div className="pagina-inicial-scroll">
-              <div className="posts">
-                {error ? (
-                  <p>{error}</p>
-                ) : publicaciones.length > 0 ? (
-                  publicaciones.map((publicacion) => (
-                    <Card key={publicacion.id} className="pagina-inicial-card" variant="outlined">
-                      <CardContent>
-                        <Box display="flex" alignItems="center" mb={2} className="pagina-inicial-header">
-                          <Avatar src={publicacion.avatarUrl || "/perfiluser.png"} alt="Avatar" />
-                          <Box ml={2} className="pagina-inicial-user-info">
-                            <Typography variant="subtitle1" color="textSecondary">
-                              {publicacion.usuarioNombre || 'Usuario'}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" className="pagina-inicial-date">
-                              {new Date(publicacion.createdAt).toLocaleDateString()} / Departamento: {publicacion.departamento}
-                            </Typography>
-                          </Box>
-                          <IconButton
-                            aria-label="more"
-                            aria-controls="long-menu"
-                            aria-haspopup="true"
-                            onClick={(e) => handleMenuOpen(e, publicacion)}
-                            style={{ marginLeft: 'auto' }}>
-                            <MoreVertIcon /> 
-                          </IconButton>
+return (
+  <div className="pagina-inicial">
+    <div className="content4">
+      <Sidebar />
+      <section className="main-content" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
+        <div className="pagina-inicial-container">
+          <div className="pagina-inicial-scroll">
+            <div className="posts">
+              {error ? (
+                <p>{error}</p>
+              ) : publicaciones.length > 0 ? (
+                publicaciones.map((publicacion) => (
+                  <Card key={publicacion.id} className="pagina-inicial-card" variant="outlined">
+                    <CardContent>
+                      <Box display="flex" alignItems="center" mb={2} className="pagina-inicial-header">
+                        <Avatar src={publicacion.avatarUrl || "/perfiluser.png"} alt="Avatar" />
+                        <Box ml={2} className="pagina-inicial-user-info">
+                          <Typography variant="subtitle1" color="textSecondary">
+                            {publicacion.usuarioNombre || 'Usuario'}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary" className="pagina-inicial-date">
+                            {new Date(publicacion.createdAt).toLocaleDateString()} / Departamento: {publicacion.departamento}
+                          </Typography>
                         </Box>
-                        <Typography variant="h6" component="h2" className="pagina-inicial-title">
-                          {publicacion.titulo}
-                        </Typography>
-                        <Typography variant="body1" component="p" className="pagina-inicial-content">
-                          {publicacion.descripcion}
-                        </Typography>
-                        {publicacion.foto && (
-                          <div className="pagina-inicial-image">
-                            <img src={publicacion.foto} alt="Imagen de la publicación" />
-                            <Button onClick={() => openImageModal(publicacion.foto)} color="primary" style={{ marginTop: '10px' }}>
-                              Ver Imagen Completa
-                            </Button>
-                          </div>
-                        )}
-                        <Menu
-                          anchorEl={anchorEl}
-                          keepMounted
-                          open={Boolean(anchorEl)}
-                          onClose={handleMenuClose}
-                        >
-                          <MenuItem onClick={openEditModal}>Editar Publicación</MenuItem>
-                          <MenuItem onClick={handleDelete}>Eliminar Publicación</MenuItem>
-                          <MenuItem onClick={() => handleReportClick(editPostId)}>Reportar Publicación</MenuItem>
+                        <IconButton
+                          aria-label="more"
+                          aria-controls="long-menu"
+                          aria-haspopup="true"
+                          onClick={(e) => handleMenuOpen(e, publicacion)}
+                          style={{ marginLeft: 'auto' }}>
+                          <MoreVertIcon />
+                        </IconButton>
+                      </Box>
+                      <Typography variant="h6" component="h2" className="pagina-inicial-title">
+                        {publicacion.titulo}
+                      </Typography>
+                      <Typography variant="body1" component="p" className="pagina-inicial-content">
+                        {publicacion.descripcion}
+                      </Typography>
+                      {publicacion.foto && (
+                        <div className="pagina-inicial-image">
+                          <img src={publicacion.foto} alt="Imagen de la publicación" />
+                          <Button onClick={() => openImageModal(publicacion.foto)} color="primary" style={{ marginTop: '10px' }}>
+                            Ver Imagen Completa
+                          </Button>
+                        </div>
+                      )}
+                      <Menu
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleMenuClose}
+                      >
+                        <MenuItem onClick={openEditModal}>Editar Publicación</MenuItem>
+                        <MenuItem onClick={handleDelete}>Eliminar Publicación</MenuItem>
+                        <MenuItem onClick={() => handleReportClick(editPostId)}>Reportar Publicación</MenuItem>
+                      </Menu>
 
-                        </Menu>
+                      {/* Botón de Comentar */}
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => handleOpenComments(publicacion.id)}
+                        style={{ marginTop: '10px' }}
+                      >
+                        Comentar
+                      </Button>
 
-                        {/* Botón de Comentar fuera del Menu, pero debajo de él */}
-                        <Button 
-                          variant="outlined" 
-                          color="primary" 
-                          onClick={() => handleOpenComments(publicacion.id)} 
-                          style={{ marginTop: '10px' }}>
-                          Comentar
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))
-                ) : (
-                  <p>No hay publicaciones disponibles.</p>
-                )}
-              </div>
+                      {/* Comentarios */}
+                      {selectedPostId === publicacion.id && (
+                        <Dialog open={commentsOpen} onClose={handleCloseComments}>
+                          <DialogTitle>Comentarios</DialogTitle>
+                          <DialogContent className="dialog-content">
+                            {comments.length > 0 ? (
+                              comments.map((comment) => (
+                                <div key={comment.id} className="comment-item">
+                                  <Typography className="comment-text" variant="body1">
+                                    <strong>{comment.comentador?.nombre || 'Usuario'}:</strong> {comment.content}
+                                  </Typography>
+                                  {/* Solo mostrar el botón de eliminar si el usuario es el autor o un administrador */}
+                                  {(comment.userId === parseInt(localStorage.getItem('userId')) || localStorage.getItem('role') === 'admin') && (
+                                    <button
+                                      className="delete-comment-button"
+                                      onClick={() => handleDeleteComment(comment.id)}
+                                    >
+                                      ✖
+                                    </button>
+                                  )}
+                                </div>
+                              ))
+                            ) : (
+                              <div className="no-comments-message">
+                                <Typography variant="body2">No hay comentarios disponibles.</Typography>
+                              </div>
+                            )}
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleCloseComments} color="secondary">Cerrar</Button>
+                          </DialogActions>
+                        </Dialog>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div className="no-posts-message">
+                  <Typography variant="body2">No hay publicaciones disponibles.</Typography>
+                </div>
+              )}
             </div>
           </div>
-          <RightPanel2 style={{ width: '250px' }} />
-        </section>
-      </div>
+        </div>
+        <RightPanel2 style={{ width: '250px' }} />
+      </section>
+    </div>
       {/* Modal para ver la imagen completa */}
       <Modal open={imageModalOpen} onClose={closeImageModal}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', position: 'relative' }}>
@@ -465,8 +501,8 @@ const handleDeleteComment = async (commentId) => {
   <DialogTitle>Comentarios</DialogTitle>
   <DialogContent className="dialog-content">
   {comments.length > 0 ? (
-    comments.map((comment, index) => (
-      <div key={index} className="comment-content">
+    comments.map((comment) => (
+      <div key={comment.id} className="comment-item">
         <Typography className="comment-text" variant="body1">
           <strong>{comment.comentador?.nombre || 'Usuario'}:</strong> {comment.content}
         </Typography>
@@ -479,7 +515,9 @@ const handleDeleteComment = async (commentId) => {
       </div>
     ))
   ) : (
-    <Typography variant="body2">No hay comentarios.</Typography>
+    <div className="no-comments-message">
+      <Typography variant="body2">No hay Publicaciones.</Typography>
+    </div>
   )}
 </DialogContent>
   <div className="comment-input-container">

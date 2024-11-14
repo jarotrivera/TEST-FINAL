@@ -78,3 +78,13 @@
   border-radius: 8px;
   margin-top: 10px;
 }
+.no-preguntas-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 200px); /* Ajusta según la altura que necesites */
+  font-size: 1.5em;
+  color: #777;
+  text-align: center;
+  padding: 20px;
+}

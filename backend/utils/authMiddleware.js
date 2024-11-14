@@ -1,8 +1,6 @@
-// utils/authMiddleware.js
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
-// Middleware para autenticar a cualquier usuario
 const authenticateUser = async (req, res, next) => {
   const authHeader = req.headers['authorization'];
   if (!authHeader) {

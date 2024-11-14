@@ -96,7 +96,9 @@ const TusPreguntas = () => {
                   </Card>
                 ))
               ) : (
+              <div className="no-preguntas-message">
                 <p>No hay preguntas disponibles.</p>
+                </div>
               )}
             </div>
           </div>

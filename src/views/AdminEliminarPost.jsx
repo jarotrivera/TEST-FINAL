@@ -39,26 +39,28 @@ const AdminEliminarPost = () => {
       const response = await fetch(`https://forogeocentro-production.up.railway.app/api/admin/posts/${postId}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
         },
       });
-
-      if (response.ok) {
-        // Actualiza el estado para eliminar la publicación de la lista
-        setSelectedUser((prevUser) => ({
-          ...prevUser,
-          posts: prevUser.posts.filter((post) => post.id !== postId),
-        }));
-        alert('Publicación eliminada con éxito');
-      } else {
+  
+      if (!response.ok) {
         const data = await response.json();
-        alert(data.message || 'Error al eliminar la publicación');
+        throw new Error(data.message || 'Error al eliminar la publicación');
       }
+  
+      // Actualiza la lista de publicaciones en el frontend
+      setSelectedUser((prevUser) => ({
+        ...prevUser,
+        posts: prevUser.posts.filter((post) => post.id !== postId),
+      }));
+  
+      alert('Publicación eliminada exitosamente');
     } catch (error) {
       console.error('Error al eliminar la publicación:', error);
-      alert('Error al eliminar la publicación');
+      alert(error.message);
     }
-  };
+  };  
 
   return (
     <div className="admin-dashboard-container">

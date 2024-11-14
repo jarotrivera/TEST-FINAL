@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "../components/Menu";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, IconButton } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, IconButton, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import "./AdminEliminarComentarios.css";
 
@@ -18,23 +18,11 @@ const AdminEliminarComentarios = () => {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error al obtener usuarios con comentarios');
-      }
-
       const data = await response.json();
-
-      // Verificar si la respuesta es un array y si tiene la estructura esperada
-      if (Array.isArray(data)) {
-        setUsuarios(data);
-      } else {
-        console.error('La respuesta no es un array válido');
-        setUsuarios([]);
-      }
+      setUsuarios(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error al obtener usuarios con comentarios:', error);
-      setUsuarios([]); // Asegurarse de que usuarios sea siempre un array
+      setUsuarios([]);
     }
   };
 
@@ -42,10 +30,9 @@ const AdminEliminarComentarios = () => {
     fetchUsersWithComments();
   }, []);
 
-  // Abrir el modal con los comentarios del usuario seleccionado
   const handleOpenComments = (user) => {
     setSelectedUser(user);
-    setSelectedComments(user.comments || []); // Asegúrate de que siempre sea un array
+    setSelectedComments(user.comments || []);
     setCommentModalOpen(true);
   };
 
@@ -55,7 +42,7 @@ const AdminEliminarComentarios = () => {
     setSelectedComments([]);
   };
 
-  // Eliminar un comentario
+  // Eliminar un comentario como administrador
   const handleDeleteComment = async (commentId) => {
     try {
       const response = await fetch(`https://forogeocentro-production.up.railway.app/api/admin/comments/${commentId}`, {
@@ -64,8 +51,7 @@ const AdminEliminarComentarios = () => {
       });
 
       if (response.ok) {
-        // Actualizar la lista de comentarios localmente
-        setSelectedComments(selectedComments.filter(comment => comment.id !== commentId));
+        setSelectedComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
         alert('Comentario eliminado exitosamente');
       } else {
         alert('Error al eliminar el comentario');
@@ -87,44 +73,53 @@ const AdminEliminarComentarios = () => {
                 <div key={user.id} className="user-card" onClick={() => handleOpenComments(user)}>
                   <Typography variant="h6">{user.nombre}</Typography>
                   <Typography variant="body2">Departamento: {user.departamento}</Typography>
-                  <Typography variant="body2">
-                    Comentarios: {user.comments?.length || 0}
-                  </Typography>
+                  <Typography variant="body2">Comentarios: {user.comments?.length || 0}</Typography>
                 </div>
               ))
             ) : (
-              <p>No hay usuarios con comentarios</p>
+              <div className="no-users-message">
+                <Typography variant="body2">No hay usuarios con comentarios</Typography>
+              </div>
             )}
           </div>
         </div>
       </div>
 
       {/* Modal para mostrar comentarios */}
-      <Dialog open={commentModalOpen} onClose={handleCloseComments}>
-        <DialogTitle>Comentarios de {selectedUser?.nombre}</DialogTitle>
-        <DialogContent className="dialog-content">
-          {selectedComments?.length > 0 ? (
-            selectedComments.map((comment, index) => (
-              <div key={index} className="comment-content">
-                <Typography variant="body1">
-                  <strong>{comment.usuario?.nombre || 'Usuario'}:</strong> {comment.content}
-                </Typography>
-                <IconButton
-                  className="delete-comment-button"
-                  onClick={() => handleDeleteComment(comment.id)}
-                >
-                  <CloseIcon />
-                </IconButton>
+      {selectedUser && (
+        <Dialog open={commentModalOpen} onClose={handleCloseComments} fullWidth maxWidth="sm">
+          <DialogTitle>
+            Comentarios de {selectedUser.nombre}
+            <IconButton onClick={handleCloseComments} style={{ position: 'absolute', right: 10, top: 10 }}>
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent className="dialog-content">
+            {selectedComments.length > 0 ? (
+              selectedComments.map((comment) => (
+                <div key={comment.id} className="comment-item">
+                  <Typography className="comment-text">
+                    <strong>{comment.usuario?.nombre || 'Usuario'}:</strong> {comment.content}
+                  </Typography>
+                  <button
+                    className="delete-comment-button"
+                    onClick={() => handleDeleteComment(comment.id)}
+                  >
+                    ✖
+                  </button>
+                </div>
+              ))
+            ) : (
+              <div className="no-comments-message">
+                <Typography variant="body2">No hay comentarios.</Typography>
               </div>
-            ))
-          ) : (
-            <Typography variant="body2">No hay comentarios.</Typography>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseComments} color="secondary">Cerrar</Button>
-        </DialogActions>
-      </Dialog>
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseComments} color="secondary">Cerrar</Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </div>
   );
 };

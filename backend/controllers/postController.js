@@ -162,8 +162,6 @@ const addComment = async (req, res) => {
 };
 
 // Obtener todos los comentarios de un post
-// controllers/postController.js
-// controllers/postController.js
 const getComments = async (req, res) => {
   const { postId } = req.params;
   try {
@@ -187,18 +185,28 @@ const getComments = async (req, res) => {
 
 const deleteComment = async (req, res) => {
   const { commentId } = req.params;
+  const userId = req.user.id; // ID del usuario autenticado
+  const userRole = req.user.role; // Rol del usuario autenticado (admin o user)
 
   try {
-    const comment = await Comment.findByPk(commentId);
+    // Obtener el comentario
+    const comment = await Comment.findOne({ where: { id: commentId } });
+
     if (!comment) {
       return res.status(404).json({ message: 'Comentario no encontrado' });
     }
-    
+
+    // Verificar si el usuario tiene permiso para eliminar el comentario
+    if (comment.userId !== userId && userRole !== 'admin') {
+      return res.status(403).json({ message: 'No tienes permiso para eliminar este comentario' });
+    }
+
+    // Eliminar el comentario
     await comment.destroy();
     res.status(200).json({ message: 'Comentario eliminado exitosamente' });
   } catch (error) {
-    console.error('Error al eliminar comentario:', error);
-    res.status(500).json({ message: 'Error al eliminar comentario' });
+    console.error('Error al eliminar el comentario:', error);
+    res.status(500).json({ message: 'Error al eliminar el comentario' });
   }
 };
 
