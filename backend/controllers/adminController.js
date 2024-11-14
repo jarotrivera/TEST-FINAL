@@ -109,16 +109,17 @@ const getUsersWithPosts = async (req, res) => {
 const getUsersWithVentas = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'nombre', 'email', 'departamento'],
+      attributes: ['id', 'nombre', 'departamento'],
       include: [
         {
           model: Venta,
-          as: 'ventasUsuario', // Asegúrate de que coincide con la asociación en ventaModel.js
-          attributes: ['id', 'titulo', 'precio', 'createdAt']
-        }
-      ]
+          as: 'ventasUsuario', // Alias correcto desde tu archivo associations.js
+          attributes: ['id', 'titulo', 'descripcion', 'precio', 'createdAt'],
+        },
+      ],
     });
 
+    // Asegúrate de devolver un array, incluso si está vacío
     res.status(200).json(users || []);
   } catch (error) {
     console.error('Error al obtener usuarios con ventas:', error);
@@ -155,19 +156,33 @@ const getUsersWithComments = async (req, res) => {
         {
           model: Comment,
           as: 'comentariosUsuario',
-          attributes: ['id', 'content', 'createdAt', 'postId']
+          attributes: ['id', 'content', 'postId', 'createdAt'],
+          include: [
+            {
+              model: Post,
+              as: 'postRelacionado',
+              attributes: ['id', 'titulo']
+            }
+          ]
         }
       ]
     });
 
-    res.status(200).json(users || []);
+    // Validar si la respuesta es un array
+    if (!Array.isArray(users)) {
+      throw new Error('La respuesta no es un array');
+    }
+
+    res.status(200).json(users);
   } catch (error) {
     console.error('Error al obtener usuarios con comentarios:', error);
     res.status(500).json({ message: 'Error al obtener usuarios con comentarios' });
   }
 };
 
+module.exports = { getUsersWithComments };
 
 
 
-module.exports = { getAllUsers, deleteVenta, deletePost, deleteUser, getAllPosts, getAllVentas,getUsersWithPosts, getUsersWithVentas,getUsersWithComments ,deleteComment };
+
+module.exports = { getAllUsers, deleteVenta, deletePost, deleteUser, getAllPosts, getAllVentas, getUsersWithPosts, getUsersWithVentas, getUsersWithComments , deleteComment };

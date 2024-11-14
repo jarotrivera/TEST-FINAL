@@ -20,14 +20,21 @@ const AdminEliminarVenta = () => {
         },
       });
       const data = await response.json();
-      setUsers(data);
+
+      if (Array.isArray(data)) {
+        setUsers(data);
+      } else {
+        console.error('Error: La respuesta no es un array');
+      }
     } catch (error) {
-      console.error('Error al obtener los usuarios con ventas:', error);
+      console.error('Error al obtener usuarios con ventas:', error);
     }
   };
 
   const handleUserClick = (user) => {
-    setSelectedUser(user);
+    if (user && user.ventasUsuario) {
+      setSelectedUser(user);
+    }
   };
 
   const handleCloseModal = () => {
@@ -44,10 +51,9 @@ const AdminEliminarVenta = () => {
       });
 
       if (response.ok) {
-        // Actualiza el estado para eliminar la venta de la lista
         setSelectedUser((prevUser) => ({
           ...prevUser,
-          ventas: prevUser.ventas.filter((venta) => venta.id !== ventaId),
+          ventasUsuario: prevUser.ventasUsuario.filter((venta) => venta.id !== ventaId),
         }));
         alert('Venta eliminada con éxito');
       } else {
@@ -65,27 +71,35 @@ const AdminEliminarVenta = () => {
       <Sidebar />
       <div className="admin-dashboard-content">
         <h2>Usuarios</h2>
-        {users.map((user) => (
-          <div key={user.id} className="user-card" onClick={() => handleUserClick(user)}>
-            <h3>{user.nombre}</h3>
-            <p>Departamento: {user.departamento}</p>
-          </div>
-        ))}
+        {users.length > 0 ? (
+          users.map((user) => (
+            <div key={user.id} className="user-card" onClick={() => handleUserClick(user)}>
+              <h3>{user.nombre}</h3>
+              <p>Departamento: {user.departamento}</p>
+            </div>
+          ))
+        ) : (
+          <p>No hay usuarios con ventas</p>
+        )}
 
         {selectedUser && (
           <Modal open={true} onClose={handleCloseModal}>
             <Box className="modal-content">
               <h2>Ventas de {selectedUser.nombre}</h2>
-              <ul>
-                {selectedUser.ventas.map((venta) => (
-                  <li key={venta.id}>
-                    <h4>{venta.titulo}</h4>
-                    <p>{venta.descripcion}</p>
-                    <p>Precio: ${venta.precio}</p>
-                    <button onClick={() => handleDeleteVenta(venta.id)} className="delete-button">Eliminar</button>
-                  </li>
-                ))}
-              </ul>
+              {selectedUser.ventasUsuario && selectedUser.ventasUsuario.length > 0 ? (
+                <ul>
+                  {selectedUser.ventasUsuario.map((venta) => (
+                    <li key={venta.id}>
+                      <h4>{venta.titulo}</h4>
+                      <p>{venta.descripcion}</p>
+                      <p>Precio: ${venta.precio}</p>
+                      <button onClick={() => handleDeleteVenta(venta.id)} className="delete-button">Eliminar</button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No hay ventas para este usuario</p>
+              )}
             </Box>
           </Modal>
         )}

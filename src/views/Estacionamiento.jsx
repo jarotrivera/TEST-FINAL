@@ -51,6 +51,14 @@ const Estacionamiento = () => {
                 </div>
               ))}
             </div>
+
+            {/* Indicadores de estado */}
+            <div className="estado-container">
+              <div className="estado ocupado"></div>
+              <span>Estacionamiento Ocupado</span>
+              <div className="estado libre"></div>
+              <span>Estacionamiento Disponible</span>
+            </div>
           </div>
         </section>
         <RightPanel2 /> {/* Panel derecho */}

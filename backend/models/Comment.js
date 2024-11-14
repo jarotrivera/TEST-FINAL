@@ -5,14 +5,32 @@ const Post = require('./postModel');
 
 const Comment = sequelize.define('Comment', {
   content: { type: DataTypes.TEXT, allowNull: false },
-  userId: { type: DataTypes.INTEGER, allowNull: false },
-  postId: { type: DataTypes.INTEGER, allowNull: false }
+  userId: { 
+    type: DataTypes.INTEGER, 
+    allowNull: false,
+    references: {
+      model: User,
+      key: 'id'
+    }
+  },
+  postId: { 
+    type: DataTypes.INTEGER, 
+    allowNull: false,
+    references: {
+      model: Post,
+      key: 'id'
+    }
+  }
 });
 
-Comment.belongsTo(User, { foreignKey: 'userId', as: 'usuario' });
-User.hasMany(Comment, { foreignKey: 'userId', as: 'comments' });
+// Asociaciones
+Comment.belongsTo(User, { foreignKey: 'userId', as: 'usuarioComentario' });
+User.hasMany(Comment, { foreignKey: 'userId', as: 'comentariosUsuario' });
 
-Comment.belongsTo(Post, { foreignKey: 'postId', as: 'post' });
-Post.hasMany(Comment, { foreignKey: 'postId', as: 'comments' });
+Comment.belongsTo(Post, { foreignKey: 'postId', as: 'postRelacionado' });
+Post.hasMany(Comment, { foreignKey: 'postId', as: 'comentariosPost' });
+
+module.exports = Comment;
+
 
 module.exports = Comment;
