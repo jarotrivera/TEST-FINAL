@@ -12,6 +12,7 @@ const gastosRoutes = require('./routes/gastosRoutes');
 const parkingRoutes = require('./routes/parkingRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 const historialRoutes = require('./routes/historialRoutes');
+require('./models/associations');
 
 // Importar modelos para sincronizar las asociaciones
 const User = require('./models/userModel');

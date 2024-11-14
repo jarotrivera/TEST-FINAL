@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const Venta = require('./ventaModel');
 
 const User = sequelize.define('User', {
   nombre: { type: DataTypes.STRING, allowNull: false },
@@ -11,6 +10,5 @@ const User = sequelize.define('User', {
   resetToken: { type: DataTypes.STRING, allowNull: true },
   tokenExpiration: { type: DataTypes.DATE, allowNull: true }
 });
-
 
 module.exports = User;
