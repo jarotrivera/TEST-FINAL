@@ -16,7 +16,6 @@ import AdminDashboard from './views/AdminDashboard';
 import AdminEliminarUser from './views/AdminEliminarUser';
 import AdminEliminarPost from './views/AdminEliminarPost';
 import AdminEliminarVenta from './views/AdminEliminarVenta';
-import HistorialModeracion from './views/HistorialModeracion';
 import AdminRoles from './views/AdminRoles';
 import AdminReportes from './views/AdminReportes';
 import Recuperar from './components/Recuperar';
@@ -61,7 +60,6 @@ function App() {
           <Route path="admin-eliminar-user" element={<AdminEliminarUser />} />
           <Route path="admin-eliminar-post" element={<AdminEliminarPost />} />
           <Route path="admin-eliminar-venta" element={<AdminEliminarVenta />} />
-          <Route path="historialmoderacion" element={<HistorialModeracion />} />
           <Route path="admin-roles" element={<AdminRoles />} />
           <Route path="admin-reportes" element={<AdminReportes />} />
           <Route path="recuperar" element={<Recuperar />} />

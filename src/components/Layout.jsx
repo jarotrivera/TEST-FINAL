@@ -120,13 +120,6 @@ const Layout = () => {
       showRegistro: false,
       showLogin: false,
     },
-    "/historialmoderacion": {
-      title: "Historial De Moderación",
-      showVenta: true,
-      showPregunta: true,
-      showRegistro: false,
-      showLogin: false,
-    },
     "/admin-roles": {
       title: "Panel De Asignación De Roles",
       showVenta: true,

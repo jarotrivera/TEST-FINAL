@@ -1,6 +1,6 @@
 const express = require('express');
 const { authenticateAdmin } = require('../utils/authMiddleware');
-const { deleteVenta, deletePost, getAllUsers, deleteUser, getAllPosts, getAllVentas, getUsersWithPosts, getUsersWithVentas, deleteComment } = require('../controllers/adminController');
+const { deleteVenta, deletePost, getAllUsers, deleteUser, getAllPosts, getAllVentas, getUsersWithPosts, getUsersWithVentas, getUsersWithComments ,deleteComment } = require('../controllers/adminController');
 
 const router = express.Router();
 
@@ -28,5 +28,6 @@ router.get('/usersWithPosts', authenticateAdmin, getUsersWithPosts);
 // Ruta para obtener todos los usuarios con sus ventas
 router.get('/usersWithVentas', authenticateAdmin, getUsersWithVentas);
 router.delete('/comments/:commentId', authenticateAdmin, deleteComment);
+router.get('/users-with-comments', authenticateAdmin, getUsersWithComments);
 
 module.exports = router;

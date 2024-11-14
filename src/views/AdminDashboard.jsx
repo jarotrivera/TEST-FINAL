@@ -54,11 +54,6 @@ const AdminDashboard = () => {
             <p className="module-title">Publicaciones Reportadas</p>
             <button className="module-button">Ver Reportes</button>
           </div>
-          <div className="module-card" onClick={() => navigate('/historialmoderacion')}>
-            <HistoryIcon className="module-icon" />
-            <p className="module-title">Historial de Moderación</p>
-            <button className="module-button">Ver Historial</button>
-          </div>
           <div className="module-card" onClick={() => navigate('/admin-eliminar-comentarios')}>
             <CommentIcon className="module-icon" />
             <p className="module-title">Borrar Comentarios</p>

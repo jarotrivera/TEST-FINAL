@@ -14,16 +14,32 @@ const AdminEliminarComentarios = () => {
   // Obtener todos los usuarios con sus comentarios
   const fetchUsersWithComments = async () => {
     try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No hay token disponible');
+        return;
+      }
+  
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/admin/users-with-comments', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
       });
+  
+      // Manejar errores HTTP como 404 o 500
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error al obtener usuarios con comentarios: ${errorText}`);
+      }
+  
       const data = await response.json();
       setUsuarios(data);
     } catch (error) {
       console.error('Error al obtener usuarios con comentarios:', error);
     }
   };
-
+  
   useEffect(() => {
     fetchUsersWithComments();
   }, []);

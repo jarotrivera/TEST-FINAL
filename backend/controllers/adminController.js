@@ -109,21 +109,23 @@ const getUsersWithPosts = async (req, res) => {
 const getUsersWithVentas = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'nombre', 'departamento'],
+      attributes: ['id', 'nombre', 'email', 'departamento'],
       include: [
         {
           model: Venta,
-          as: 'ventas',
-          attributes: ['id', 'titulo', 'descripcion', 'precio', 'createdAt'],
-        },
-      ],
+          as: 'ventasUsuario', // Asegúrate de que coincide con la asociación en ventaModel.js
+          attributes: ['id', 'titulo', 'precio', 'createdAt']
+        }
+      ]
     });
-    res.status(200).json(users);
+
+    res.status(200).json(users || []);
   } catch (error) {
     console.error('Error al obtener usuarios con ventas:', error);
     res.status(500).json({ message: 'Error al obtener usuarios con ventas' });
   }
 };
+
 // Obtener todos los usuarios con sus comentarios
 
 
@@ -145,7 +147,27 @@ const deleteComment = async (req, res) => {
   }
 };
 
+const getUsersWithComments = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: ['id', 'nombre', 'email', 'departamento'],
+      include: [
+        {
+          model: Comment,
+          as: 'comentariosUsuario',
+          attributes: ['id', 'content', 'createdAt', 'postId']
+        }
+      ]
+    });
+
+    res.status(200).json(users || []);
+  } catch (error) {
+    console.error('Error al obtener usuarios con comentarios:', error);
+    res.status(500).json({ message: 'Error al obtener usuarios con comentarios' });
+  }
+};
 
 
 
-module.exports = { getAllUsers, deleteVenta, deletePost, deleteUser, getAllPosts, getAllVentas,getUsersWithPosts, getUsersWithVentas, deleteComment };
+
+module.exports = { getAllUsers, deleteVenta, deletePost, deleteUser, getAllPosts, getAllVentas,getUsersWithPosts, getUsersWithVentas,getUsersWithComments ,deleteComment };
