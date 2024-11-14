@@ -1,25 +1,24 @@
-/* Estacionamiento.css */
-
 .estacionamiento-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Mueve los bloques hacia la izquierda */
   align-items: center;
-  gap: 20px; /* Ajusta la separación horizontal entre los bloques */
+  gap: 20px;
   padding: 20px;
+  margin-left: 50px; /* Mueve los bloques un poco más hacia la izquierda */
 }
 
 .espacio {
-  width: 300px; /* Ajusta el ancho */
-  height: 400px; /* Ajusta la altura para que sean más grandes hacia abajo */
+  width: 280px;
+  height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px; /* Tamaño de letra grande */
+  font-size: 28px;
   font-weight: bold;
   border-radius: 15px;
   color: white;
   transition: background-color 0.3s ease;
-  margin: 10px; /* Ajusta la separación general */
+  margin: 10px;
 }
 
 .espacio.ocupado {
@@ -27,5 +26,28 @@
 }
 
 .espacio.libre {
+  background-color: green;
+}
+
+.estado-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px; /* Mueve los indicadores hacia abajo */
+  margin-left: 50px; /* Alinea los indicadores con los bloques */
+}
+
+.estado {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.estado.ocupado {
+  background-color: red;
+}
+
+.estado.libre {
   background-color: green;
 }

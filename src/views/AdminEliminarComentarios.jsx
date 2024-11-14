@@ -17,24 +17,27 @@ const AdminEliminarComentarios = () => {
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/admin/users-with-comments', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Error al obtener usuarios con comentarios');
       }
-  
+
       const data = await response.json();
+
+      // Verificar si la respuesta es un array y si tiene la estructura esperada
       if (Array.isArray(data)) {
         setUsuarios(data);
       } else {
-        console.error('La respuesta no es un array');
+        console.error('La respuesta no es un array válido');
+        setUsuarios([]);
       }
     } catch (error) {
       console.error('Error al obtener usuarios con comentarios:', error);
+      setUsuarios([]); // Asegurarse de que usuarios sea siempre un array
     }
   };
-  
-  
+
   useEffect(() => {
     fetchUsersWithComments();
   }, []);
@@ -42,7 +45,7 @@ const AdminEliminarComentarios = () => {
   // Abrir el modal con los comentarios del usuario seleccionado
   const handleOpenComments = (user) => {
     setSelectedUser(user);
-    setSelectedComments(user.comments);
+    setSelectedComments(user.comments || []); // Asegúrate de que siempre sea un array
     setCommentModalOpen(true);
   };
 
@@ -84,7 +87,9 @@ const AdminEliminarComentarios = () => {
                 <div key={user.id} className="user-card" onClick={() => handleOpenComments(user)}>
                   <Typography variant="h6">{user.nombre}</Typography>
                   <Typography variant="body2">Departamento: {user.departamento}</Typography>
-                  <Typography variant="body2">Comentarios: {user.comments.length}</Typography>
+                  <Typography variant="body2">
+                    Comentarios: {user.comments?.length || 0}
+                  </Typography>
                 </div>
               ))
             ) : (
@@ -98,7 +103,7 @@ const AdminEliminarComentarios = () => {
       <Dialog open={commentModalOpen} onClose={handleCloseComments}>
         <DialogTitle>Comentarios de {selectedUser?.nombre}</DialogTitle>
         <DialogContent className="dialog-content">
-          {selectedComments.length > 0 ? (
+          {selectedComments?.length > 0 ? (
             selectedComments.map((comment, index) => (
               <div key={index} className="comment-content">
                 <Typography variant="body1">

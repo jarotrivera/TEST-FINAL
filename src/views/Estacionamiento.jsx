@@ -5,19 +5,17 @@ import RightPanel2 from "../components/RightPanel2";
 import "./Estacionamiento.css";
 
 const Estacionamiento = () => {
-  // Estado para controlar si los espacios están ocupados o libres
   const [espacios, setEspacios] = useState([
     { id: 1, ocupado: false },
     { id: 2, ocupado: false },
     { id: 3, ocupado: false },
   ]);
 
-  // Función para actualizar el estado de los espacios
   const actualizarEstadoEspacios = async () => {
     try {
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/parking');
       const data = await response.json();
-  
+
       setEspacios(prevEspacios =>
         prevEspacios.map((espacio, index) => ({
           ...espacio,
@@ -27,10 +25,9 @@ const Estacionamiento = () => {
     } catch (error) {
       console.error('Error al obtener el estado de los espacios:', error);
     }
-  };  
+  };
 
   useEffect(() => {
-    // Llamar a la función para obtener el estado de los espacios cada 5 segundos
     const interval = setInterval(actualizarEstadoEspacios, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -52,7 +49,7 @@ const Estacionamiento = () => {
               ))}
             </div>
 
-            {/* Indicadores de estado */}
+            {/* Indicadores de estado debajo de los bloques */}
             <div className="estado-container">
               <div className="estado ocupado"></div>
               <span>Estacionamiento Ocupado</span>
@@ -61,7 +58,7 @@ const Estacionamiento = () => {
             </div>
           </div>
         </section>
-        <RightPanel2 /> {/* Panel derecho */}
+        <RightPanel2 />
       </div>
     </div>
   );
