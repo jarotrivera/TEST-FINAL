@@ -29,5 +29,5 @@ const Venta = sequelize.define('Venta', {
 });
 
 Venta.belongsTo(User, { foreignKey: 'usuarioId', as: 'VentaUser' });
-
+User.hasMany(Venta, { foreignKey: 'usuarioId', as: 'ventasUsuario' });
 module.exports = Venta;

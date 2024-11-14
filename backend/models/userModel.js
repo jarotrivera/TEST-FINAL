@@ -12,8 +12,5 @@ const User = sequelize.define('User', {
   tokenExpiration: { type: DataTypes.DATE, allowNull: true }
 });
 
-// Define la relación inversa con el alias 'ventasUsuario'
-User.hasMany(Venta, { foreignKey: 'usuarioId', as: 'ventasUsuario' });
-Venta.belongsTo(User, { foreignKey: 'usuarioId', as: 'VentaUser' });
 
 module.exports = User;
