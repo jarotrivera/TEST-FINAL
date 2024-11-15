@@ -116,16 +116,18 @@ const getUsersWithPosts = async (req, res) => {
   }
 };
 
-// Controlador para obtener usuarios con sus ventas
 const getUsersWithVentas = async (req, res) => {
   try {
     const users = await User.findAll({
-      include: {
+      include: [{
         model: Venta,
         as: 'userVentas',
         attributes: ['id', 'titulo', 'descripcion', 'precio', 'createdAt']
-      }
+      }],
+      attributes: ['id', 'nombre', 'departamento', 'email']
     });
+
+    console.log("Usuarios con ventas:", JSON.stringify(users, null, 2)); // Depuración
     res.status(200).json(users);
   } catch (error) {
     console.error("Error al obtener usuarios con ventas:", error);
