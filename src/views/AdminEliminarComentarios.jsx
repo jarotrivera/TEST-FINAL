@@ -14,17 +14,29 @@ const AdminEliminarComentarios = () => {
   // Obtener todos los usuarios con sus comentarios
   const fetchUsersWithComments = async () => {
     try {
+      const token = localStorage.getItem('token');
+  
+      if (!token) {
+        console.error('No hay token disponible');
+        return;
+      }
+  
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/admin/users-with-comments', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        headers: { 'Authorization': `Bearer ${token}` },
       });
-
+  
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Error al obtener usuarios con comentarios');
+      }
+  
       const data = await response.json();
       setUsuarios(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error al obtener usuarios con comentarios:', error);
-      setUsuarios([]);
     }
   };
+  
 
   useEffect(() => {
     fetchUsersWithComments();
@@ -45,22 +57,29 @@ const AdminEliminarComentarios = () => {
   // Eliminar un comentario como administrador
   const handleDeleteComment = async (commentId) => {
     try {
+      const token = localStorage.getItem('token');
+  
+      if (!token) {
+        console.error('No hay token disponible');
+        return;
+      }
+  
       const response = await fetch(`https://forogeocentro-production.up.railway.app/api/admin/comments/${commentId}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        headers: { 'Authorization': `Bearer ${token}` },
       });
-
-      if (response.ok) {
-        setSelectedComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
-        alert('Comentario eliminado exitosamente');
-      } else {
-        alert('Error al eliminar el comentario');
+  
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Error al eliminar el comentario');
       }
+  
+      setSelectedComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
     } catch (error) {
       console.error('Error al eliminar comentario:', error);
     }
   };
-
+  
   return (
     <div className="admin-eliminar-comentarios">
       <div className="content4">

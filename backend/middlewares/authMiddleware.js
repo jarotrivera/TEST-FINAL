@@ -17,7 +17,7 @@ const authenticateUser = async (req, res, next) => {
     }
 
     // Aquí configuramos 'req.user' para que el controlador pueda usarlo
-    req.user = { id: user.id, role: user.role };
+    req.user = { id: user.id, nombre: user.nombre, email: user.email, role: user.role };
     next();
   } catch (error) {
     console.error('Error de autenticación:', error);

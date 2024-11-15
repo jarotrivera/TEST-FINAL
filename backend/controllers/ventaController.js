@@ -51,33 +51,29 @@ const getUsersWithVentas = async (req, res) => {
 
 // Crear una venta
 const createVenta = async (req, res) => {
-  const { titulo, descripcion, precio, foto } = req.body;
-  const usuarioId = req.userId;
   try {
-    let resizedImageBase64 = foto;
-    if (foto) {
-      const buffer = Buffer.from(foto.split(",")[1], 'base64');
-      const resizedImage = await sharp(buffer)
-        .resize({ width: 800 })
-        .jpeg({ quality: 80 })
-        .toBuffer();
-      resizedImageBase64 = `data:image/jpeg;base64,${resizedImage.toString('base64')}`;
+    const usuarioId = req.user?.id;
+    if (!usuarioId) {
+      return res.status(401).json({ message: 'No autorizado' });
     }
 
-    const newVenta = await Venta.create({
+    const { titulo, descripcion, precio, foto } = req.body;
+
+    const nuevaVenta = await Venta.create({
       titulo,
       descripcion,
       precio,
-      foto: resizedImageBase64,
+      foto,
       usuarioId,
     });
-    console.log('Venta creada:', newVenta); // Log para verificar la creación de la venta
-    res.status(201).json({ message: 'Venta creada exitosamente', newVenta });
+
+    res.status(201).json(nuevaVenta);
   } catch (error) {
     console.error('Error al crear la venta:', error);
     res.status(500).json({ message: 'Error al crear la venta', error });
   }
 };
+
 
 // Editar una venta
 const editVenta = async (req, res) => {
@@ -124,21 +120,27 @@ const deleteVenta = async (req, res) => {
 
 const getUserVentas = async (req, res) => {
   try {
-    const userId = req.user.id; // Asegúrate de que `req.user.id` sea válido
+    const usuarioId = req.user?.id;
+    if (!usuarioId) {
+      return res.status(401).json({ message: 'No autorizado' });
+    }
+
     const ventas = await Venta.findAll({
-      where: { usuarioId: userId },
+      where: { usuarioId },
       include: {
         model: User,
         as: 'autorVenta',
         attributes: ['nombre', 'departamento'],
       },
     });
+
     res.status(200).json(ventas);
   } catch (error) {
     console.error('Error al obtener las ventas del usuario:', error);
-    res.status(500).json({ message: 'Error al obtener las ventas del usuario' });
+    res.status(500).json({ message: 'Error al obtener las ventas' });
   }
 };
+
 
 
 module.exports = { 

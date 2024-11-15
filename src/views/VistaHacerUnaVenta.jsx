@@ -21,46 +21,49 @@ const VistaHacerUnaVenta = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Iniciando envío de la venta...'); // Log inicial
     try {
+      const token = localStorage.getItem('token');
+  
+      if (!token) {
+        console.error('No hay token disponible');
+        return;
+      }
+  
       const nuevaVenta = {
         titulo,
         descripcion,
         precio,
         foto,
       };
-
-      // Enviar los datos al backend
+  
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/ventas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(nuevaVenta),
       });
-
+  
       if (!response.ok) {
-        throw new Error('Error al crear la venta');
+        const error = await response.json();
+        throw new Error(error.message || 'Error al crear la venta');
       }
-
+  
       const data = await response.json();
       console.log('Venta creada:', data);
-
-      // Limpiar los campos del formulario y mostrar el mensaje de éxito
+  
+      // Limpiar el formulario y mostrar mensaje de éxito
       setTitulo('');
       setDescripcion('');
       setPrecio('');
       setFoto(null);
-      setMensajeExito('Venta creada con éxito'); // Mensaje de confirmación
-
-      // Ocultar el mensaje después de 3 segundos
-      setTimeout(() => setMensajeExito(''), 3000);
+      setMensajeExito('Venta creada con éxito');
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error al crear la venta:', error);
     }
   };
-
+  
   return (
     <div className="vista-hacer-una-venta">
       <Sidebar />

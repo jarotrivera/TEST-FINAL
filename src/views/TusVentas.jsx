@@ -16,26 +16,32 @@ const TusVentas = () => {
 
   useEffect(() => {
     const fetchVentas = async () => {
-      setLoading(true);
       try {
-        const response = await fetch('https://forogeocentro-production.up.railway.app/api/ventas/user', {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
-        });
-        if (!response.ok) {
-          throw new Error('Error al obtener tus ventas');
+        const token = localStorage.getItem('token');
+  
+        if (!token) {
+          console.error('No hay token disponible');
+          return;
         }
+  
+        const response = await fetch('https://forogeocentro-production.up.railway.app/api/ventas/user', {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+  
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message || 'Error al obtener tus ventas');
+        }
+  
         const data = await response.json();
-        const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        setVentas(sortedData);
+        setVentas(data);
       } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+        console.error('Error al obtener tus ventas:', error);
       }
     };
     fetchVentas();
   }, []);
-
+  
   const openImageModal = (image) => {
     setSelectedImage(image);
     setImageModalOpen(true);
