@@ -12,34 +12,28 @@ const AdminEliminarVenta = () => {
     fetchUsersWithVentas();
   }, []);
 
-  // Obtener usuarios con sus ventas
   const fetchUsersWithVentas = async () => {
     try {
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/admin/usersWithVentas', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       const data = await response.json();
-      console.log("Datos obtenidos:", data); // Depuración
+      console.log("Datos obtenidos:", data);
       setUsers(data);
     } catch (error) {
       console.error('Error al obtener los usuarios con ventas:', error);
     }
   };
-  
-  
 
-  // Manejar clic en un usuario para abrir su lista de ventas
   const handleUserClick = (user) => {
-    setSelectedUser(user && user.ventas ? user : { ...user, ventas: [] });
+    console.log("Usuario seleccionado:", user);
+    setSelectedUser(user && user.userVentas ? user : { ...user, userVentas: [] });
   };
-  
 
-  // Cerrar el modal
   const handleCloseModal = () => {
     setSelectedUser(null);
   };
 
-  // Eliminar una venta
   const handleDeleteVenta = async (ventaId) => {
     try {
       const response = await fetch(`https://forogeocentro-production.up.railway.app/api/admin/ventas/${ventaId}`, {
@@ -55,10 +49,9 @@ const AdminEliminarVenta = () => {
         throw new Error(data.message || 'Error al eliminar la venta');
       }
 
-      // Actualizar la lista de ventas en el frontend
       setSelectedUser((prevUser) => ({
         ...prevUser,
-        ventas: prevUser.ventas.filter((venta) => venta.id !== ventaId),
+        userVentas: prevUser.userVentas.filter((venta) => venta.id !== ventaId),
       }));
 
       alert('Venta eliminada exitosamente');
@@ -79,17 +72,19 @@ const AdminEliminarVenta = () => {
             <p>Departamento: {user.departamento}</p>
           </div>
         ))}
+
         {selectedUser && (
           <Modal open={true} onClose={handleCloseModal}>
             <Box className="modal-content">
               <h2>Ventas de {selectedUser.nombre}</h2>
-              {selectedUser.ventas && selectedUser.ventas.length > 0 ? (
+              {selectedUser.userVentas && selectedUser.userVentas.length > 0 ? (
                 <ul>
-                  {selectedUser.ventas.map((venta) => (
+                  {selectedUser.userVentas.map((venta) => (
                     <li key={venta.id}>
                       <h4>{venta.titulo}</h4>
                       <p>{venta.descripcion}</p>
-                      <button onClick={() => handleDeleteVenta(venta.id)}>Eliminar</button>
+                      <p>Precio: ${venta.precio}</p>
+                      <button onClick={() => handleDeleteVenta(venta.id)} className="delete-button">Eliminar</button>
                     </li>
                   ))}
                 </ul>
