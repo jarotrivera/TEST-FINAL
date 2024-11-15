@@ -22,17 +22,15 @@ const PaginaVentas = () => {
         const response = await fetch('https://forogeocentro-production.up.railway.app/api/ventas', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
-        const text = await response.text();
-        console.log("Response text:", text);
-        
-        const data = JSON.parse(text);
+
+        const data = await response.json();
         const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setVentas(sortedData);
       } catch (error) {
         console.error('Error al obtener las ventas:', error);
       }
     };
-  
+
     fetchVentas();
   }, []);
 
@@ -44,58 +42,6 @@ const PaginaVentas = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-  };
-
-  const openEditModal = () => {
-    setEditModalOpen(true);
-    handleMenuClose();
-  };
-
-  const closeEditModal = () => {
-    setEditModalOpen(false);
-    setEditVentaId(null);
-  };
-
-  const handleEditSave = async () => {
-    if (!editVentaId) return;
-
-    try {
-      const response = await fetch(`https://forogeocentro-production.up.railway.app/api/ventas/${editVentaId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setVentas((prev) =>
-          prev.map((venta) => (venta.id === editVentaId ? { ...venta, ...formData } : venta))
-        );
-        closeEditModal();
-      }
-    } catch (error) {
-      console.error('Error al actualizar la venta:', error);
-    }
-  };
-
-  const handleDelete = async () => {
-    if (!editVentaId) return;
-
-    try {
-      const response = await fetch(`https://forogeocentro-production.up.railway.app/api/ventas/${editVentaId}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
-
-      if (response.ok) {
-        setVentas((prev) => prev.filter((venta) => venta.id !== editVentaId));
-        handleMenuClose();
-      }
-    } catch (error) {
-      console.error('Error al eliminar la venta:', error);
-    }
   };
 
   const openImageModal = (image) => {
@@ -120,8 +66,9 @@ const PaginaVentas = () => {
                   <Card key={venta.id} className="venta-card" variant="outlined">
                     <CardContent>
                       <Box display="flex" alignItems="center" justifyContent="space-between">
+                        {/* Mostrar nombre del usuario y departamento usando el alias 'autorVenta' */}
                         <Typography variant="subtitle1">
-                          {venta.usuarioNombre} / Departamento: {venta.departamento}
+                          {venta.autorVenta?.nombre} / Departamento: {venta.autorVenta?.departamento}
                         </Typography>
                         <IconButton
                           aria-label="more"
@@ -147,16 +94,6 @@ const PaginaVentas = () => {
                           </Button>
                         </div>
                       )}
-
-                      <Menu
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleMenuClose}
-                      >
-                        <MenuItem onClick={openEditModal}>Editar Venta</MenuItem>
-                        <MenuItem onClick={handleDelete}>Eliminar Venta</MenuItem>
-                      </Menu>
                     </CardContent>
                   </Card>
                 ))
@@ -169,6 +106,7 @@ const PaginaVentas = () => {
         <RightPanel2 />
       </div>
 
+      {/* Modal para la imagen en tamaño completo */}
       <Modal open={imageModalOpen} onClose={closeImageModal}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', position: 'relative' }}>
           <IconButton onClick={closeImageModal} sx={{ position: 'absolute', top: '10px', right: '10px' }}>
@@ -177,43 +115,6 @@ const PaginaVentas = () => {
           <img src={selectedImage} alt="Imagen Completa" style={{ maxWidth: '90%', maxHeight: '90%' }} />
         </Box>
       </Modal>
-
-      <Dialog open={editModalOpen} onClose={closeEditModal}>
-        <DialogTitle>Editar Venta</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Título"
-            type="text"
-            fullWidth
-            value={formData.titulo}
-            onChange={(e) => setFormData({ ...formData, titulo: e.target.value })}
-          />
-          <TextField
-            margin="dense"
-            label="Descripción"
-            type="text"
-            fullWidth
-            multiline
-            rows={4}
-            value={formData.descripcion}
-            onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
-          />
-          <TextField
-            margin="dense"
-            label="Precio"
-            type="number"
-            fullWidth
-            value={formData.precio}
-            onChange={(e) => setFormData({ ...formData, precio: e.target.value })}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeEditModal} color="secondary">Cancelar</Button>
-          <Button onClick={handleEditSave} color="primary">Guardar</Button>
-        </DialogActions>
-      </Dialog>
     </div>
   );
 };
