@@ -1,13 +1,14 @@
 // routes/commentRoutes.js
 const express = require('express');
 const router = express.Router();
-const { getCommentsByPostId, deleteComment } = require('../controllers/commentController');
-const { verifyToken } = require('../middlewares/authMiddleware');
+const { getComments, addComment, deleteComment } = require('../controllers/commentController');
 
 // Ruta para obtener comentarios de un post
-router.get('/post/:postId', verifyToken, getCommentsByPostId);
+router.get('/post/:postId', getComments);
+// Agregar un comentario
+router.post('/', addComment);
+// Eliminar un comentario por ID
+router.delete('/:commentId', deleteComment);
 
-// Ruta para eliminar un comentario (solo admin)
-router.delete('/:commentId', verifyToken, deleteComment);
 
 module.exports = router;
