@@ -13,24 +13,34 @@ const Sidebar = ({ className = "" }) => {
 
   useEffect(() => {
     const fetchUserRole = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        console.log("Token en localStorage:", token);  // Verifica el token almacenado
+      const token = localStorage.getItem('token');
   
+      // Si no hay un token, no hay necesidad de hacer la solicitud
+      if (!token) {
+        console.error("No hay token en localStorage");
+        return;
+      }
+  
+      try {
         const response = await fetch('https://forogeocentro-production.up.railway.app/api/auth/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
   
-        // Verificar si la respuesta es JSON o un error HTML
+        // Verificar si la respuesta fue exitosa
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error("Error en la respuesta:", errorText);
+          console.error("Error en la respuesta del servidor:", response.status);
           return;
         }
   
         const data = await response.json();
-        setUserRole(data.role);
-        console.log("Rol del usuario recibido:", data.role);  // Verifica el rol recibido
+  
+        // Verifica si el rol existe en la respuesta
+        if (data && data.role) {
+          setUserRole(data.role);
+          console.log("Rol del usuario recibido:", data.role);
+        } else {
+          console.error("El rol no se encontró en la respuesta");
+        }
       } catch (error) {
         console.error('Error al obtener el rol del usuario:', error);
       }

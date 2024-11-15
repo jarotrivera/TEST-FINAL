@@ -112,11 +112,21 @@ const login = async (req, res) => {
 // Obtener perfil de usuario
 const getUserProfile = async (req, res) => {
   try {
-    const user = await User.findByPk(req.userId, { attributes: ['id', 'nombre', 'email', 'role'] });
+    // Aquí cambiamos 'req.userId' por 'req.user.id'
+    const user = await User.findByPk(req.user.id, { 
+      attributes: ['id', 'nombre', 'email', 'role'] 
+    });
+
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
-    res.json({ id: user.id, nombre: user.nombre, email: user.email, role: user.role });
+
+    res.status(200).json({ 
+      id: user.id, 
+      nombre: user.nombre, 
+      email: user.email, 
+      role: user.role 
+    });
   } catch (error) {
     console.error('Error al obtener el perfil:', error);
     res.status(500).json({ message: 'Error al obtener el perfil' });
