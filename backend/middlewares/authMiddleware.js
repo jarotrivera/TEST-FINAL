@@ -16,9 +16,8 @@ const authenticateUser = async (req, res, next) => {
       return res.status(401).json({ message: 'Usuario no encontrado' });
     }
 
-    // Aquí configuramos 'req.user' para que el controlador pueda usarlo
+    // Asegúrate de que `req.user` tenga los valores necesarios
     req.user = { id: user.id, role: user.role };
-    console.log("Usuario autenticado:", req.user); // Agrega este log
     next();
   } catch (error) {
     console.error('Error de autenticación:', error);
@@ -28,7 +27,7 @@ const authenticateUser = async (req, res, next) => {
 
 const authenticateAdmin = async (req, res, next) => {
   await authenticateUser(req, res, async () => {
-    if (req.user?.role !== 'admin') { // Verifica que `req.user` exista antes de acceder a `role`
+    if (req.user?.role !== 'admin') {
       return res.status(403).json({ message: 'Acceso denegado. Solo administradores permitidos' });
     }
     next();
@@ -36,4 +35,3 @@ const authenticateAdmin = async (req, res, next) => {
 };
 
 module.exports = { authenticateUser, authenticateAdmin };
-

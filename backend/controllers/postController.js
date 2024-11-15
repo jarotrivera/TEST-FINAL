@@ -65,22 +65,24 @@ const getUserPosts = async (req, res) => {
   }
 };
 
+// Crear una nueva publicación
 const createPost = async (req, res) => {
   try {
-    const { titulo, foto, descripcion, usuarioId } = req.body;
+    const { titulo, descripcion, foto } = req.body;
 
-    if (!usuarioId) {
-      return res.status(400).json({ message: 'El usuarioId es requerido' });
+    // Verifica que el usuario esté autenticado y que `req.user` esté disponible
+    if (!req.user || !req.user.id) {
+      return res.status(403).json({ message: 'No autorizado' });
     }
 
-    const post = await Post.create({
+    const newPost = await Post.create({
       titulo,
-      foto,
       descripcion,
-      usuarioId
+      foto,
+      usuarioId: req.user.id // Utiliza `req.user.id`
     });
 
-    res.status(201).json(post);
+    res.status(201).json(newPost);
   } catch (error) {
     console.error('Error al crear la publicación:', error);
     res.status(500).json({ message: 'Error al crear la publicación', error });
@@ -88,16 +90,18 @@ const createPost = async (req, res) => {
 };
 
 
+
+// Editar una publicación
 // Editar una publicación
 const editPost = async (req, res) => {
   const { titulo, descripcion } = req.body;
   const postId = req.params.id;
-  const usuarioId = req.userId;
 
   try {
     const post = await Post.findByPk(postId);
 
-    if (!post || post.usuarioId !== usuarioId) {
+    // Verifica que `req.user` y `req.user.id` estén disponibles
+    if (!post || post.usuarioId !== req.user.id) {
       return res.status(403).json({ message: 'No tienes permiso para editar esta publicación' });
     }
 
@@ -112,15 +116,16 @@ const editPost = async (req, res) => {
   }
 };
 
+
 // Eliminar una publicación
 const deletePost = async (req, res) => {
   const postId = req.params.id;
-  const usuarioId = req.userId;
 
   try {
     const post = await Post.findByPk(postId);
 
-    if (!post || post.usuarioId !== usuarioId) {
+    // Verifica que `req.user` y `req.user.id` estén disponibles
+    if (!post || post.usuarioId !== req.user.id) {
       return res.status(403).json({ message: 'No tienes permiso para eliminar esta publicación' });
     }
 
