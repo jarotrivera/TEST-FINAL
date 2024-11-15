@@ -16,7 +16,7 @@ const authenticateUser = async (req, res, next) => {
       return res.status(401).json({ message: 'Usuario no encontrado' });
     }
 
-    // Asegúrate de que `req.user` tenga los valores necesarios
+    // Aquí configuramos 'req.user' para que el controlador pueda usarlo
     req.user = { id: user.id, role: user.role };
     next();
   } catch (error) {

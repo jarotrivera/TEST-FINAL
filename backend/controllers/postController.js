@@ -34,8 +34,9 @@ const getPosts = async (req, res) => {
 };
 
 // Obtener las publicaciones del usuario autenticado
+// Obtener las publicaciones del usuario autenticado
 const getUserPosts = async (req, res) => {
-  const usuarioId = req.userId;
+  const usuarioId = req.user.id; // Cambiado de req.userId a req.user.id
 
   try {
     const posts = await Post.findAll({
@@ -43,7 +44,7 @@ const getUserPosts = async (req, res) => {
       include: {
         model: User,
         as: 'usuario',
-        attributes: ['nombre', 'departamento'], // Incluye nombre y departamento
+        attributes: ['nombre', 'departamento'],
       },
     });
 
@@ -64,6 +65,7 @@ const getUserPosts = async (req, res) => {
     res.status(500).json({ message: "Error al obtener las publicaciones del usuario", error });
   }
 };
+
 
 // Crear una nueva publicación
 const createPost = async (req, res) => {
