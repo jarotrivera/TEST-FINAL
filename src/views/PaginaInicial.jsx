@@ -27,6 +27,7 @@ const PaginaInicial = () => {
   const [modalHeight, setModalHeight] = useState(400);
   const modalRef = useRef(null);
   const [commentsOpen, setCommentsOpen] = useState(null);
+  const [commentModalOpen, setCommentModalOpen] = useState(false);
 
 
   const reportReasons = [
@@ -208,6 +209,8 @@ const fetchComments = async (postId) => {
 
 // Función para abrir la sección de comentarios
 const handleOpenComments = async (postId) => {
+  setSelectedPostId(postId);
+  setCommentModalOpen(true);
   setCommentsOpen(postId); // Establecer el ID de la publicación seleccionada
   try {
     const response = await fetch(`https://forogeocentro-production.up.railway.app/api/comments/${postId}`);
@@ -226,6 +229,8 @@ const handleOpenComments = async (postId) => {
 
 // Cerrar el modal de comentarios
 const handleCloseComments = () => {
+  setCommentModalOpen(false);
+  setSelectedPostId(null);
   setCommentsOpen(null);
   setComments([]);
 };
