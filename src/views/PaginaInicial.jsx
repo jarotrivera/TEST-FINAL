@@ -23,10 +23,10 @@ const PaginaInicial = () => {
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState([]);
-  const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [modalWidth, setModalWidth] = useState(600);
   const [modalHeight, setModalHeight] = useState(400);
   const modalRef = useRef(null);
+  const [commentsOpen, setCommentsOpen] = useState(null);
 
 
   const reportReasons = [
@@ -206,28 +206,29 @@ const fetchComments = async (postId) => {
   }
 };
 
-// Abrir el modal de comentarios
-const handleOpenComments = (postId) => {
-  if (!postId) {
-    console.error("Post ID no válido:", postId);
-    return;
+// Función para abrir la sección de comentarios
+const handleOpenComments = async (postId) => {
+  setCommentsOpen(postId); // Establecer el ID de la publicación seleccionada
+  try {
+    const response = await fetch(`https://forogeocentro-production.up.railway.app/api/comments/${postId}`);
+    if (response.ok) {
+      const data = await response.json();
+      setComments(data);
+    } else {
+      console.error("Error al obtener comentarios");
+      setComments([]);
+    }
+  } catch (error) {
+    console.error("Error al obtener comentarios:", error);
+    setComments([]);
   }
-  console.log("Post ID al abrir comentarios:", postId);
-
-  setSelectedPostId(postId);
-  fetchComments(postId);
-  setCommentModalOpen(true);
 };
-
-
 
 // Cerrar el modal de comentarios
 const handleCloseComments = () => {
-  setCommentModalOpen(false);
+  setCommentsOpen(null);
   setComments([]);
-  setNewComment('');
 };
-
 
 // Agregar un nuevo comentario
 const handleAddComment = async () => {

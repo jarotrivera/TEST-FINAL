@@ -66,7 +66,7 @@ const AdminEliminarComentarios = () => {
       <div className="content4">
         <Sidebar />
         <div className="admin-content">
-          <Typography variant="h4" className="admin-title">Eliminar Comentarios</Typography>
+          <Typography variant="h4" className="admin-title"></Typography>
           <div className="user-list">
             {usuarios.length > 0 ? (
               usuarios.map((user) => (

@@ -156,30 +156,17 @@ const deleteComment = async (req, res) => {
   }
 };
 
+// Controlador para obtener usuarios con sus comentarios
 const getUsersWithComments = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'nombre', 'email', 'departamento'],
       include: [
         {
           model: Comment,
-          as: 'comentariosUsuario',
-          attributes: ['id', 'content', 'postId', 'createdAt'],
-          include: [
-            {
-              model: Post,
-              as: 'postRelacionado',
-              attributes: ['id', 'titulo']
-            }
-          ]
-        }
-      ]
+          as: 'userComments', // Debe coincidir con el alias definido en Comment.js
+        },
+      ],
     });
-
-    // Validar si la respuesta es un array
-    if (!Array.isArray(users)) {
-      throw new Error('La respuesta no es un array');
-    }
 
     res.status(200).json(users);
   } catch (error) {
