@@ -9,7 +9,7 @@ const getVentas = async (req, res) => {
     const ventas = await Venta.findAll({
       include: {
         model: User,
-        as: 'VentaUser',
+        as: 'autorVenta',
         attributes: ['nombre', 'departamento'], // Incluye 'departamento'
       },
     });
@@ -29,25 +29,24 @@ const getVentas = async (req, res) => {
 
 // Obtener las ventas del usuario autenticado
 const getUserVentas = async (req, res) => {
-  const usuarioId = req.userId;
   try {
+    const userId = req.user.id;
+
     const ventas = await Venta.findAll({
-      where: { usuarioId },
-      include: {
-        model: User,
-        as: 'VentaUser',
-        attributes: ['nombre'],
-      },
+      where: { usuarioId: userId },
+      include: [
+        {
+          model: User,
+          as: 'autorVenta', // Usa el alias correcto definido en las asociaciones
+          attributes: ['nombre', 'departamento']
+        }
+      ]
     });
-    const userVentas = ventas.map(venta => ({
-      ...venta.get(),
-      usuarioNombre: venta.VentaUser ? venta.VentaUser.nombre : 'Usuario desconocido',
-    }));
-    console.log('Ventas del usuario obtenidas:', userVentas); // Log para verificar las ventas del usuario
-    res.status(200).json(userVentas);
+
+    res.json(ventas);
   } catch (error) {
     console.error('Error al obtener las ventas del usuario:', error);
-    res.status(500).json({ message: 'Error al obtener las ventas del usuario', error });
+    res.status(500).json({ message: 'Error al obtener las ventas' });
   }
 };
 

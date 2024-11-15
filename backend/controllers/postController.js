@@ -139,76 +139,6 @@ const deletePost = async (req, res) => {
   }
 };
 
-const addComment = async (req, res) => {
-  const { postId } = req.params;
-  const { content } = req.body;
-  const userId = req.userId;
-
-  if (!content || content.trim() === '') {
-    return res.status(400).json({ error: 'El comentario no puede estar vacío' });
-  }
-
-  try {
-    const newComment = await Comment.create({
-      content,
-      postId,
-      userId
-    });
-    res.status(201).json(newComment);
-  } catch (error) {
-    console.error('Error al agregar comentario:', error);
-    res.status(500).json({ error: 'Error al agregar comentario' });
-  }
-};
-
-// Obtener todos los comentarios de un post
-const getComments = async (req, res) => {
-  const { postId } = req.params;
-  try {
-    const comments = await Comment.findAll({
-      where: { postId },
-      include: [
-        {
-          model: User,
-          as: 'comentador',
-          attributes: ['nombre']
-        }
-      ]
-    });
-    res.status(200).json(comments);
-  } catch (error) {
-    console.error('Error al obtener comentarios:', error);
-    res.status(500).json({ message: 'Error al obtener comentarios' });
-  }
-};
-
-
-const deleteComment = async (req, res) => {
-  const { commentId } = req.params;
-  const userId = req.user.id; // ID del usuario autenticado
-  const userRole = req.user.role; // Rol del usuario autenticado (admin o user)
-
-  try {
-    // Obtener el comentario
-    const comment = await Comment.findOne({ where: { id: commentId } });
-
-    if (!comment) {
-      return res.status(404).json({ message: 'Comentario no encontrado' });
-    }
-
-    // Verificar si el usuario tiene permiso para eliminar el comentario
-    if (comment.userId !== userId && userRole !== 'admin') {
-      return res.status(403).json({ message: 'No tienes permiso para eliminar este comentario' });
-    }
-
-    // Eliminar el comentario
-    await comment.destroy();
-    res.status(200).json({ message: 'Comentario eliminado exitosamente' });
-  } catch (error) {
-    console.error('Error al eliminar el comentario:', error);
-    res.status(500).json({ message: 'Error al eliminar el comentario' });
-  }
-};
 
 module.exports = {
   createPost,
@@ -216,7 +146,4 @@ module.exports = {
   getUserPosts,
   editPost,
   deletePost,
-  addComment,
-  getComments,
-  deleteComment // Asegúrate de que esto esté aquí
 };

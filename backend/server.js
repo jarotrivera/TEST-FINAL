@@ -12,6 +12,7 @@ const gastosRoutes = require('./routes/gastosRoutes');
 const parkingRoutes = require('./routes/parkingRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 require('./models/associations');
+const commentRoutes = require('./routes/commentRoutes');
 
 // Importar modelos para sincronizar las asociaciones
 const User = require('./models/userModel');
@@ -34,6 +35,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/gastos', gastosRoutes);
 app.use('/api/parking', parkingRoutes);
 app.use('/api', reportRoutes);
+app.use('/api/comments', commentRoutes);
 
 // ** Servir el frontend compilado solo en producción **
 if (process.env.NODE_ENV === 'production') {

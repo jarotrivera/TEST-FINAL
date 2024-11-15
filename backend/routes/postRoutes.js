@@ -1,5 +1,5 @@
 const express = require('express');
-const { createPost, getPosts, getUserPosts, editPost, deletePost, addComment, getComments, deleteComment } = require('../controllers/postController');
+const { createPost, getPosts, getUserPosts, editPost, deletePost} = require('../controllers/postController');
 const { authenticateUser } = require('../utils/authMiddleware');
 const multer = require('multer');
 const path = require('path');
@@ -26,9 +26,7 @@ router.get('/user-posts', authenticateUser, (req, res, next) => {
 router.post('/', authenticateUser, upload.single('foto'), createPost); 
 router.put('/:id', authenticateUser, editPost);
 router.delete('/:id', authenticateUser, deletePost);
-router.post('/:postId/comments', authenticateUser, addComment);
-router.get('/:postId/comments', authenticateUser, getComments);
-router.delete('/comments/:commentId', authenticateUser, deleteComment);
+
 
 
 module.exports = router;

@@ -195,74 +195,87 @@ const PaginaInicial = () => {
   };
 
   // Función para obtener comentarios de un post
+// Obtener comentarios de un post
 const fetchComments = async (postId) => {
   try {
-    const response = await fetch(`https://forogeocentro-production.up.railway.app/api/posts/${postId}/comments`, {
-      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    const response = await fetch(`https://forogeocentro-production.up.railway.app/api/comments/post/${postId}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
     });
-    const data = await response.json();
-    setComments(data);
-  } catch (error) {
-    console.error('Error al obtener los comentarios:', error);
-  }
-};
 
-// Función para abrir la sección de comentarios
-const handleOpenComments = async (postId) => {
-  setSelectedPostId(postId);
-  setCommentModalOpen(true);
-  setCommentsOpen(postId); // Establecer el ID de la publicación seleccionada
-  try {
-    const response = await fetch(`https://forogeocentro-production.up.railway.app/api/comments/${postId}`);
     if (response.ok) {
       const data = await response.json();
       setComments(data);
     } else {
-      console.error("Error al obtener comentarios");
+      console.error('Error al obtener comentarios');
       setComments([]);
     }
   } catch (error) {
-    console.error("Error al obtener comentarios:", error);
+    console.error('Error al obtener comentarios:', error);
     setComments([]);
   }
+};
+
+// Abrir el modal de comentarios para un post específico
+const handleOpenComments = async (postId) => {
+  setSelectedPostId(postId);
+  setCommentModalOpen(true);
+  await fetchComments(postId);
 };
 
 // Cerrar el modal de comentarios
 const handleCloseComments = () => {
   setCommentModalOpen(false);
   setSelectedPostId(null);
-  setCommentsOpen(null);
   setComments([]);
 };
 
 // Agregar un nuevo comentario
 const handleAddComment = async () => {
-  if (!newComment.trim()) return;
-  if (!selectedPostId) {
-    console.error("No se ha seleccionado un post para comentar");
-    return;
-  }
+  if (!newComment.trim()) return; // No permitir comentarios vacíos
 
   try {
-    const response = await fetch(`https://forogeocentro-production.up.railway.app/api/posts/${selectedPostId}/comments`, {
+    const response = await fetch(`https://forogeocentro-production.up.railway.app/api/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
-      body: JSON.stringify({ content: newComment })
+      body: JSON.stringify({ postId: selectedPostId, content: newComment })
     });
 
-    if (!response.ok) {
-      throw new Error('Error al agregar el comentario');
+    if (response.ok) {
+      setNewComment('');
+      await fetchComments(selectedPostId);
+    } else {
+      console.error('Error al agregar el comentario');
     }
-
-    setNewComment('');
-    fetchComments(selectedPostId); // Refresca la lista de comentarios
   } catch (error) {
     console.error('Error al agregar el comentario:', error);
   }
 };
+
+// Eliminar un comentario
+const handleDeleteComment = async (commentId) => {
+  try {
+    const response = await fetch(`https://forogeocentro-production.up.railway.app/api/comments/${commentId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+
+    if (response.ok) {
+      setComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
+    } else {
+      console.error('Error al eliminar el comentario');
+    }
+  } catch (error) {
+    console.error('Error al eliminar el comentario:', error);
+  }
+};
+
 
 const handleMouseDown = (e) => {
   if (!modalRef.current) return; // Verifica si modalRef es nulo
@@ -288,29 +301,6 @@ const handleMouseDown = (e) => {
   document.addEventListener('mouseup', handleMouseUp);
 };
 
-
-// Función para eliminar un comentario
-const handleDeleteComment = async (commentId) => {
-  if (!commentId) return;
-
-  try {
-    const response = await fetch(`https://forogeocentro-production.up.railway.app/api/posts/comments/${commentId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error('Error al eliminar el comentario');
-    }
-
-    // Eliminar el comentario de la lista en el frontend
-    setComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
-  } catch (error) {
-    console.error('Error al eliminar el comentario:', error);
-  }
-};
 return (
   <div className="pagina-inicial">
     <div className="content4">
@@ -488,65 +478,45 @@ return (
   </DialogActions>
 </Dialog>
 
-<Dialog
-  open={commentModalOpen}
-  onClose={handleCloseComments}
-  PaperProps={{
-    style: {
-      width: `${modalWidth}px`,
-      height: `${modalHeight}px`,
-      maxWidth: '95%',
-      maxHeight: '80vh',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column',
-    },
-  }}
-  ref={modalRef}
->
+<Dialog open={commentModalOpen} onClose={handleCloseComments}>
   <DialogTitle>Comentarios</DialogTitle>
   <DialogContent className="dialog-content">
-  {comments.length > 0 ? (
-    comments.map((comment) => (
-      <div key={comment.id} className="comment-item">
-        <Typography className="comment-text" variant="body1">
-          <strong>{comment.comentador?.nombre || 'Usuario'}:</strong> {comment.content}
-        </Typography>
-        <button
-          className="delete-comment-button"
-          onClick={() => handleDeleteComment(comment.id)}
-        >
-          ✖
-        </button>
-      </div>
-    ))
-  ) : (
-    <div className="no-comments-message">
-      <Typography variant="body2">No hay Publicaciones.</Typography>
-    </div>
-  )}
-</DialogContent>
-  <div className="comment-input-container">
+    {comments.length > 0 ? (
+      comments.map((comment) => (
+        <div key={comment.id} className="comment-item">
+          <Typography className="comment-text" variant="body1">
+            <strong>{comment.comentador?.nombre || 'Usuario'}:</strong> {comment.content}
+          </Typography>
+          {/* Solo permitir eliminar si es el autor o el admin */}
+          {(comment.comentador?.id === parseInt(localStorage.getItem('userId')) || localStorage.getItem('role') === 'admin') && (
+            <IconButton
+              className="delete-comment-button"
+              onClick={() => handleDeleteComment(comment.id)}
+            >
+              <CloseIcon />
+            </IconButton>
+          )}
+        </div>
+      ))
+    ) : (
+      <Typography variant="body2">No hay comentarios.</Typography>
+    )}
+  </DialogContent>
+  <DialogActions>
     <TextField
+      fullWidth
       value={newComment}
       onChange={(e) => setNewComment(e.target.value)}
-      fullWidth
-      multiline
-      rows={2}
-      placeholder="Escribe tu comentario..."
+      placeholder="Escribe un comentario..."
     />
-    <DialogActions>
-      <Button onClick={handleCloseComments}>Cerrar</Button>
-      <Button onClick={handleAddComment}>Agregar Comentario</Button>
-    </DialogActions>
-  </div>
-  {/* Agrega un handle para redimensionar */}
-  <div
-    className="resizable-handle"
-    onMouseDown={handleMouseDown}
-  />
+    <Button onClick={handleAddComment} color="primary">
+      Comentar
+    </Button>
+    <Button onClick={handleCloseComments} color="secondary">
+      Cerrar
+    </Button>
+  </DialogActions>
 </Dialog>
-
 </div>
 );
 };
