@@ -119,14 +119,14 @@ const getUsersWithPosts = async (req, res) => {
 // Controlador para obtener usuarios con sus ventas
 const getUsersWithVentas = async (req, res) => {
   try {
-    const usuarios = await User.findAll({
+    const users = await User.findAll({
       include: {
         model: Venta,
-        as: 'userVentas', // Asegúrate de que este alias coincida con tu asociación
+        as: 'userVentas',
         attributes: ['id', 'titulo', 'descripcion', 'precio', 'createdAt']
       }
     });
-    res.status(200).json(usuarios);
+    res.status(200).json(users);
   } catch (error) {
     console.error("Error al obtener usuarios con ventas:", error);
     res.status(500).json({ message: "Error al obtener usuarios con ventas" });

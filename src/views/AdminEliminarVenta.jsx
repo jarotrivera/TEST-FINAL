@@ -21,17 +21,19 @@ const AdminEliminarVenta = () => {
         },
       });
       const data = await response.json();
+      console.log("Datos obtenidos del backend:", data); // Depuración
       setUsers(data);
     } catch (error) {
       console.error('Error al obtener los usuarios con ventas:', error);
     }
   };
+  
 
   // Manejar clic en un usuario para abrir su lista de ventas
   const handleUserClick = (user) => {
-    // Verificar si el usuario tiene ventas antes de abrir el modal
-    setSelectedUser({ ...user, ventas: user.ventas || [] });
+    setSelectedUser(user && user.ventas ? user : { ...user, ventas: [] });
   };
+  
 
   // Cerrar el modal
   const handleCloseModal = () => {
@@ -78,20 +80,17 @@ const AdminEliminarVenta = () => {
             <p>Departamento: {user.departamento}</p>
           </div>
         ))}
-
         {selectedUser && (
           <Modal open={true} onClose={handleCloseModal}>
             <Box className="modal-content">
               <h2>Ventas de {selectedUser.nombre}</h2>
-              {/* Verificar que selectedUser.ventas exista antes de usar map */}
               {selectedUser.ventas && selectedUser.ventas.length > 0 ? (
                 <ul>
                   {selectedUser.ventas.map((venta) => (
                     <li key={venta.id}>
                       <h4>{venta.titulo}</h4>
                       <p>{venta.descripcion}</p>
-                      <p>Precio: ${venta.precio}</p>
-                      <button onClick={() => handleDeleteVenta(venta.id)} className="delete-button">Eliminar</button>
+                      <button onClick={() => handleDeleteVenta(venta.id)}>Eliminar</button>
                     </li>
                   ))}
                 </ul>
