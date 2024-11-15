@@ -12,6 +12,7 @@ const AdminEliminarVenta = () => {
     fetchUsersWithVentas();
   }, []);
 
+  // Obtener usuarios con sus ventas
   const fetchUsersWithVentas = async () => {
     try {
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/admin/usersWithVentas', {
@@ -20,49 +21,48 @@ const AdminEliminarVenta = () => {
         },
       });
       const data = await response.json();
-
-      if (Array.isArray(data)) {
-        setUsers(data);
-      } else {
-        console.error('Error: La respuesta no es un array');
-      }
+      setUsers(data);
     } catch (error) {
-      console.error('Error al obtener usuarios con ventas:', error);
+      console.error('Error al obtener los usuarios con ventas:', error);
     }
   };
 
+  // Manejar clic en un usuario para abrir su lista de ventas
   const handleUserClick = (user) => {
-    if (user && user.ventasUsuario) {
-      setSelectedUser(user);
-    }
+    setSelectedUser(user);
   };
 
+  // Cerrar el modal
   const handleCloseModal = () => {
     setSelectedUser(null);
   };
 
+  // Eliminar una venta
   const handleDeleteVenta = async (ventaId) => {
     try {
       const response = await fetch(`https://forogeocentro-production.up.railway.app/api/admin/ventas/${ventaId}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
         },
       });
 
-      if (response.ok) {
-        setSelectedUser((prevUser) => ({
-          ...prevUser,
-          ventasUsuario: prevUser.ventasUsuario.filter((venta) => venta.id !== ventaId),
-        }));
-        alert('Venta eliminada con éxito');
-      } else {
+      if (!response.ok) {
         const data = await response.json();
-        alert(data.message || 'Error al eliminar la venta');
+        throw new Error(data.message || 'Error al eliminar la venta');
       }
+
+      // Actualizar la lista de ventas en el frontend
+      setSelectedUser((prevUser) => ({
+        ...prevUser,
+        ventas: prevUser.ventas.filter((venta) => venta.id !== ventaId),
+      }));
+
+      alert('Venta eliminada exitosamente');
     } catch (error) {
       console.error('Error al eliminar la venta:', error);
-      alert('Error al eliminar la venta');
+      alert(error.message);
     }
   };
 
@@ -71,35 +71,27 @@ const AdminEliminarVenta = () => {
       <Sidebar />
       <div className="admin-dashboard-content">
         <h2>Usuarios</h2>
-        {users.length > 0 ? (
-          users.map((user) => (
-            <div key={user.id} className="user-card" onClick={() => handleUserClick(user)}>
-              <h3>{user.nombre}</h3>
-              <p>Departamento: {user.departamento}</p>
-            </div>
-          ))
-        ) : (
-          <p>No hay usuarios con ventas</p>
-        )}
+        {users.map((user) => (
+          <div key={user.id} className="user-card" onClick={() => handleUserClick(user)}>
+            <h3>{user.nombre}</h3>
+            <p>Departamento: {user.departamento}</p>
+          </div>
+        ))}
 
         {selectedUser && (
           <Modal open={true} onClose={handleCloseModal}>
             <Box className="modal-content">
               <h2>Ventas de {selectedUser.nombre}</h2>
-              {selectedUser.ventasUsuario && selectedUser.ventasUsuario.length > 0 ? (
-                <ul>
-                  {selectedUser.ventasUsuario.map((venta) => (
-                    <li key={venta.id}>
-                      <h4>{venta.titulo}</h4>
-                      <p>{venta.descripcion}</p>
-                      <p>Precio: ${venta.precio}</p>
-                      <button onClick={() => handleDeleteVenta(venta.id)} className="delete-button">Eliminar</button>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>No hay ventas para este usuario</p>
-              )}
+              <ul>
+                {selectedUser.ventas.map((venta) => (
+                  <li key={venta.id}>
+                    <h4>{venta.titulo}</h4>
+                    <p>{venta.descripcion}</p>
+                    <p>Precio: ${venta.precio}</p>
+                    <button onClick={() => handleDeleteVenta(venta.id)} className="delete-button">Eliminar</button>
+                  </li>
+                ))}
+              </ul>
             </Box>
           </Modal>
         )}
