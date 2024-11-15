@@ -1,5 +1,5 @@
 const express = require('express');
-const { authenticateAdmin } = require('../utils/authMiddleware');
+const { authenticateAdmin } = require('../middlewares/authMiddleware');
 const { deleteVenta, deletePost, getAllUsers, deleteUser, getAllPosts, getAllVentas, getUsersWithPosts, getUsersWithVentas, getUsersWithComments ,deleteComment } = require('../controllers/adminController');
 
 const router = express.Router();

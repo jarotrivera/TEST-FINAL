@@ -24,4 +24,14 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-module.exports = { authenticateUser };
+// Middleware para autenticar a un administrador
+const authenticateAdmin = async (req, res, next) => {
+  await authenticateUser(req, res, async () => {
+    if (req.user.role !== 'admin') { // Verifica el rol del usuario
+      return res.status(403).json({ message: 'Acceso denegado: permisos de administrador requeridos' });
+    }
+    next();
+  });
+};
+
+module.exports = { authenticateUser, authenticateAdmin };

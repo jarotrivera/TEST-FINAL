@@ -3,22 +3,24 @@ const Venta = require('../models/ventaModel');
 const User = require('../models/userModel');
 const sharp = require('sharp');
 
-// Obtener todas las ventas
 const getVentas = async (req, res) => {
   try {
     const ventas = await Venta.findAll({
       include: {
         model: User,
-        as: 'autorVenta',
-        attributes: ['nombre', 'departamento'], // Incluye 'departamento'
-      },
+        as: 'autorVenta', // Aquí usas el alias correcto
+        attributes: ['nombre', 'departamento']
+      }
     });
+
+    // Asegúrate de utilizar el alias correcto al mapear los datos
     const ventasWithUser = ventas.map(venta => ({
       ...venta.get(),
-      usuarioNombre: venta.VentaUser ? venta.VentaUser.nombre : 'Usuario desconocido',
-      departamento: venta.VentaUser ? venta.VentaUser.departamento : 'No especificado', // Incluye el departamento en la respuesta
+      usuarioNombre: venta.autorVenta ? venta.autorVenta.nombre : 'Usuario desconocido',
+      departamento: venta.autorVenta ? venta.autorVenta.departamento : 'No especificado'
     }));
-    console.log('Ventas obtenidas:', ventasWithUser); // Log para verificar las ventas obtenidas
+
+    console.log('Ventas obtenidas:', ventasWithUser);
     res.status(200).json(ventasWithUser);
   } catch (error) {
     console.error('Error al obtener las ventas:', error);
@@ -27,28 +29,25 @@ const getVentas = async (req, res) => {
 };
 
 
-// Obtener las ventas del usuario autenticado
-const getUserVentas = async (req, res) => {
-  try {
-    const userId = req.user.id;
 
-    const ventas = await Venta.findAll({
-      where: { usuarioId: userId },
-      include: [
-        {
-          model: User,
-          as: 'autorVenta', // Usa el alias correcto definido en las asociaciones
-          attributes: ['nombre', 'departamento']
-        }
-      ]
+const getUsersWithVentas = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      include: {
+        model: Venta,
+        as: 'userVentas', // Usa el alias correcto definido en tu asociación
+        attributes: ['id', 'titulo', 'descripcion', 'precio', 'foto'],
+      },
+      attributes: ['id', 'nombre', 'departamento'],
     });
 
-    res.json(ventas);
+    res.status(200).json(users);
   } catch (error) {
-    console.error('Error al obtener las ventas del usuario:', error);
-    res.status(500).json({ message: 'Error al obtener las ventas' });
+    console.error('Error al obtener usuarios con ventas:', error);
+    res.status(500).json({ message: 'Error al obtener usuarios con ventas' });
   }
 };
+
 
 // Crear una venta
 const createVenta = async (req, res) => {
@@ -123,4 +122,30 @@ const deleteVenta = async (req, res) => {
   }
 };
 
-module.exports = { createVenta, getVentas, getUserVentas, editVenta, deleteVenta };
+const getUserVentas = async (req, res) => {
+  try {
+    const userId = req.user.id; // Asegúrate de que `req.user.id` sea válido
+    const ventas = await Venta.findAll({
+      where: { usuarioId: userId },
+      include: {
+        model: User,
+        as: 'autorVenta',
+        attributes: ['nombre', 'departamento'],
+      },
+    });
+    res.status(200).json(ventas);
+  } catch (error) {
+    console.error('Error al obtener las ventas del usuario:', error);
+    res.status(500).json({ message: 'Error al obtener las ventas del usuario' });
+  }
+};
+
+
+module.exports = { 
+  createVenta, 
+  getVentas, 
+  getUserVentas, 
+  getUsersWithVentas, 
+  editVenta, 
+  deleteVenta 
+};

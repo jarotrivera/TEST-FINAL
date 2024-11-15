@@ -1,6 +1,6 @@
 const express = require('express');
 const { createPost, getPosts, getUserPosts, editPost, deletePost} = require('../controllers/postController');
-const { authenticateUser } = require('../utils/authMiddleware');
+const { authenticateUser } = require('../middlewares/authMiddleware');
 const multer = require('multer');
 const path = require('path');
 

@@ -24,14 +24,19 @@ exports.getComments = async (req, res) => {
 exports.addComment = async (req, res) => {
   try {
     const { postId, content } = req.body;
-    const userId = req.user.id; // Asegúrate de que el middleware de autenticación esté funcionando
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
     const newComment = await Comment.create({ content, userId, postId });
     res.status(201).json(newComment);
   } catch (error) {
     console.error('Error al agregar comentario:', error);
     res.status(500).json({ error: 'Error al agregar comentario' });
   }
-};
+};s
 
 // Eliminar un comentario por ID
 exports.deleteComment = async (req, res) => {
