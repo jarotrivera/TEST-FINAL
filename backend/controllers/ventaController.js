@@ -19,7 +19,7 @@ const getVentas = async (req, res) => {
   }
 };
 
-// Obtener las ventas del usuario autenticado
+// Obtener todas las ventas del usuario autenticado
 const getUserVentas = async (req, res) => {
   const usuarioId = req.user.id;
   try {
@@ -30,6 +30,7 @@ const getUserVentas = async (req, res) => {
         as: 'autorVenta',
         attributes: ['nombre', 'departamento'],
       },
+      order: [['createdAt', 'DESC']]
     });
     res.status(200).json(ventas);
   } catch (error) {

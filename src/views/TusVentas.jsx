@@ -14,34 +14,39 @@ const TusVentas = () => {
   const [imageModalOpen, setImageModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
 
+  // Fetch ventas del usuario autenticado
   useEffect(() => {
     const fetchVentas = async () => {
       try {
         const token = localStorage.getItem('token');
-  
+
         if (!token) {
           console.error('No hay token disponible');
           return;
         }
-  
+
         const response = await fetch('https://forogeocentro-production.up.railway.app/api/ventas/user', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
-  
+
         if (!response.ok) {
           const error = await response.json();
           throw new Error(error.message || 'Error al obtener tus ventas');
         }
-  
+
         const data = await response.json();
         setVentas(data);
+        setLoading(false);
       } catch (error) {
         console.error('Error al obtener tus ventas:', error);
+        setError(error.message);
+        setLoading(false);
       }
     };
     fetchVentas();
   }, []);
-  
+
+  // Modal para ver la imagen en tamaño completo
   const openImageModal = (image) => {
     setSelectedImage(image);
     setImageModalOpen(true);
@@ -70,8 +75,9 @@ const TusVentas = () => {
                   <Card key={venta.id} className="venta-card" variant="outlined">
                     <CardContent>
                       <Box display="flex" alignItems="center" justifyContent="space-between">
+                        {/* Mostrar nombre del usuario y departamento */}
                         <Typography variant="subtitle1">
-                          {venta.usuarioNombre} / Departamento: {venta.departamento}
+                          {venta.autorVenta?.nombre} / Departamento: {venta.autorVenta?.departamento}
                         </Typography>
                         <IconButton aria-label="more">
                           <MoreVertIcon />
@@ -104,6 +110,7 @@ const TusVentas = () => {
         <RightPanel2 />
       </div>
 
+      {/* Modal para la imagen en tamaño completo */}
       <Modal open={imageModalOpen} onClose={closeImageModal}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', position: 'relative' }}>
           <IconButton onClick={closeImageModal} sx={{ position: 'absolute', top: '10px', right: '10px' }}>
