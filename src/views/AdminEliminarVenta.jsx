@@ -16,17 +16,16 @@ const AdminEliminarVenta = () => {
   const fetchUsersWithVentas = async () => {
     try {
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/admin/usersWithVentas', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       const data = await response.json();
-      console.log("Datos obtenidos del backend:", data); // Depuración
+      console.log("Datos obtenidos:", data); // Depuración
       setUsers(data);
     } catch (error) {
       console.error('Error al obtener los usuarios con ventas:', error);
     }
   };
+  
   
 
   // Manejar clic en un usuario para abrir su lista de ventas
