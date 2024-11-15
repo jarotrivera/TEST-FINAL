@@ -9,53 +9,66 @@ const getVentas = async (req, res) => {
       include: {
         model: User,
         as: 'autorVenta',
-        attributes: ['nombre', 'departamento']
-      }
+        attributes: ['nombre', 'departamento'],
+      },
     });
-
-    const ventasWithUser = ventas.map(venta => ({
-      ...venta.get(),
-      usuarioNombre: venta.autorVenta ? venta.autorVenta.nombre : 'Usuario desconocido',
-      departamento: venta.autorVenta ? venta.autorVenta.departamento : 'No especificado'
-    }));
-
-    res.status(200).json(ventasWithUser);
+    res.status(200).json(ventas);
   } catch (error) {
-    console.error('Error al obtener las ventas:', error);
-    res.status(500).json({ message: 'Error al obtener las ventas' });
+    console.error("Error al obtener las ventas:", error);
+    res.status(500).json({ message: "Error al obtener las ventas" });
   }
 };
 
-// Crear una venta
+// Obtener las ventas del usuario autenticado
+const getUserVentas = async (req, res) => {
+  const usuarioId = req.user.id;
+  try {
+    const ventas = await Venta.findAll({
+      where: { usuarioId },
+      include: {
+        model: User,
+        as: 'autorVenta',
+        attributes: ['nombre', 'departamento'],
+      },
+    });
+    res.status(200).json(ventas);
+  } catch (error) {
+    console.error("Error al obtener las ventas del usuario:", error);
+    res.status(500).json({ message: "Error al obtener las ventas del usuario" });
+  }
+};
+
+// Crear una nueva venta
 const createVenta = async (req, res) => {
   try {
-    const usuarioId = req.user.id; // Usar req.user.id
     const { titulo, descripcion, precio, foto } = req.body;
+    if (!req.user) {
+      return res.status(403).json({ message: 'No autorizado' });
+    }
 
-    const nuevaVenta = await Venta.create({
+    const newVenta = await Venta.create({
       titulo,
       descripcion,
       precio,
       foto,
-      usuarioId
+      usuarioId: req.user.id,
     });
 
-    res.status(201).json(nuevaVenta);
+    res.status(201).json(newVenta);
   } catch (error) {
-    console.error('Error al crear la venta:', error);
-    res.status(500).json({ message: 'Error al crear la venta' });
+    console.error("Error al crear la venta:", error);
+    res.status(500).json({ message: "Error al crear la venta" });
   }
 };
 
 // Editar una venta
 const editVenta = async (req, res) => {
-  const { titulo, descripcion, precio } = req.body;
   const ventaId = req.params.id;
-  const usuarioId = req.user.id;
+  const { titulo, descripcion, precio } = req.body;
 
   try {
     const venta = await Venta.findByPk(ventaId);
-    if (!venta || venta.usuarioId !== usuarioId) {
+    if (!venta || venta.usuarioId !== req.user.id) {
       return res.status(403).json({ message: 'No tienes permiso para editar esta venta' });
     }
 
@@ -66,33 +79,33 @@ const editVenta = async (req, res) => {
 
     res.status(200).json({ message: 'Venta actualizada correctamente', venta });
   } catch (error) {
-    console.error('Error al editar la venta:', error);
-    res.status(500).json({ message: 'Error al editar la venta' });
+    console.error("Error al editar la venta:", error);
+    res.status(500).json({ message: "Error al editar la venta" });
   }
 };
 
 // Eliminar una venta
 const deleteVenta = async (req, res) => {
   const ventaId = req.params.id;
-  const usuarioId = req.user.id;
 
   try {
     const venta = await Venta.findByPk(ventaId);
-    if (!venta || venta.usuarioId !== usuarioId) {
+    if (!venta || venta.usuarioId !== req.user.id) {
       return res.status(403).json({ message: 'No tienes permiso para eliminar esta venta' });
     }
 
     await venta.destroy();
     res.status(200).json({ message: 'Venta eliminada correctamente' });
   } catch (error) {
-    console.error('Error al eliminar la venta:', error);
-    res.status(500).json({ message: 'Error al eliminar la venta' });
+    console.error("Error al eliminar la venta:", error);
+    res.status(500).json({ message: "Error al eliminar la venta" });
   }
 };
 
 module.exports = {
-  createVenta,
   getVentas,
+  getUserVentas,
+  createVenta,
   editVenta,
   deleteVenta
 };
