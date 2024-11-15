@@ -8,9 +8,9 @@ const getVentas = async (req, res) => {
     const ventas = await Venta.findAll({
       include: {
         model: User,
-        as: 'autorVenta',
-        attributes: ['nombre', 'departamento'],
-      },
+        as: 'autorVenta', // Usa el alias correcto para la relación Venta -> User
+        attributes: ['nombre', 'departamento']
+      }
     });
     res.status(200).json(ventas);
   } catch (error) {
@@ -18,6 +18,7 @@ const getVentas = async (req, res) => {
     res.status(500).json({ message: "Error al obtener las ventas" });
   }
 };
+
 
 // Obtener todas las ventas del usuario autenticado
 const getUserVentas = async (req, res) => {

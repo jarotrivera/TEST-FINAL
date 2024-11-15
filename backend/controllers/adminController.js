@@ -117,26 +117,28 @@ const getUsersWithPosts = async (req, res) => {
 };
 
 // Obtener todos los usuarios con sus ventas
+const User = require('../models/userModel');
+const Venta = require('../models/ventaModel');
+
+// Controlador para obtener usuarios con sus ventas
 const getUsersWithVentas = async (req, res) => {
   try {
-    const users = await User.findAll({
-      attributes: ['id', 'nombre', 'departamento'],
-      include: [
-        {
-          model: Venta,
-          as: 'ventasUsuario', // Alias correcto desde tu archivo associations.js
-          attributes: ['id', 'titulo', 'descripcion', 'precio', 'createdAt'],
-        },
-      ],
+    const usuarios = await User.findAll({
+      include: {
+        model: Venta,
+        as: 'userVentas', // Asegúrate de que este alias coincida con tu asociación
+        attributes: ['id', 'titulo', 'descripcion', 'precio', 'createdAt']
+      }
     });
-
-    // Asegúrate de devolver un array, incluso si está vacío
-    res.status(200).json(users || []);
+    res.status(200).json(usuarios);
   } catch (error) {
-    console.error('Error al obtener usuarios con ventas:', error);
-    res.status(500).json({ message: 'Error al obtener usuarios con ventas' });
+    console.error("Error al obtener usuarios con ventas:", error);
+    res.status(500).json({ message: "Error al obtener usuarios con ventas" });
   }
 };
+
+module.exports = { getUsersWithVentas };
+
 
 // Eliminar un comentario por su ID
 const deleteComment = async (req, res) => {
