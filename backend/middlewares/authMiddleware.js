@@ -2,36 +2,36 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
 const authenticateUser = async (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  if (!authHeader) {
-    return res.status(401).json({ message: 'No autorizado, falta token' });
+  const token = req.headers['authorization']?.split(' ')[1]; // Obtén el token del encabezado
+  if (!token) {
+    return res.status(401).json({ message: 'No se proporcionó un token' });
   }
 
-  const token = authHeader.split(' ')[1];
   try {
+    // Verifica el token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.id;
+    const user = await User.findByPk(decoded.id); // Busca el usuario en la base de datos
 
-    const user = await User.findByPk(req.userId);
     if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
+      return res.status(401).json({ message: 'Usuario no encontrado' });
     }
 
+    req.user = user; // Establece el usuario en `req.user`
     next();
   } catch (error) {
     console.error('Error de autenticación:', error);
-    res.status(401).json({ message: 'No autorizado, token inválido' });
+    return res.status(401).json({ message: 'Token no válido' });
   }
 };
 
-// Middleware para autenticar a un administrador
 const authenticateAdmin = async (req, res, next) => {
   await authenticateUser(req, res, async () => {
-    if (req.user.role !== 'admin') { // Verifica el rol del usuario
-      return res.status(403).json({ message: 'Acceso denegado: permisos de administrador requeridos' });
+    if (req.user?.role !== 'admin') { // Verifica que `req.user` exista antes de acceder a `role`
+      return res.status(403).json({ message: 'Acceso denegado. Solo administradores permitidos' });
     }
     next();
   });
 };
 
 module.exports = { authenticateUser, authenticateAdmin };
+
