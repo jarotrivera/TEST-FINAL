@@ -116,10 +116,6 @@ const getUsersWithPosts = async (req, res) => {
   }
 };
 
-// Obtener todos los usuarios con sus ventas
-const User = require('../models/userModel');
-const Venta = require('../models/ventaModel');
-
 // Controlador para obtener usuarios con sus ventas
 const getUsersWithVentas = async (req, res) => {
   try {
