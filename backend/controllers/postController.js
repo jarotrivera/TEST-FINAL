@@ -65,35 +65,28 @@ const getUserPosts = async (req, res) => {
   }
 };
 
-// Crear una publicación
 const createPost = async (req, res) => {
-  const { titulo, foto, descripcion } = req.body;
-  const usuarioId = req.userId;
-
   try {
-    let resizedImageBase64 = foto;
+    const { titulo, foto, descripcion, usuarioId } = req.body;
 
-    if (foto) {
-      const buffer = Buffer.from(foto.split(",")[1], 'base64'); 
-      const resizedImage = await sharp(buffer)
-        .resize({ width: 800 }) 
-        .jpeg({ quality: 80 }) 
-        .toBuffer();
-      resizedImageBase64 = `data:image/jpeg;base64,${resizedImage.toString('base64')}`;
+    if (!usuarioId) {
+      return res.status(400).json({ message: 'El usuarioId es requerido' });
     }
 
-    const newPost = await Post.create({
+    const post = await Post.create({
       titulo,
-      foto: resizedImageBase64,
+      foto,
       descripcion,
-      usuarioId,
+      usuarioId
     });
-    res.status(201).json({ message: 'Publicación creada exitosamente', newPost });
+
+    res.status(201).json(post);
   } catch (error) {
     console.error('Error al crear la publicación:', error);
     res.status(500).json({ message: 'Error al crear la publicación', error });
   }
 };
+
 
 // Editar una publicación
 const editPost = async (req, res) => {

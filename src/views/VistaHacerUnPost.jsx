@@ -12,40 +12,51 @@ const VistaHacerUnPost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Obtener el token del usuario
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Usuario no autenticado');
+      }
+  
+      // Decodificar el token para obtener el usuarioId
+      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+      const usuarioId = tokenPayload.id; // Obtén el usuarioId del token
+  
       const nuevoPost = {
         titulo,
         foto,
         descripcion,
+        usuarioId, // Agregar usuarioId a la solicitud
       };
-
+  
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(nuevoPost),
       });
-
+  
       if (!response.ok) {
         throw new Error('Error al crear la publicación');
       }
-
+  
       const data = await response.json();
       console.log('Publicación creada:', data);
-
+  
       // Limpiar los campos del formulario y mostrar el mensaje de éxito
       setTitulo('');
       setFoto('');
       setDescripcion('');
-      setMensajeExito('Publicación creada con éxito'); // Mensaje de confirmación
-
-      // Ocultar el mensaje después de 3 segundos
+      setMensajeExito('Publicación creada con éxito');
+  
       setTimeout(() => setMensajeExito(''), 3000);
     } catch (error) {
       console.error('Error:', error);
     }
   };
+  
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
