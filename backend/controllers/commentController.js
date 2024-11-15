@@ -36,7 +36,7 @@ exports.addComment = async (req, res) => {
     console.error('Error al agregar comentario:', error);
     res.status(500).json({ error: 'Error al agregar comentario' });
   }
-};s
+};
 
 // Eliminar un comentario por ID
 exports.deleteComment = async (req, res) => {
