@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow-y: hidden;
+  overflow-y: hidden; /* Oculta el scroll inicial */
 }
 
 .layout-container {
@@ -17,12 +17,16 @@
   box-sizing: border-box;
   overflow-y: auto;
   height: calc(100% - 80px);
+  scrollbar-width: thin; /* Scroll más delgado */
+  scrollbar-color: transparent transparent; /* Scroll transparente */
 }
 
 .right-panel-container {
   width: 300px;
   min-width: 300px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
 }
 
 /* Estilos para las áreas comunes */
@@ -60,8 +64,30 @@
 /* Ajuste de las imágenes en formato rectangular */
 .area-image {
   width: 100%;
-  max-width: 400px; /* Puedes ajustar este valor para que las imágenes sean más anchas */
-  max-height: 180px; /* Controla la altura máxima de las imágenes */
+  max-width: 400px;
+  max-height: 180px;
   border-radius: 8px;
   object-fit: cover;
+}
+
+/* Personalizar el scroll para que sea transparente en Webkit (Chrome, Safari) */
+.main-content::-webkit-scrollbar,
+.right-panel-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.main-content::-webkit-scrollbar-thumb,
+.right-panel-container::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Scroll transparente */
+  border-radius: 3px;
+}
+
+.main-content:hover::-webkit-scrollbar-thumb,
+.right-panel-container:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Scroll visible solo al hacer hover */
+}
+
+.main-content::-webkit-scrollbar-track,
+.right-panel-container::-webkit-scrollbar-track {
+  background: transparent;
 }

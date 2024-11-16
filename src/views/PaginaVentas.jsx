@@ -119,22 +119,27 @@ const PaginaVentas = () => {
                         <Typography variant="subtitle1">
                           {venta.autorVenta?.nombre} / Departamento: {venta.autorVenta?.departamento}
                         </Typography>
-                        <IconButton
-                          aria-label="more"
-                          aria-controls="long-menu"
-                          aria-haspopup="true"
-                          onClick={(e) => handleMenuOpen(e, venta)}
-                        >
+                        <IconButton aria-label="more">
                           <MoreVertIcon />
                         </IconButton>
                       </Box>
-                      <Typography variant="h6" className="venta-titulo">
+
+                      {/* Título de la venta */}
+                      <Typography className="venta-titulo">
                         {venta.titulo}
                       </Typography>
+
+                      {/* Descripción de la venta */}
                       <Typography className="venta-descripcion">
                         {venta.descripcion}
                       </Typography>
-                      <Typography className="venta-precio">Precio: ${venta.precio}</Typography>
+
+                      {/* Precio de la venta */}
+                      <Typography className="venta-precio">
+                        Precio: ${venta.precio}
+                      </Typography>
+
+                      {/* Imagen de la venta (si existe) */}
                       {venta.foto && (
                         <div className="venta-imagen">
                           <img src={venta.foto} alt="Producto" />
@@ -144,6 +149,7 @@ const PaginaVentas = () => {
                         </div>
                       )}
                     </CardContent>
+
                     <Menu
                       anchorEl={anchorEl}
                       open={Boolean(anchorEl)}

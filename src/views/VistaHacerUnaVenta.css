@@ -6,6 +6,7 @@
 .content2 {
   display: flex;
   flex: 1;
+  overflow: hidden; /* Evita el scroll en la página completa */
 }
 
 .main-panel {
@@ -13,22 +14,17 @@
   padding: 30px;
   background-color: #f9f9f9;
   margin: 40px auto 0 auto;
+  overflow-y: auto; /* Habilitar el scroll en esta sección */
+  max-height: calc(100vh - 80px); /* Asegura que ocupe la altura de la ventana menos un margen */
 }
 
-.ask-panel {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Bloque contenedor para centrar el formulario */
 .formulario-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Alinear el formulario al principio para que pueda scrollear */
   width: 100%;
-  max-width: 1200px; /* Incrementa el ancho máximo del bloque contenedor */
-  margin: 5px; /* Margen superior para separar del borde */
-  margin-right: 200px;
+  max-width: 1200px;
+  margin: 5px auto;
 }
 
 .formulario-container {
@@ -36,15 +32,16 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 100%; /* Asegúrate de que ocupe el 100% del contenedor */
-  max-width: 1200px; /* Incrementa el ancho máximo del formulario */
+  width: 100%;
+  max-width: 800px; /* Ajusta el ancho máximo del formulario */
   margin: 0 auto;
+  overflow-y: auto;
 }
 
 .formulario-venta {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .formulario-venta div {
@@ -81,60 +78,24 @@
   background-color: #0a5ac6;
 }
 
-.previsualizacion-foto {
+.photo-preview {
   margin-top: 10px;
 }
 
-.previsualizacion-foto img {
+.photo-preview img {
   max-width: 100%;
   border-radius: 8px;
-  max-height: 200px; /* Ajusta según el tamaño deseado */
+  max-height: 200px;
 }
 
-.ventas-lista {
-  margin-top: 20px;
-}
-
-.venta-item {
-  display: flex;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: #fff;
-}
-
-.venta-item-foto {
-  flex: 1;
-  margin-right: 20px;
-}
-
-.venta-item-foto img {
-  max-width: 100%;
-  border-radius: 8px;
-}
-
-.venta-item-info {
-  flex: 2;
-}
-
-.venta-item-info h2 {
-  font-size: 1.5em;
-  margin: 0;
-}
-
-.venta-item-info p {
-  font-size: 1em;
-  margin: 10px 0;
-}
-
-.venta-item-info .precio {
-  font-size: 1.2em;
-  color: #1682FD;
+.mensaje-exito {
+  color: green;
+  margin-top: 15px;
+  text-align: center;
 }
 
 html, body {
-  overflow: hidden; /* Desactiva el scroll en la página */
-  height: 100%; /* Asegura que el body ocupe el 100% de la altura */
-  margin: 0; /* Elimina los márgenes por defecto */
+  height: 100%;
+  margin: 0;
+  overflow: auto; /* Permitir el scroll en la página */
 }

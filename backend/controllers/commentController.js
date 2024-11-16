@@ -22,14 +22,21 @@ exports.getComments = async (req, res) => {
 
 // Agregar un comentario
 exports.addComment = async (req, res) => {
+  const { postId, content } = req.body;
+  const userId = req.user?.id;
+
+  // Validar si el usuario está autenticado
+  if (!userId) {
+    return res.status(401).json({ message: 'Usuario no autenticado' });
+  }
+
+  // Validar que postId y content no sean nulos
+  if (!postId || !content.trim()) {
+    return res.status(400).json({ message: 'Faltan datos para agregar el comentario' });
+  }
+
   try {
-    const { postId, content } = req.body;
-    const userId = req.user?.id;
-
-    if (!userId) {
-      return res.status(401).json({ message: 'User not authenticated' });
-    }
-
+    // Crear el nuevo comentario
     const newComment = await Comment.create({ content, userId, postId });
     res.status(201).json(newComment);
   } catch (error) {
@@ -37,6 +44,8 @@ exports.addComment = async (req, res) => {
     res.status(500).json({ error: 'Error al agregar comentario' });
   }
 };
+console.log('Datos recibidos:', req.body);
+
 
 // Eliminar un comentario por ID
 exports.deleteComment = async (req, res) => {

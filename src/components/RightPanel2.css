@@ -15,6 +15,14 @@
   border: 1px solid #d3d3d3;
   overflow-y: auto;
   max-height: calc(100vh - 20px);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Ocultar el panel en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .right-panel5 {
+    display: none;
+  }
 }
 
 .panel-section2,
@@ -104,11 +112,4 @@
   display: flex;
   flex-direction: row;
   gap: 7px;
-}
-
-@media screen and (max-width: 450px) {
-  .h23 {
-    font-size: 18px;
-    line-height: 19px;
-  }
 }

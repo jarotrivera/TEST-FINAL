@@ -2,20 +2,27 @@ import PropTypes from "prop-types";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import "./RightPanel2.css";
-import { useNavigate } from "react-router-dom"; // Importar el hook useNavigate
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const RightPanel2 = ({ className = "" }) => {
-  const navigate = useNavigate(); // Usar el hook useNavigate para navegación
+  const navigate = useNavigate();
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  const goToGastosComunes = () => {
-    // Navegar a la ruta de gastos comunes
-    navigate("/gastoscomunes");
-  };
+  // Verificar el tamaño de la pantalla y actualizar el estado
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
 
-  const goToAreasComunes = () => {
-    // Navegar a la ruta de áreas comunes
-    navigate("/areas-comunes");
-  };
+    handleResize(); // Verificar al cargar la página
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Si la pantalla es pequeña, no renderizar el panel
+  if (isSmallScreen) return null;
 
   return (
     <div className={`right-panel5 ${className}`}>
@@ -30,10 +37,10 @@ const RightPanel2 = ({ className = "" }) => {
         </div>
       </div>
       <div className="buttons-wrapper">
-        <Button className="botonfinanzas" variant="secondary" onClick={goToGastosComunes}>
+        <Button className="botonfinanzas" variant="secondary" onClick={() => navigate("/gastoscomunes")}>
           Finanzas Comunidad
         </Button>
-        <Button className="botonAreasComunes" variant="secondary" onClick={goToAreasComunes}>
+        <Button className="botonAreasComunes" variant="secondary" onClick={() => navigate("/areas-comunes")}>
           Áreas Comunes
         </Button>
       </div>
@@ -64,9 +71,7 @@ const RightPanel2 = ({ className = "" }) => {
           </div>
           <div className="link1">
             <h2 className="h23">{`• `}</h2>
-            <div className="httpswwwcomunidadfelizcl2">
-              Conserjería +569 6721 0892
-            </div>
+            <div className="httpswwwcomunidadfelizcl2">Conserjería +569 6721 0892</div>
           </div>
         </div>
       </div>

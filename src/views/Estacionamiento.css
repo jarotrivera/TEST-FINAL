@@ -1,42 +1,37 @@
-.estacionamiento-container {
+.pagina-inicial {
   display: flex;
-  justify-content: flex-start; /* Cambiado de 'center' a 'flex-start' */
-  align-items: center;
-  gap: 20px; /* Ajusta la separación horizontal entre los bloques */
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content4 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
   padding: 20px;
-  margin-left: 200px; /* Desplaza los bloques hacia la derecha */
-}
-
-.espacio {
-  width: 300px; /* Ajusta el ancho */
-  height: 400px; /* Ajusta la altura */
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 28px; /* Tamaño de letra grande */
-  font-weight: bold;
-  border-radius: 15px;
-  color: white;
-  transition: background-color 0.3s ease;
-  margin: 10px; /* Ajusta la separación general */
+  align-items: center;
+  flex-direction: column;
 }
 
-.espacio.ocupado {
-  background-color: red;
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.espacio.libre {
-  background-color: green;
-}
-
-/* Ajustar la sección de estado */
+/* Indicadores de estado */
 .estado-container {
   display: flex;
-  justify-content: flex-start; /* Alinea a la izquierda */
+  justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin-left: 200px; /* Alinea con los bloques de estacionamiento */
-  margin-top: 20px; /* Añadir espacio por encima de los indicadores */
+  gap: 20px;
+  margin-bottom: 30px;
 }
 
 .estado {
@@ -52,3 +47,38 @@
 .estado.libre {
   background-color: green;
 }
+
+/* Contenedor de los autos */
+.estacionamiento-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px; /* Separación entre los autos */
+}
+
+.espacio {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.espacio:hover {
+  transform: scale(1.1);
+}
+
+.icono-carro {
+  font-size: 5rem; /* Tamaño del icono de auto */
+}
+
+.icono-carro.libre {
+  color: green;
+}
+
+.icono-carro.ocupado {
+  color: red;
+}
+

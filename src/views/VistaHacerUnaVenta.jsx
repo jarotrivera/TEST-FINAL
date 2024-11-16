@@ -8,7 +8,7 @@ const VistaHacerUnaVenta = () => {
   const [descripcion, setDescripcion] = useState('');
   const [precio, setPrecio] = useState('');
   const [foto, setFoto] = useState(null);
-  const [mensajeExito, setMensajeExito] = useState(''); // Estado para el mensaje de éxito
+  const [mensajeExito, setMensajeExito] = useState('');
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -63,7 +63,7 @@ const VistaHacerUnaVenta = () => {
       console.error('Error al crear la venta:', error);
     }
   };
-  
+
   return (
     <div className="vista-hacer-una-venta">
       <Sidebar />
@@ -109,7 +109,6 @@ const VistaHacerUnaVenta = () => {
                 </div>
                 <button type="submit">Publicar Venta</button>
               </form>
-              {/* Mostrar mensaje de éxito */}
               {mensajeExito && <p className="mensaje-exito">{mensajeExito}</p>}
             </div>
           </div>
@@ -121,4 +120,3 @@ const VistaHacerUnaVenta = () => {
 };
 
 export default VistaHacerUnaVenta;
-

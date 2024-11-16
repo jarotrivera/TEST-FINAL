@@ -27,25 +27,23 @@
   padding-right: 15px;
   width: 100%;
   margin: 0 auto;
-  margin-left: 13px; /* Ajusta este valor para mover el scroll horizontalmente */
-  margin-top: 20px; /* Ajusta este valor para mover el scroll verticalmente */
+  margin-left: 13px;
+  margin-top: 20px;
 }
 
 .cards-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 120%;
-  margin: 0 auto;
-  margin-left: -200px;
+  width: 100%;
 }
 
 .venta-card {
-  margin: 20px 0;
+  margin: 30px 0;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 16px;
+  padding: 24px;
   width: 90%;
   max-width: 1000px;
   transition: box-shadow 0.3s ease;
@@ -56,8 +54,21 @@
 }
 
 .venta-titulo {
+  font-size: 1.8em; /* Aumentado un 20% */
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.venta-descripcion {
+  font-size: 1.1em;
+  margin-bottom: 20px; /* Espaciado entre la descripción y el precio */
+}
+
+.venta-precio {
   font-size: 1.2em;
-  margin-top: 10px;
+  font-weight: bold;
+  color: #1682FD;
+  margin-bottom: 30px; /* Espaciado adicional */
 }
 
 .venta-imagen img {
@@ -65,16 +76,7 @@
   max-height: 300px;
   object-fit: cover;
   border-radius: 8px;
-  margin-top: 10px;
-}
-
-.venta-descripcion {
-  margin-top: 10px;
-}
-
-.venta-precio {
-  font-weight: bold;
-  margin-top: 5px;
+  margin-top: 20px;
 }
 
 .no-ventas-message {
@@ -88,17 +90,11 @@
   padding: 20px;
   height: calc(100vh - 150px);
 }
-/* Oculta el scroll en navegadores como Chrome, Edge y Safari */
+
 .scroll-container::-webkit-scrollbar {
   display: none;
 }
 
-/* Oculta el scroll en Firefox */
 .scroll-container {
-  scrollbar-width: none; /* Firefox */
-}
-
-/* Mantiene la funcionalidad del scroll oculta */
-.scroll-container {
-  overflow-y: scroll; /* Mantiene el scroll pero lo oculta */
+  scrollbar-width: none;
 }

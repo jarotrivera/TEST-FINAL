@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "../components/Menu";
 import RightPanel2 from "../components/RightPanel2";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCar } from '@fortawesome/free-solid-svg-icons';
 import "./Estacionamiento.css";
 
 const Estacionamiento = () => {
@@ -38,23 +40,24 @@ const Estacionamiento = () => {
         <Sidebar />
         <section className="main-content">
           <div className="posts-container">
-            <div className="estacionamiento-container">
-              {espacios.map(espacio => (
-                <div
-                  key={espacio.id}
-                  className={`espacio ${espacio.ocupado ? 'ocupado' : 'libre'}`}
-                >
-                  Espacio {espacio.id}
-                </div>
-              ))}
-            </div>
 
-            {/* Indicadores de estado debajo de los bloques */}
-            <div className="estado-container">
-              <div className="estado ocupado"></div>
-              <span>Estacionamiento Ocupado</span>
+            {/* Indicadores de estado arriba centrados */}
+            <div className="estado-container centrado">
               <div className="estado libre"></div>
               <span>Estacionamiento Disponible</span>
+              <div className="estado ocupado"></div>
+              <span>Estacionamiento Ocupado</span>
+            </div>
+
+            <div className="estacionamiento-container">
+              {espacios.map(espacio => (
+                <div key={espacio.id} className="espacio">
+                  <FontAwesomeIcon
+                    icon={faCar}
+                    className={`icono-carro ${espacio.ocupado ? 'ocupado' : 'libre'}`}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </section>

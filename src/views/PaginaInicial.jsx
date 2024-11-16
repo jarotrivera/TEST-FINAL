@@ -233,28 +233,45 @@ const handleCloseComments = () => {
 
 // Agregar un nuevo comentario
 const handleAddComment = async () => {
-  if (!newComment.trim()) return; // No permitir comentarios vacíos
+  if (!newComment.trim()) {
+    alert('El comentario no puede estar vacío');
+    return;
+  }
+
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('No hay token disponible');
+    return;
+  }
 
   try {
-    const response = await fetch(`https://forogeocentro-production.up.railway.app/api/comments`, {
+    const response = await fetch('https://forogeocentro-production.up.railway.app/api/comments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ postId: selectedPostId, content: newComment })
     });
 
-    if (response.ok) {
-      setNewComment('');
-      await fetchComments(selectedPostId);
-    } else {
-      console.error('Error al agregar el comentario');
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error al agregar el comentario:', errorData.message);
+      alert(errorData.message);
+      return;
     }
+
+    const data = await response.json();
+    console.log('Comentario agregado:', data);
+    setNewComment('');
+    await fetchComments(selectedPostId);
   } catch (error) {
     console.error('Error al agregar el comentario:', error);
+    alert('Error al agregar el comentario');
   }
 };
+console.log('postId:', selectedPostId, 'content:', newComment);
+
 
 // Eliminar un comentario
 const handleDeleteComment = async (commentId) => {
