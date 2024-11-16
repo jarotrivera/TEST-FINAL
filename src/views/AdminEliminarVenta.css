@@ -1,0 +1,31 @@
+.admin-eliminar-venta-container {
+  display: flex;
+  height: 100vh;
+}
+
+.admin-eliminar-venta-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.admin-eliminar-venta-table {
+  width: 80%; /* Reduce el ancho total de la tabla */
+  max-width: 1500px; /* Limita el ancho máximo para hacerla más pequeña */
+  margin-top: 20px;
+  margin-left: auto; /* Centrar la tabla horizontalmente */
+  margin-right: auto; /* Centrar la tabla horizontalmente */
+  font-size: 1.2rem; /* Reduce el tamaño del texto para hacerla más compacta */
+}
+
+.admin-eliminar-venta-table th, .admin-eliminar-venta-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.admin-venta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}

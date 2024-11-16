@@ -1,0 +1,143 @@
+.vista-hacer-un-post {
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.main-panel {
+  flex: 1;
+  padding: 20px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+/* Bloque contenedor para centrar el formulario */
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 10px auto;
+}
+
+/* Estilo para el contenedor del formulario */
+.form-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 68%; /* Ocupa el 95% del ancho disponible */
+  max-width: 100%; /* Sin límite de tamaño */
+  box-sizing: border-box;
+  margin: 0 auto;
+  margin-right: 380px;
+}
+
+/* Estilo para los campos de entrada y el formulario */
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.post-form input,
+.post-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.post-form .form-group {
+  margin-bottom: 15px;
+}
+
+.post-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.post-form input[type="file"] {
+  margin-top: 5px;
+}
+
+.post-form button {
+  padding: 10px;
+  background-color: #1682FD;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.post-form button:hover {
+  background-color: #0a5ac6;
+}
+
+.photo-preview {
+  margin-top: 10px;
+}
+
+.photo-preview img {
+  max-width: 100%;
+  border-radius: 8px;
+  max-height: 200px;
+}
+
+.posts-list {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.post-item {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.post-item-photo {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.post-item-photo img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.post-item-info {
+  flex: 2;
+}
+
+.post-item-info h2 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.post-item-info p {
+  font-size: 1em;
+  margin: 10px 0;
+}
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+}

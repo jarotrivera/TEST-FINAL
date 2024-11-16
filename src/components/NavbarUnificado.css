@@ -1,0 +1,106 @@
+.navbar-unificado {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #ffffff; /* Color de fondo del Navbar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 1rem;
+  box-sizing: border-box; /* Asegura que el padding no afecte al tamaño total */
+}
+
+/* Contenedor del Navbar (logo, comunidad, y título) */
+.nav-bar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem; 
+  width: 100%;
+}
+
+/* Contenedor del logo y el título de la comunidad */
+.logo2 {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo-icon-11 {
+  width: 50px;
+  height: auto;
+  margin-right: 15px; 
+  margin-left: 30px;
+}
+
+.comunidad-geocentro6 {
+  font-size: 1.3rem;
+  color: #000000; 
+  text-decoration: none; 
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700; 
+  margin-top: 10px;
+}
+
+/* Contenedor título */
+.page-title-container {
+  flex-grow: 1; 
+  text-align: center; 
+  margin-left: 200px;
+}
+
+/* Estilos del título */
+.title15 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000000; 
+  margin: 0; 
+  margin-right: 500px;
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none; /* Elimina el subrayado */
+}
+
+/* Contenedor botones */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-left: auto; 
+  margin-top: -55px;
+  flex-shrink: 0; 
+}
+.icon {
+  width: 20px; /* Ajusta el tamaño del ícono */
+  height: 20px; /* Ajusta el tamaño del ícono */;
+  margin-bottom: 3px;
+  margin-right: 10px;
+}
+
+.botonpregunta,
+.botonventa {
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white; 
+  width: 200px;
+  height: 50px;
+}
+
+.botonregistro,
+.botonlogin {
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white; 
+  width: 150px;
+  height: 50px;
+}
+
+.botonpregunta:hover,
+.botonventa:hover,
+.botonregistro:hover,
+.botonlogin:hover {
+  background-color: #0056b3; /* Color de fondo al pasar el mouse */
+}

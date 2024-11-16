@@ -1,0 +1,40 @@
+.sidebar {
+  width: 80px; /* Ancho cuando está cerrado */
+  position: fixed; /* Fijo en su lugar para que se superponga sobre el contenido */
+  top: 60px; /* Mantén la posición fija en la parte superior de la ventana */
+  left: 0;
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  z-index: 2000; /* Asegura que esté por encima de todo el contenido */
+  transition: width 0.3s ease, box-shadow 0.3s ease; /* Transición suave para el cambio de tamaño y la sombra */
+  background-color: #ffffff; /* Color de fondo del sidebar */
+  margin-top: 60px; /* Ajusta este valor según la altura del navbar */
+}
+
+/* Sombra cuando el sidebar está cerrado */
+.sidebar:not(.open) {
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2); /* Sombra solo cuando está cerrado */
+}
+
+.sidebar.open {
+  width: 300px; /* Ancho cuando está abierto */
+  box-shadow: none; /* Elimina la sombra cuando está abierto */
+}
+
+.sidebar-content {
+  padding: 16px;
+}
+
+.menu-toggle-btn {
+  margin: 10px;
+  color: #fff;
+}
+
+.title16,
+.title17 {
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.hidden {
+  display: none;
+}

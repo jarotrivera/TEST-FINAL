@@ -1,0 +1,31 @@
+.admin-eliminar-post-container {
+  display: flex;
+  height: 100vh;
+}
+
+.admin-eliminar-post-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.admin-eliminar-post-table {
+  width: 80%; /* Reduce el ancho total de la tabla */
+  max-width: 1500px; /* Limita el ancho máximo para hacerla más pequeña */
+  margin-top: 20px;
+  margin-left: auto; /* Centrar la tabla horizontalmente */
+  margin-right: auto; /* Centrar la tabla horizontalmente */
+  font-size: 1.2rem; /* Reduce el tamaño del texto para hacerla más compacta */
+}
+
+.admin-eliminar-post-table th, .admin-eliminar-post-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.admin-post-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}

@@ -1,0 +1,62 @@
+/* Contenedor principal de la página */
+.pagina-inicial {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content4 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Contenedor principal para las publicaciones */
+.pagina-inicial-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 80%; /* Ajuste para ocupar más espacio */
+  margin: 0 auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 60px);
+  padding: 20px;
+}
+
+/* Tarjeta de publicación */
+.pagina-inicial-card {
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 200%; 
+  max-width: 1100px; /* Aumenta el ancho máximo */
+  transition: box-shadow 0.3s ease;
+  margin-right: 1000px;
+}
+
+.pagina-inicial-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pagina-inicial-title{
+  text-align: left;
+}
+
+/* Ajustes para el Sidebar */
+.sidebar-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.sidebar-sticky::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}

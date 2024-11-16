@@ -1,0 +1,88 @@
+/* Contenedor principal */
+.pagina-inicial {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: flex-start; /* Alinea el contenido al inicio */
+  align-items: center;
+}
+
+.content4 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Indicadores de estado, fijados en la parte superior */
+.estado-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: fixed; /* Fijar en la parte superior */
+  top: 150px; /* Ajusta el valor para controlar la distancia desde el borde superior */
+  z-index: 10; /* Asegura que esté por encima de otros elementos */
+  background-color: #fff; /* Fondo blanco para que resalte */
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.estado {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.estado.ocupado {
+  background-color: red;
+}
+
+.estado.libre {
+  background-color: green;
+}
+
+.estacionamiento-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 150px; /* Añadir margen superior para separarlo de los indicadores */
+  padding-right: 100px;
+}
+
+.espacio {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  transition: transform 0.3s ease;
+}
+
+.espacio:hover {
+  transform: scale(1.2);
+}
+
+.icono-carro {
+  font-size: 9rem;
+}
+
+.icono-carro.libre {
+  color: green;
+}
+
+.icono-carro.ocupado {
+  color: red;
+}

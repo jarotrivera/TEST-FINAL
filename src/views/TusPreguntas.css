@@ -1,0 +1,91 @@
+.tus-preguntas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  max-width: 80%; /* Reduce el ancho total para permitir más espacio a la derecha */
+  margin: 0 auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 100px);
+  margin-left: 152px; /* Ajusta para mover el bloque hacia la derecha */
+}
+
+.tus-preguntas-scroll {
+  overflow-y: auto;
+  max-height: calc(100vh - 150px); /* Ajusta el alto según sea necesario */
+  margin-right: 90px;
+}
+
+
+/* Estilos de la tarjeta específica para TusPreguntas */
+.tus-preguntas-card {
+  margin: 20px 0; /* Espacio vertical entre las tarjetas */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 90%; /* Ajusta este porcentaje para hacer la tarjeta más ancha */
+  max-width: 1200px; /* Amplía la tarjeta en píxeles específicos */
+  margin-right: 962px; /* Mueve las tarjetas ligeramente hacia la izquierda */
+  transition: box-shadow 0.3s ease;
+}
+
+.tus-preguntas-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Encabezado de la tarjeta */
+.tus-preguntas-header {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espacio entre avatar y usuario */
+}
+
+/* Contenedor del avatar */
+.tus-preguntas-avatar-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Información del usuario: nombre y fecha */
+.tus-preguntas-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea nombre y fecha a la izquierda */
+  margin-left: 10px;
+}
+
+.tus-preguntas-title {
+  font-size: 1.2em;
+  margin: 0;
+  text-align: left;
+}
+
+.tus-preguntas-date {
+  color: rgb(97, 96, 96);
+  font-size: 0.9em;
+  margin-top: 2px; /* Asegura un espacio entre el nombre y la fecha */
+}
+
+.tus-preguntas-content {
+  margin-top: 10px;
+}
+
+.tus-preguntas-image img {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+.no-preguntas-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 200px); /* Ajusta según la altura que necesites */
+  font-size: 1.5em;
+  color: #777;
+  text-align: center;
+  padding: 20px;
+  margin-left: 500px;
+}

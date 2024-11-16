@@ -1,0 +1,93 @@
+.areas-comunes {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: hidden; /* Oculta el scroll inicial */
+}
+
+.layout-container {
+  display: flex;
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: calc(100% - 80px);
+  scrollbar-width: thin; /* Scroll más delgado */
+  scrollbar-color: transparent transparent; /* Scroll transparente */
+}
+
+.right-panel-container {
+  width: 300px;
+  min-width: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* Estilos para las áreas comunes */
+.amenities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+}
+
+.amenity {
+  text-align: center;
+  width: 100%;
+}
+
+/* Estilos de los títulos */
+.title5 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+/* Contenedor de las imágenes, ahora ocupa el ancho completo */
+.image-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Ajuste de las imágenes en formato rectangular */
+.area-image {
+  width: 100%;
+  max-width: 400px;
+  max-height: 180px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Personalizar el scroll para que sea transparente en Webkit (Chrome, Safari) */
+.main-content::-webkit-scrollbar,
+.right-panel-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.main-content::-webkit-scrollbar-thumb,
+.right-panel-container::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Scroll transparente */
+  border-radius: 3px;
+}
+
+.main-content:hover::-webkit-scrollbar-thumb,
+.right-panel-container:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Scroll visible solo al hacer hover */
+}
+
+.main-content::-webkit-scrollbar-track,
+.right-panel-container::-webkit-scrollbar-track {
+  background: transparent;
+}
