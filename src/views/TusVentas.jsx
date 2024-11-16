@@ -75,7 +75,6 @@ const TusVentas = () => {
                   <Card key={venta.id} className="venta-card" variant="outlined">
                     <CardContent>
                       <Box display="flex" alignItems="center" justifyContent="space-between">
-                        {/* Mostrar nombre del usuario y departamento */}
                         <Typography variant="subtitle1">
                           {venta.autorVenta?.nombre} / Departamento: {venta.autorVenta?.departamento}
                         </Typography>
@@ -83,13 +82,23 @@ const TusVentas = () => {
                           <MoreVertIcon />
                         </IconButton>
                       </Box>
-                      <Typography variant="h6" className="venta-titulo">
+
+                      {/* Título de la venta */}
+                      <Typography className="venta-titulo">
                         {venta.titulo}
                       </Typography>
+
+                      {/* Descripción de la venta */}
                       <Typography className="venta-descripcion">
                         {venta.descripcion}
                       </Typography>
-                      <Typography className="venta-precio">Precio: ${venta.precio}</Typography>
+
+                      {/* Precio de la venta */}
+                      <Typography className="venta-precio">
+                        Precio: ${venta.precio}
+                      </Typography>
+
+                      {/* Imagen de la venta (si existe) */}
                       {venta.foto && (
                         <div className="venta-imagen">
                           <img src={venta.foto} alt="Producto" />
@@ -100,6 +109,7 @@ const TusVentas = () => {
                       )}
                     </CardContent>
                   </Card>
+
                 ))
               ) : (
                 <p className="no-ventas-message">No tienes ventas publicadas.</p>

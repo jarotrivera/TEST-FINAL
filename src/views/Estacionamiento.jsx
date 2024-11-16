@@ -39,26 +39,23 @@ const Estacionamiento = () => {
       <div className="content4">
         <Sidebar />
         <section className="main-content">
-          <div className="posts-container">
+          {/* Indicadores de estado arriba centrados */}
+          <div className="estado-container">
+            <div className="estado libre"></div>
+            <span>Estacionamiento Disponible</span>
+            <div className="estado ocupado"></div>
+            <span>Estacionamiento Ocupado</span>
+          </div>
 
-            {/* Indicadores de estado arriba centrados */}
-            <div className="estado-container centrado">
-              <div className="estado libre"></div>
-              <span>Estacionamiento Disponible</span>
-              <div className="estado ocupado"></div>
-              <span>Estacionamiento Ocupado</span>
-            </div>
-
-            <div className="estacionamiento-container">
-              {espacios.map(espacio => (
-                <div key={espacio.id} className="espacio">
-                  <FontAwesomeIcon
-                    icon={faCar}
-                    className={`icono-carro ${espacio.ocupado ? 'ocupado' : 'libre'}`}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className="estacionamiento-container">
+            {espacios.map(espacio => (
+              <div key={espacio.id} className="espacio">
+                <FontAwesomeIcon
+                  icon={faCar}
+                  className={`icono-carro ${espacio.ocupado ? 'ocupado' : 'libre'}`}
+                />
+              </div>
+            ))}
           </div>
         </section>
         <RightPanel2 />

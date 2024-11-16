@@ -233,18 +233,16 @@ const handleCloseComments = () => {
 
 // Agregar un nuevo comentario
 const handleAddComment = async () => {
-  if (!newComment.trim()) {
-    alert('El comentario no puede estar vacío');
-    return;
-  }
-
-  const token = localStorage.getItem('token');
-  if (!token) {
-    console.error('No hay token disponible');
-    return;
-  }
+  if (!newComment.trim()) return;
 
   try {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      console.error('No hay token disponible');
+      return;
+    }
+
     const response = await fetch('https://forogeocentro-production.up.railway.app/api/comments', {
       method: 'POST',
       headers: {
@@ -254,23 +252,16 @@ const handleAddComment = async () => {
       body: JSON.stringify({ postId: selectedPostId, content: newComment })
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Error al agregar el comentario:', errorData.message);
-      alert(errorData.message);
-      return;
+    if (response.ok) {
+      setNewComment('');
+      await fetchComments(selectedPostId);
+    } else {
+      console.error('Error al agregar el comentario:', await response.text());
     }
-
-    const data = await response.json();
-    console.log('Comentario agregado:', data);
-    setNewComment('');
-    await fetchComments(selectedPostId);
   } catch (error) {
     console.error('Error al agregar el comentario:', error);
-    alert('Error al agregar el comentario');
   }
 };
-console.log('postId:', selectedPostId, 'content:', newComment);
 
 
 // Eliminar un comentario
@@ -321,7 +312,9 @@ const handleMouseDown = (e) => {
 return (
   <div className="pagina-inicial">
     <div className="content4">
+    <div className="sidebar-sticky">
       <Sidebar />
+      </div>
       <section className="main-content" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
         <div className="pagina-inicial-container">
           <div className="pagina-inicial-scroll">
@@ -430,7 +423,7 @@ return (
             </div>
           </div>
         </div>
-        <RightPanel2 style={{ width: '250px' }} />
+        <RightPanel2 className="right-panel-container" />
       </section>
     </div>
       {/* Modal para ver la imagen completa */}

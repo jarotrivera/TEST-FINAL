@@ -23,19 +23,12 @@ const VistaHacerUnaVenta = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-  
       if (!token) {
         console.error('No hay token disponible');
         return;
       }
-  
-      const nuevaVenta = {
-        titulo,
-        descripcion,
-        precio,
-        foto,
-      };
-  
+
+      const nuevaVenta = { titulo, descripcion, precio, foto };
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/ventas', {
         method: 'POST',
         headers: {
@@ -44,16 +37,12 @@ const VistaHacerUnaVenta = () => {
         },
         body: JSON.stringify(nuevaVenta),
       });
-  
+
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || 'Error al crear la venta');
       }
-  
-      const data = await response.json();
-      console.log('Venta creada:', data);
-  
-      // Limpiar el formulario y mostrar mensaje de éxito
+
       setTitulo('');
       setDescripcion('');
       setPrecio('');
@@ -66,7 +55,11 @@ const VistaHacerUnaVenta = () => {
 
   return (
     <div className="vista-hacer-una-venta">
-      <Sidebar />
+      {/* Sidebar sticky */}
+      <div className="sidebar-sticky">
+        <Sidebar />
+      </div>
+      
       <div className="content2">
         <section className="main-panel">
           <div className="formulario-wrapper">
@@ -113,7 +106,7 @@ const VistaHacerUnaVenta = () => {
             </div>
           </div>
         </section>
-        <RightPanel2 />
+        <RightPanel2 className="right-panel-container" />
       </div>
     </div>
   );
