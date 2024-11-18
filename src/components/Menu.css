@@ -8,16 +8,18 @@
   transition: width 0.3s ease, box-shadow 0.3s ease; /* Transición suave para el cambio de tamaño y la sombra */
   background-color: #ffffff; /* Color de fondo del sidebar */
   margin-top: 60px; /* Ajusta este valor según la altura del navbar */
+  border-radius: 0 15px 15px 0; /* Redondea los bordes derecho superior e inferior */
 }
 
 /* Sombra cuando el sidebar está cerrado */
 .sidebar:not(.open) {
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2); /* Sombra solo cuando está cerrado */
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2); /* Sombra más sutil cuando está cerrado */
 }
 
 .sidebar.open {
   width: 300px; /* Ancho cuando está abierto */
-  box-shadow: none; /* Elimina la sombra cuando está abierto */
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada cuando está abierto */
+  border-radius: 0 15px 15px 0; /* Asegura que los bordes sigan redondeados cuando esté abierto */
 }
 
 .sidebar-content {
@@ -38,3 +40,25 @@
 .hidden {
   display: none;
 }
+/* Asegurar que el sidebar esté encima del contenido cuando esté abierto */
+.sidebar.open {
+  z-index: 3000; /* Incrementar z-index para que se superponga sobre otros elementos */
+}
+
+/* Asegurar que el botón de menú esté encima del contenido */
+.menu-toggle-btn {
+  z-index: 3500; /* El botón siempre debe estar por encima del sidebar */
+  position: fixed; /* Fijo para que se mantenga visible */
+}
+
+/* Overlay para cuando el menú está abierto */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2500; /* Debajo del menú pero encima del contenido */
+}
+
