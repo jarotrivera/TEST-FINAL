@@ -14,6 +14,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Controlador para solicitar la recuperación de contraseña
+// Controlador para solicitar la recuperación de contraseña
 const recuperarPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -29,7 +30,9 @@ const recuperarPassword = async (req, res) => {
     user.tokenExpiration = Date.now() + 3600000; // 1 hora de expiración
     await user.save();
 
-    const resetLink = `https://forogeocentro-frontend.up.railway.app/reset-password/${token}`;
+    // Generar el enlace de restablecimiento usando la variable de entorno
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const resetLink = `${frontendUrl}/reset-password/${token}`;
 
     // Personalizar el correo con estilos
     const mailOptions = {
@@ -57,6 +60,7 @@ const recuperarPassword = async (req, res) => {
     res.status(500).json({ message: 'Error al enviar el correo de recuperación' });
   }
 };
+
 
 // Controlador para restablecer la contraseña
 const resetPassword = async (req, res) => {
