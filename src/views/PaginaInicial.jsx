@@ -41,7 +41,7 @@ const PaginaInicial = () => {
     const fetchPublicaciones = async () => {
       setLoading(true);
       try {
-        const response = await fetch('https://forogeocentro-production.up.railway.app:3000/api/posts', {
+        const response = await fetch('https://forogeocentro-production.up.railway.app/api/posts', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
