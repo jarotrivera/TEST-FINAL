@@ -6,7 +6,7 @@ const Comment = require('../models/Comment');
 // Obtener todos los usuarios
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.findAll({ attributes: ['id', 'nombre', 'email'] });
+    const users = await User.findAll({ attributes: ['id', 'nombre', 'email', 'departamento' ] });
     res.status(200).json(users);
   } catch (error) {
     console.error('Error al obtener los usuarios:', error);
