@@ -5,16 +5,17 @@
   top: 120px;
   left: 0;
   height: calc(100vh - 60px);
-  z-index: 20000; /* Asegura que el sidebar esté por encima del contenido principal */
+  z-index: 20000;
   transition: width 0.3s ease, box-shadow 0.3s ease;
   background-color: #ffffff;
   overflow-x: hidden;
   border-radius: 0 15px 15px 0;
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2); /* Sombra cuando está cerrado */
 }
 
 .sidebar.open {
   width: 300px;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada cuando está abierto */
 }
 
 /* Overlay para cubrir el contenido */
