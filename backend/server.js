@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Sincronizar la base de datos y arrancar el servidor
 const PORT = process.env.PORT || 3000;
-sequelize.sync({ force: true })
+sequelize.sync({ alter: true })
   .then(() => {
     console.log('Conexión a la base de datos exitosa');
     app.listen(PORT, () => {
