@@ -42,12 +42,12 @@
 }
 /* Asegurar que el sidebar esté encima del contenido cuando esté abierto */
 .sidebar.open {
-  z-index: 3000; /* Incrementar z-index para que se superponga sobre otros elementos */
+  z-index: 4000; /* Incrementar z-index para que se superponga sobre otros elementos */
 }
 
 /* Asegurar que el botón de menú esté encima del contenido */
 .menu-toggle-btn {
-  z-index: 3500; /* El botón siempre debe estar por encima del sidebar */
+  z-index: 4500; /* El botón siempre debe estar por encima del sidebar */
   position: fixed; /* Fijo para que se mantenga visible */
 }
 
