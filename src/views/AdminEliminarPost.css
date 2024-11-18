@@ -6,26 +6,117 @@
 .admin-eliminar-post-content {
   flex: 1;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+/* Contenedor del buscador */
+.search-container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 20px auto; /* Espaciado independiente */
+}
+
+.search-input {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Tabla de usuarios */
+.table-container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 20px auto;
 }
 
 .admin-eliminar-post-table {
-  width: 80%; /* Reduce el ancho total de la tabla */
-  max-width: 1500px; /* Limita el ancho máximo para hacerla más pequeña */
-  margin-top: 20px;
-  margin-left: auto; /* Centrar la tabla horizontalmente */
-  margin-right: auto; /* Centrar la tabla horizontalmente */
-  font-size: 1.2rem; /* Reduce el tamaño del texto para hacerla más compacta */
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
 }
 
-.admin-eliminar-post-table th, .admin-eliminar-post-table td {
+.admin-eliminar-post-table th,
+.admin-eliminar-post-table td {
   padding: 12px;
   text-align: center;
-  border: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin-eliminar-post-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.ver-publicaciones-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ver-publicaciones-button:hover {
+  background-color: #0056b3;
+}
+
+.dialog-content {
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 .admin-post-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
+  margin-bottom: 10px;
 }
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
+/* Ajuste para el contenedor del título del modal */
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: relative;
+}
+
+/* Botón de cierre del modal */
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.close-button:hover {
+  color: #c0392b;
+}
+

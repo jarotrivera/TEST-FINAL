@@ -53,68 +53,66 @@ const Sidebar = ({ className = "" }) => {
   };
 
   return (
-    <>
-      {/* Botón para abrir/cerrar el menú */}
-      <IconButton onClick={toggleSidebar} className="menu-toggle-btn">
-        <MenuIcon />
-      </IconButton>
-
-      {/* Sidebar */}
-      <div className={`sidebar ${isOpen ? "open" : ""} ${className}`}>
-        <div className="sidebar-content">
-          <div className={`title16 ${!isOpen ? "hidden" : ""}`}>MENU</div>
-          <List>
-            <ListItem button onClick={goToPreguntas}>
-              <ListItemIcon>
-                <QuestionAnswerIcon />
-              </ListItemIcon>
-              {isOpen && <ListItemText primary="Preguntas" />}
-            </ListItem>
-            <ListItem button onClick={goToVentas}>
-              <ListItemIcon>
-                <ShoppingCartIcon />
-              </ListItemIcon>
-              {isOpen && <ListItemText primary="Ventas" />}
-            </ListItem>
-            <ListItem button onClick={goToEstacionamiento}>
-              <ListItemIcon>
-                <DirectionsCarIcon />
-              </ListItemIcon>
-              {isOpen && <ListItemText primary="Estacionamiento" />}
-            </ListItem>
-            {userRole === "admin" && (
-              <ListItem button onClick={goToAdminDashboard}>
-                <ListItemIcon>
-                  <AdminIcon />
-                </ListItemIcon>
-                {isOpen && <ListItemText primary="Vista Admin" />}
-              </ListItem>
-            )}
-          </List>
-          <div className={`title17 ${!isOpen ? "hidden" : ""}`}>NAVEGADOR PERSONAL</div>
-          <List>
-            <ListItem button onClick={goToTusVentas}>
-              <ListItemIcon>
-                <ShoppingCartIcon />
-              </ListItemIcon>
-              {isOpen && <ListItemText primary="Tus Ventas" />}
-            </ListItem>
-            <ListItem button onClick={goToTusPreguntas}>
-              <ListItemIcon>
-                <QuestionAnswerIcon />
-              </ListItemIcon>
-              {isOpen && <ListItemText primary="Tus Preguntas" />}
-            </ListItem>
-            <ListItem button onClick={handleLogout}>
-              <ListItemIcon>
-                <ExitToAppIcon />
-              </ListItemIcon>
-              {isOpen && <ListItemText primary="Cerrar Sesión" />}
-            </ListItem>
-          </List>
-        </div>
+    <div className={`sidebar ${isOpen ? "open" : ""} ${className}`}>
+      {/* Botón de menú - Siempre visible en la parte superior del sidebar */}
+      <div className="menu-header">
+        <IconButton onClick={toggleSidebar} className="menu-toggle-btn">
+          <MenuIcon />
+        </IconButton>
       </div>
-    </>
+      <div className="sidebar-content">
+        <div className={`title16 ${!isOpen ? "hidden" : ""}`}>MENU</div>
+        <List>
+          <ListItem button onClick={goToPreguntas}>
+            <ListItemIcon>
+              <QuestionAnswerIcon />
+            </ListItemIcon>
+            {isOpen && <ListItemText primary="Preguntas" />}
+          </ListItem>
+          <ListItem button onClick={goToVentas}>
+            <ListItemIcon>
+              <ShoppingCartIcon />
+            </ListItemIcon>
+            {isOpen && <ListItemText primary="Ventas" />}
+          </ListItem>
+          <ListItem button onClick={goToEstacionamiento}>
+            <ListItemIcon>
+              <DirectionsCarIcon />
+            </ListItemIcon>
+            {isOpen && <ListItemText primary="Estacionamiento" />}
+          </ListItem>
+          {userRole === "admin" && (
+            <ListItem button onClick={goToAdminDashboard}>
+              <ListItemIcon>
+                <AdminIcon />
+              </ListItemIcon>
+              {isOpen && <ListItemText primary="Vista Admin" />}
+            </ListItem>
+          )}
+        </List>
+        <div className={`title17 ${!isOpen ? "hidden" : ""}`}>NAVEGADOR PERSONAL</div>
+        <List>
+          <ListItem button onClick={goToTusVentas}>
+            <ListItemIcon>
+              <ShoppingCartIcon />
+            </ListItemIcon>
+            {isOpen && <ListItemText primary="Tus Ventas" />}
+          </ListItem>
+          <ListItem button onClick={goToTusPreguntas}>
+            <ListItemIcon>
+              <QuestionAnswerIcon />
+            </ListItemIcon>
+            {isOpen && <ListItemText primary="Tus Preguntas" />}
+          </ListItem>
+          <ListItem button onClick={handleLogout}>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            {isOpen && <ListItemText primary="Cerrar Sesión" />}
+          </ListItem>
+        </List>
+      </div>
+    </div>
   );
 };
 

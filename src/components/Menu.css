@@ -2,7 +2,7 @@
 .sidebar {
   width: 80px;
   position: fixed;
-  top: 60px; /* Ajusta según la altura de tu header */
+  top: 120px;
   left: 0;
   height: calc(100vh - 60px);
   z-index: 2000;
@@ -10,7 +10,6 @@
   background-color: #ffffff;
   overflow: hidden;
   border-radius: 0 15px 15px 0;
-  margin-top: 60px;
 }
 
 .sidebar.open {
@@ -18,19 +17,29 @@
   box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Contenedor del botón de menú */
+.menu-header {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
 /* Botón de menú */
 .menu-toggle-btn {
-  position: absolute; /* Fijo en relación al sidebar */
-  top: 5px; /* Alineado en la parte superior del sidebar */
-  left: 2px;
-  z-index: 2500; /* Asegura que esté por encima del contenido del sidebar */
+  position: relative;
   cursor: pointer;
   color: #333;
 }
 
 /* Contenido del sidebar */
 .sidebar-content {
-  padding: 50px 16px 16px; /* Deja espacio para el botón */
+  padding-top: 20px; /* Deja espacio para el botón */
+  padding-left: 15px;
 }
 
 /* Ocultar títulos cuando el sidebar está cerrado */
@@ -51,7 +60,4 @@
 
 .MuiListItemText-root {
   font-size: 16px;
-}
-.sidebar:not(.open) {
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada cuando el sidebar está cerrado */
 }
