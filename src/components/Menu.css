@@ -1,36 +1,39 @@
+/* Sidebar */
 .sidebar {
-  width: 80px; /* Ancho cuando está cerrado */
-  position: fixed; /* Fijo en su lugar para que se superponga sobre el contenido */
-  top: 60px; /* Mantén la posición fija en la parte superior de la ventana */
+  width: 80px;
+  position: fixed;
+  top: 60px; /* Ajusta según la altura de tu header */
   left: 0;
-  height: 100vh; /* Ocupa toda la altura de la ventana */
-  z-index: 2000; /* Asegura que esté por encima de todo el contenido */
-  transition: width 0.3s ease, box-shadow 0.3s ease; /* Transición suave para el cambio de tamaño y la sombra */
-  background-color: #ffffff; /* Color de fondo del sidebar */
-  margin-top: 60px; /* Ajusta este valor según la altura del navbar */
-  border-radius: 0 15px 15px 0; /* Redondea los bordes derecho superior e inferior */
-}
-
-/* Sombra cuando el sidebar está cerrado */
-.sidebar:not(.open) {
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2); /* Sombra más sutil cuando está cerrado */
+  height: calc(100vh - 60px);
+  z-index: 2000;
+  transition: width 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff;
+  overflow: hidden;
+  border-radius: 0 15px 15px 0;
+  margin-top: 60px;
 }
 
 .sidebar.open {
-  width: 300px; /* Ancho cuando está abierto */
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada cuando está abierto */
-  border-radius: 0 15px 15px 0; /* Asegura que los bordes sigan redondeados cuando esté abierto */
+  width: 300px;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
 }
 
-.sidebar-content {
-  padding: 16px;
-}
-
+/* Botón de menú */
 .menu-toggle-btn {
-  margin: 10px;
-  color: #fff;
+  position: absolute; /* Fijo en relación al sidebar */
+  top: 5px; /* Alineado en la parte superior del sidebar */
+  left: 2px;
+  z-index: 2500; /* Asegura que esté por encima del contenido del sidebar */
+  cursor: pointer;
+  color: #333;
 }
 
+/* Contenido del sidebar */
+.sidebar-content {
+  padding: 50px 16px 16px; /* Deja espacio para el botón */
+}
+
+/* Ocultar títulos cuando el sidebar está cerrado */
 .title16,
 .title17 {
   font-weight: bold;
@@ -40,25 +43,15 @@
 .hidden {
   display: none;
 }
-/* Asegurar que el sidebar esté encima del contenido cuando esté abierto */
-.sidebar.open {
-  z-index: 4000; /* Incrementar z-index para que se superponga sobre otros elementos */
+
+/* Ajustes para íconos */
+.MuiListItemIcon-root {
+  min-width: 40px;
 }
 
-/* Asegurar que el botón de menú esté encima del contenido */
-.menu-toggle-btn {
-  z-index: 4500; /* El botón siempre debe estar por encima del sidebar */
-  position: fixed; /* Fijo para que se mantenga visible */
+.MuiListItemText-root {
+  font-size: 16px;
 }
-
-/* Overlay para cuando el menú está abierto */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 2500; /* Debajo del menú pero encima del contenido */
+.sidebar:not(.open) {
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada cuando el sidebar está cerrado */
 }
-
