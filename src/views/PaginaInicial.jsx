@@ -41,7 +41,7 @@ const PaginaInicial = () => {
     const fetchPublicaciones = async () => {
       setLoading(true);
       try {
-        const response = await fetch('https://forogeocentro-production.up.railway.app/api/posts', {
+        const response = await fetch('https://forogeocentro-production.up.railway.app:3000/api/posts', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
@@ -235,7 +235,7 @@ return (
                       {publicacion.foto && (
                         <div className="pagina-inicial-image">
                           <img src={publicacion.foto} alt="Imagen de la publicación" />
-                          <Button onClick={() => openImageModal(publicacion.foto)} color="primary" style={{ marginTop: '10px' }}>
+                          <Button onClick={() => openImageModal(publicacion.foto)} color="primary" className="ver-imagen-boton">
                             Ver Imagen Completa
                           </Button>
                         </div>

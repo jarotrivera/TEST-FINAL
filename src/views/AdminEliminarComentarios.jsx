@@ -21,7 +21,7 @@ const AdminEliminarComentarios = () => {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch('https://forogeocentro-production.up.railway.apphttps://forogeocentro-production.up.railway.app/api/admin/users-with-comments', {
+      const response = await fetch('https://forogeocentro-production.up.railway.app/api/admin/users-with-comments', {
         headers: { 'Authorization': `Bearer ${token}` },
       });
 

@@ -4,6 +4,8 @@
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  position: relative;
+  z-index: 1; /* Asegura que el contenido esté por debajo del sidebar */
 }
 
 .content4 {
@@ -13,6 +15,7 @@
   height: 100%;
   overflow: hidden;
 }
+
 
 /* Contenedor principal para las publicaciones */
 .pagina-inicial-container {
@@ -39,24 +42,98 @@
   transition: box-shadow 0.3s ease;
   margin-right: 1000px;
 }
-
 .pagina-inicial-card:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.pagina-inicial-title{
+.pagina-inicial-title {
   text-align: left;
+}
+
+/* Ajustes para la imagen dentro de la publicación */
+.pagina-inicial-image {
+  display: flex;
+  justify-content: flex-start; /* Alinea la imagen a la izquierda */
+  margin-top: 10px;
+}
+
+.pagina-inicial-image img {
+  max-width: 50%; /* Ajusta el ancho si es necesario */
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+  object-fit: cover;
+  margin-right: auto; /* Asegura que la imagen se quede a la izquierda */
+}
+
+/* Ajustes para la sección de usuario y comentarios */
+.pagina-inicial-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  justify-content: flex-start;
+}
+
+.pagina-inicial-user-info {
+  margin-left: 10px;
+  flex-grow: 1;
+}
+
+.pagina-inicial-date {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.pagina-inicial-content {
+  margin-top: 10px;
+  text-align: left;
+}
+
+/* Botón para ver comentarios */
+.ver-comentarios-button {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 /* Ajustes para el Sidebar */
 .sidebar-sticky {
-  position: sticky;
+  position: fixed;
   top: 0;
   height: 100vh;
+  z-index: 10000;
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
 }
 
 .sidebar-sticky::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
+}
+.pagina-inicial-image {
+  display: flex; /* Para alinear el botón y la imagen en una fila */
+  align-items: center; /* Alinea verticalmente el contenido */
+  justify-content: flex-start; /* Alinea a la izquierda */
+  margin-top: 10px;
+}
+
+.pagina-inicial-image img {
+  max-width: auto; /* Ajusta el ancho de la imagen si es necesario */
+  height: auto;
+  margin-right: 10px; 
+  border-radius: 8px;
+}
+
+.ver-imagen-boton {
+  padding: 4px 8px; 
+  font-size: 0.8rem; 
+  height: 30px; 
+  min-width: 120px; 
+  margin-left: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.ver-imagen-boton:hover {
+  background-color: #007bff; 
+  color: white;
+  transform: translateX(-3px); 
 }

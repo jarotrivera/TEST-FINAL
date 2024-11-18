@@ -5,16 +5,32 @@
   top: 120px;
   left: 0;
   height: calc(100vh - 60px);
-  z-index: 2000;
+  z-index: 20000; /* Asegura que el sidebar esté por encima del contenido principal */
   transition: width 0.3s ease, box-shadow 0.3s ease;
   background-color: #ffffff;
-  overflow: hidden;
+  overflow-x: hidden;
   border-radius: 0 15px 15px 0;
 }
 
 .sidebar.open {
   width: 300px;
   box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Overlay para cubrir el contenido */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.1); /* Ajusta la opacidad si lo deseas */
+  z-index: 15000; /* Justo por debajo del sidebar */
+  display: none;
+}
+
+.sidebar.open + .overlay {
+  display: block;
 }
 
 /* Contenedor del botón de menú */
@@ -29,22 +45,18 @@
   border-bottom: 1px solid #ddd;
 }
 
-/* Botón de menú */
 .menu-toggle-btn {
-  position: relative;
   cursor: pointer;
   color: #333;
 }
 
 /* Contenido del sidebar */
 .sidebar-content {
-  padding-top: 20px; /* Deja espacio para el botón */
+  padding-top: 20px;
   padding-left: 15px;
 }
 
-/* Ocultar títulos cuando el sidebar está cerrado */
-.title16,
-.title17 {
+.title16, .title17 {
   font-weight: bold;
   margin-top: 16px;
 }
