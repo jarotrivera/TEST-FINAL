@@ -29,7 +29,7 @@ const recuperarPassword = async (req, res) => {
     user.tokenExpiration = Date.now() + 3600000; // 1 hora de expiración
     await user.save();
 
-    const resetLink = `https://forogeocentro-production.up.railway.app/reset-password/${token}`;
+    const resetLink = `https://forogeocentro-frontend.up.railway.app/reset-password/${token}`;
 
     // Personalizar el correo con estilos
     const mailOptions = {
