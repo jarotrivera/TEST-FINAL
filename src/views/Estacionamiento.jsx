@@ -49,11 +49,14 @@ const Estacionamiento = () => {
 
           <div className="estacionamiento-container">
             {espacios.map(espacio => (
-              <div key={espacio.id} className="espacio">
-                <FontAwesomeIcon
-                  icon={faCar}
-                  className={`icono-carro ${espacio.ocupado ? 'ocupado' : 'libre'}`}
-                />
+              <div key={espacio.id} className="espacio-contenedor">
+                <div className="espacio">
+                  <FontAwesomeIcon
+                    icon={faCar}
+                    className={`icono-carro ${espacio.ocupado ? 'ocupado' : 'libre'}`}
+                  />
+                </div>
+                <p className="etiqueta-estacionamiento">Estacionamiento {espacio.id}</p>
               </div>
             ))}
           </div>
