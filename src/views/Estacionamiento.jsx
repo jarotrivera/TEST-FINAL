@@ -11,6 +11,11 @@ const Estacionamiento = () => {
     { id: 1, ocupado: false },
     { id: 2, ocupado: false },
     { id: 3, ocupado: false },
+    { id: 4, ocupado: false },
+    { id: 5, ocupado: false },
+    { id: 6, ocupado: false },
+    { id: 7, ocupado: false },
+    { id: 8, ocupado: false },
   ]);
 
   const actualizarEstadoEspacios = async () => {
@@ -21,7 +26,7 @@ const Estacionamiento = () => {
       setEspacios(prevEspacios =>
         prevEspacios.map((espacio, index) => ({
           ...espacio,
-          ocupado: data[index] ? data[index].ocupado : false
+          ocupado: index === 0 ? data[0]?.ocupado : false // Solo actualiza el estado del primer bloque
         }))
       );
     } catch (error) {
@@ -47,13 +52,13 @@ const Estacionamiento = () => {
             <span>Estacionamiento Ocupado</span>
           </div>
 
-          <div className="estacionamiento-container">
-            {espacios.map(espacio => (
-              <div key={espacio.id} className="espacio-contenedor">
+          <div className="estacionamiento-grid">
+            {espacios.map((espacio, index) => (
+              <div key={espacio.id} className={`espacio-contenedor ${index === 0 ? '' : 'desactivado'}`}>
                 <div className="espacio">
                   <FontAwesomeIcon
                     icon={faCar}
-                    className={`icono-carro ${espacio.ocupado ? 'ocupado' : 'libre'}`}
+                    className={`icono-carro ${index === 0 && espacio.ocupado ? 'ocupado' : index === 0 ? 'libre' : 'gris'}`}
                   />
                 </div>
                 <p className="etiqueta-estacionamiento">Estacionamiento {espacio.id}</p>
