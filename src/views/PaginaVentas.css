@@ -4,8 +4,8 @@
   align-items: center;
   padding: 0;
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
+  overflow-x: visible;
 }
 
 .content5 {
@@ -34,8 +34,9 @@
 .cards-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
+  align-items: flex-start; /* Cambia de center a flex-start */
+  overflow: visible;
 }
 
 .venta-card {
@@ -47,6 +48,7 @@
   width: 90%;
   max-width: 1000px;
   transition: box-shadow 0.3s ease;
+  margin-left: -92px;
 }
 
 .venta-card:hover {
