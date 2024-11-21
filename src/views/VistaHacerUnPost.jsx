@@ -102,7 +102,6 @@ const VistaHacerUnPost = () => {
                   <textarea
                     value={descripcion}
                     onChange={(e) => setDescripcion(e.target.value)}
-                    required
                   />
                 </div>
                 <button type="submit">Agregar Publicación</button>
