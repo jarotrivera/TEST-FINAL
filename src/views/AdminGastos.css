@@ -6,6 +6,7 @@
   background-color: #f9f9f9;
   min-height: 100vh;
   position: relative;
+  overflow-y: auto; /* Permite scroll en toda la página */
 }
 
 .admin-gastos-container h2 {
@@ -64,6 +65,24 @@ button#guardar-button:hover {
   overflow: hidden;
 }
 
+/* Máximo de 4 filas visibles antes de activar el scroll */
+.table-scrollable {
+  max-height: 200px; /* Ajustado para mostrar solo 4 filas */
+  width: 100%;
+  max-width: 800px;
+  overflow-y: auto; /* Activa el scroll */
+  scrollbar-width: thin; /* Barra de desplazamiento fina */
+}
+
+.table-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-scrollable::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
 .gastos-table th,
 .gastos-table td {
   padding: 12px;
@@ -94,30 +113,23 @@ button#guardar-button:hover {
   border-bottom: none;
 }
 
-.table-scrollable {
-  max-height: 400px; /* Ajusta según tus necesidades */
-  width: 100%;
-  max-width: 800px;
-  overflow-y: auto;
-  scrollbar-width: none; /* Ocultar barra en navegadores compatibles */
-  -ms-overflow-style: none; /* Ocultar barra en IE/Edge */
-}
-
-.table-scrollable::-webkit-scrollbar {
-  display: none; /* Ocultar barra en navegadores WebKit */
-}
-
+/* Tablas creadas: máximo 2 visibles antes de activar el scroll */
 .tables-list {
   margin-top: 20px;
   width: 100%;
   max-width: 800px;
+  max-height: 250px; /* Ajustado para mostrar solo 2 tablas */
   overflow-y: auto;
-  scrollbar-width: none; /* Ocultar barra en navegadores compatibles */
-  -ms-overflow-style: none; /* Ocultar barra en IE/Edge */
+  scrollbar-width: thin;
 }
 
 .tables-list::-webkit-scrollbar {
-  display: none; /* Ocultar barra en navegadores WebKit */
+  width: 8px;
+}
+
+.tables-list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
 }
 
 .tables-list h3 {
@@ -146,34 +158,8 @@ button#guardar-button:hover {
   background-color: #c82333;
 }
 
-.fixed-footer {
-  position: sticky;
-  bottom: 0;
-  background-color: #f9f9f9;
-  width: 100%;
-  max-width: 800px;
-  padding: 10px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.fixed-footer button {
-  padding: 10px 20px;
-  font-size: 14px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.fixed-footer button:hover {
-  background-color: #0056b3;
-}
 .delete-button {
-  background-color: #dc3545; /* Rojo para el botón */
+  background-color: #dc3545;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -183,5 +169,42 @@ button#guardar-button:hover {
 }
 
 .delete-button:hover {
-  background-color: #c82333; /* Rojo más oscuro al pasar el cursor */
+  background-color: #c82333;
+}
+
+@media screen and (max-width: 768px) {
+  .admin-gastos-container {
+    padding: 10px;
+  }
+
+  .titulo-input,
+  .button-container {
+    max-width: 100%;
+  }
+
+  .table-scrollable {
+    max-height: 150px; /* Menor altura en pantallas pequeñas */
+  }
+
+  .tables-list {
+    max-height: 100px; /* Menor altura para tablas creadas */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .titulo-input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .table-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
 }

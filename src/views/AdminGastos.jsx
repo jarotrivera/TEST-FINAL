@@ -45,6 +45,16 @@ const AdminGastos = () => {
   };
 
   const handleGuardar = async () => {
+    // Validar que todas las celdas estén rellenas y el título no esté vacío
+    const tieneCamposVacios = filas.some((fila) =>
+      fila.some((celda) => celda.trim() === '')
+    );
+
+    if (tieneCamposVacios || tablaTitulo.trim() === '') {
+      alert('Por favor, rellena todas las celdas y asigna un título a la tabla antes de guardar.');
+      return;
+    }
+
     try {
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/gastos/crear', {
         method: 'POST',
@@ -58,12 +68,16 @@ const AdminGastos = () => {
 
       if (response.ok) {
         alert('Gastos guardados correctamente');
+        setTablaTitulo(''); // Reiniciar título
+        setColumnas(['Nombre', 'Monto', 'Descripción']); // Reiniciar columnas
+        setFilas([['', '', '']]); // Reiniciar filas
         fetchTablas(); // Recargar la lista de tablas
       } else {
         alert('Error al guardar los gastos');
       }
     } catch (error) {
       console.error('Error:', error);
+      alert('Error al guardar los gastos. Inténtalo nuevamente.');
     }
   };
 
