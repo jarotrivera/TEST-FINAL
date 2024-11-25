@@ -179,6 +179,38 @@
   border: #F48023;
   height: 50px;
 }
+.rules-link {
+  font-size: 14px;
+  font-weight: bold;
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 15px;
+}
+.modal-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto; /* Centra el modal */
+  max-height: 90vh; /* Altura máxima relativa a la ventana */
+}
+
+.modal-content {
+  max-height: 65vh; /* Limita la altura del contenido del modal */
+  overflow-y: auto; /* Activa el scroll si el contenido excede */
+  border-radius: 8px; /* Bordes redondeados */
+}
+
+.modal-body {
+  max-height: 90vh; /* Limita el área visible del cuerpo */
+  overflow-y: auto; /* Scroll dentro del cuerpo */
+}
+
+.modal-header,
+.modal-footer {
+  flex-shrink: 0; /* Asegura que el header y footer no se comprimen */
+}
+
 
 
 

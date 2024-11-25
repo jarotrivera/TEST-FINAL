@@ -1,5 +1,3 @@
-/* AdminGastos.css */
-
 .admin-gastos-container {
   display: flex;
   flex-direction: column;
@@ -7,6 +5,7 @@
   padding: 20px;
   background-color: #f9f9f9;
   min-height: 100vh;
+  position: relative;
 }
 
 .admin-gastos-container h2 {
@@ -48,7 +47,7 @@ button:hover {
 button#guardar-button {
   background-color: #28a745;
   padding: 12px 24px;
-  margin-top: 20px; /* Margen superior para separar el botón de la tabla */
+  margin-top: 20px;
 }
 
 button#guardar-button:hover {
@@ -57,7 +56,6 @@ button#guardar-button:hover {
 
 .gastos-table {
   width: 100%;
-  max-width: 800px;
   border-collapse: collapse;
   margin-top: 20px;
   background-color: #fff;
@@ -96,10 +94,30 @@ button#guardar-button:hover {
   border-bottom: none;
 }
 
-.tables-list {
-  margin-top: 40px;
+.table-scrollable {
+  max-height: 400px; /* Ajusta según tus necesidades */
   width: 100%;
   max-width: 800px;
+  overflow-y: auto;
+  scrollbar-width: none; /* Ocultar barra en navegadores compatibles */
+  -ms-overflow-style: none; /* Ocultar barra en IE/Edge */
+}
+
+.table-scrollable::-webkit-scrollbar {
+  display: none; /* Ocultar barra en navegadores WebKit */
+}
+
+.tables-list {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+  overflow-y: auto;
+  scrollbar-width: none; /* Ocultar barra en navegadores compatibles */
+  -ms-overflow-style: none; /* Ocultar barra en IE/Edge */
+}
+
+.tables-list::-webkit-scrollbar {
+  display: none; /* Ocultar barra en navegadores WebKit */
 }
 
 .tables-list h3 {
@@ -121,8 +139,49 @@ button#guardar-button:hover {
 
 .table-item button {
   background-color: #dc3545;
+  padding: 8px 12px;
 }
 
 .table-item button:hover {
   background-color: #c82333;
+}
+
+.fixed-footer {
+  position: sticky;
+  bottom: 0;
+  background-color: #f9f9f9;
+  width: 100%;
+  max-width: 800px;
+  padding: 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fixed-footer button {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.fixed-footer button:hover {
+  background-color: #0056b3;
+}
+.delete-button {
+  background-color: #dc3545; /* Rojo para el botón */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.delete-button:hover {
+  background-color: #c82333; /* Rojo más oscuro al pasar el cursor */
 }
