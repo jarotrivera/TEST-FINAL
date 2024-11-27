@@ -67,6 +67,7 @@
   margin-top: -55px;
   flex-shrink: 0; 
 }
+
 .icon {
   width: 20px; /* Ajusta el tamaño del ícono */
   height: 20px; /* Ajusta el tamaño del ícono */;
@@ -103,4 +104,42 @@
 .botonregistro:hover,
 .botonlogin:hover {
   background-color: #0056b3; /* Color de fondo al pasar el mouse */
+}
+
+/* --- Responsividad adicional --- */
+
+/* Pantallas medianas (tablets y pequeñas laptops) */
+@media (max-width: 768px) {
+  .page-title-container {
+    display: none; /* Oculta el título de la página */
+  }
+
+  .logo2 {
+    display: none; /* Oculta el logo y comunidad */
+  }
+
+  .action-buttons {
+    justify-content: center;
+  }
+
+  .botonpregunta,
+  .botonventa,
+  .botonregistro,
+  .botonlogin {
+    width: 150px; /* Ajusta el ancho de los botones */
+    height: 40px; /* Ajusta la altura de los botones */
+    font-size: 0.9rem; /* Reduce el tamaño de la fuente */
+  }
+}
+
+/* Pantallas pequeñas (teléfonos) */
+@media (max-width: 480px) {
+  .botonpregunta,
+  .botonventa,
+  .botonregistro,
+  .botonlogin {
+    width: 120px; /* Ajusta el ancho de los botones */
+    height: 35px; /* Ajusta la altura de los botones */
+    font-size: 0.8rem; /* Reduce el tamaño de la fuente aún más */
+  }
 }
