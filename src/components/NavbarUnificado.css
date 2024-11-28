@@ -3,9 +3,10 @@
   flex-direction: column;
   width: 100%;
   background-color: #ffffff; /* Color de fondo del Navbar */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra debajo del navbar */
   padding: 1.5rem 1rem;
   box-sizing: border-box; /* Asegura que el padding no afecte al tamaño total */
+  z-index: 1000; /* Asegura que el navbar esté sobre otros elementos */
 }
 
 /* Contenedor del Navbar (logo, comunidad, y título) */
@@ -47,8 +48,6 @@
   position: relative; /* Mantén el título dentro del flujo del navbar */
   margin-right: 280px;
 }
-
-
 
 /* Estilos del título */
 .title15 {

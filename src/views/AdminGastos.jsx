@@ -8,6 +8,7 @@ const AdminGastos = () => {
   const [filas, setFilas] = useState([['', '', '']]);
   const [isEditingTitle, setIsEditingTitle] = useState(null);
   const [tablas, setTablas] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchTablas();
@@ -15,18 +16,42 @@ const AdminGastos = () => {
 
   const fetchTablas = async () => {
     try {
-      const response = await fetch('https://forogeocentro-production.up.railway.app/api/gastos');
+      const response = await fetch('http://localhost:3000/api/gastos', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        if (response.status === 401) throw new Error('No autorizado. Verifique su token.');
+        throw new Error(`Error al obtener las tablas: ${response.status}`);
+      }
       const data = await response.json();
-      setTablas(data);
+      setTablas(Array.isArray(data) ? data : []);
+      setError(null);
     } catch (error) {
-      console.error('Error al obtener las tablas de gastos:', error);
+      console.error('Error al obtener las tablas:', error);
+      setError(error.message);
+      setTablas([]);
     }
   };
 
   const agregarFila = () => setFilas([...filas, Array(columnas.length).fill('')]);
+  const eliminarFila = () => {
+    if (filas.length > 0) {
+      setFilas(filas.slice(0, -1)); // Elimina la última fila
+    }
+  };
+
   const agregarColumna = () => {
     setColumnas([...columnas, `Columna ${columnas.length + 1}`]);
-    setFilas(filas.map(fila => [...fila, '']));
+    setFilas(filas.map((fila) => [...fila, ''])); // Añade una celda vacía en cada fila
+  };
+  const eliminarColumna = () => {
+    if (columnas.length > 0) {
+      setColumnas(columnas.slice(0, -1)); // Elimina la última columna
+      setFilas(filas.map((fila) => fila.slice(0, -1))); // Elimina la última celda de cada fila
+    }
   };
 
   const handleInputChange = (filaIdx, colIdx, value) => {
@@ -37,49 +62,42 @@ const AdminGastos = () => {
 
   const handleGuardar = async () => {
     try {
-      const response = await fetch('https://forogeocentro-production.up.railway.app/api/gastos/crear', {
+      const response = await fetch('http://localhost:3000/api/gastos/crear', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Agregamos el token JWT
+        },
         body: JSON.stringify({
           titulo: tablaTitulo,
           columnas,
           filas,
         }),
       });
-
+  
       if (response.ok) {
         alert('Gastos guardados correctamente');
         fetchTablas(); // Recargar la lista de tablas
+      } else if (response.status === 401) {
+        alert('No autorizado. Verifique sus credenciales.');
       } else {
-        alert('Error al guardar los gastos');
+        alert('Error al guardar los gastos.');
       }
     } catch (error) {
       console.error('Error:', error);
+      alert('Ocurrió un error al intentar guardar los datos.');
     }
   };
-
-  const handleTitleEdit = (colIdx) => {
-    setIsEditingTitle(colIdx);
-  };
-
-  const handleTitleChange = (colIdx, value) => {
-    const nuevasColumnas = [...columnas];
-    nuevasColumnas[colIdx] = value;
-    setColumnas(nuevasColumnas);
-  };
-
-  const handleTitleBlur = () => {
-    setIsEditingTitle(null);
-  };
+  
 
   const handleDeleteTable = async (id) => {
     try {
-      const response = await fetch(`https://forogeocentro-production.up.railway.app/api/gastos/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/gastos/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
         alert('Tabla eliminada con éxito');
-        fetchTablas(); // Actualizar la lista de tablas después de eliminar
+        fetchTablas();
       } else {
         alert('Error al eliminar la tabla');
       }
@@ -92,7 +110,7 @@ const AdminGastos = () => {
     <div className="admin-gastos-container">
       <Sidebar />
       <h2>Crear Tabla de Gastos Comunes</h2>
-      
+
       <input 
         type="text" 
         value={tablaTitulo} 
@@ -103,20 +121,26 @@ const AdminGastos = () => {
 
       <div className="button-container">
         <button onClick={agregarColumna}>Agregar Columna</button>
+        <button style={{ backgroundColor: 'red', color: 'white' }} onClick={eliminarColumna}>Eliminar Columna</button> {/* Botón rojo para eliminar columna */}
         <button onClick={agregarFila}>Agregar Fila</button>
+        <button style={{ backgroundColor: 'red', color: 'white' }} onClick={eliminarFila}>Eliminar Fila</button> {/* Botón rojo para eliminar fila */}
       </div>
-      
+
       <table className="gastos-table">
         <thead>
           <tr>
             {columnas.map((columna, idx) => (
-              <th key={idx} onClick={() => handleTitleEdit(idx)}>
+              <th key={idx} onClick={() => setIsEditingTitle(idx)}>
                 {isEditingTitle === idx ? (
                   <input
                     type="text"
                     value={columna}
-                    onChange={(e) => handleTitleChange(idx, e.target.value)}
-                    onBlur={handleTitleBlur}
+                    onChange={(e) => {
+                      const nuevasColumnas = [...columnas];
+                      nuevasColumnas[idx] = e.target.value;
+                      setColumnas(nuevasColumnas);
+                    }}
+                    onBlur={() => setIsEditingTitle(null)}
                     autoFocus
                   />
                 ) : (
@@ -142,16 +166,25 @@ const AdminGastos = () => {
           ))}
         </tbody>
       </table>
+
       <button id="guardar-button" onClick={handleGuardar}>Guardar</button>
 
       <div className="tables-list">
         <h3>Tablas Creadas</h3>
-        {tablas.map((tabla) => (
-          <div key={tabla.id} className="table-item">
-            <span>{tabla.titulo}</span>
-            <button onClick={() => handleDeleteTable(tabla.id)}>Eliminar</button>
-          </div>
-        ))}
+        {error ? (
+          <p style={{ color: 'red' }}>{error}</p>
+        ) : (
+          Array.isArray(tablas) && tablas.length > 0 ? (
+            tablas.map((tabla) => (
+              <div key={tabla.id} className="table-item">
+                <span>{tabla.titulo}</span>
+                <button onClick={() => handleDeleteTable(tabla.id)}>Eliminar</button>
+              </div>
+            ))
+          ) : (
+            <p>No hay tablas disponibles.</p>
+          )
+        )}
       </div>
     </div>
   );
