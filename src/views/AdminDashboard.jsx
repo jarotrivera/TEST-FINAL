@@ -23,6 +23,7 @@ const AdminDashboard = () => {
       <div className="admin-dashboard-content">
         <h2>Bienvenido, Admin</h2>
         <p className="modules-title">Módulos Disponibles</p>
+        
         <div className="modules-grid">
           <div className="module-card" onClick={() => navigate('/admin-gastos')}>
             <MonetizationOnIcon className="module-icon" />

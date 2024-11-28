@@ -25,22 +25,6 @@ const AdminReportes = () => {
     }
   };
 
-  // Refrescar la lista de reportes después de eliminar uno
-  const fetchReportesActualizados = async () => {
-    try {
-      const response = await axios.get('https://forogeocentro-production.up.railway.app/api/reportes', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
-
-      if (response.status === 200) {
-        console.log('Reportes actualizados:', response.data); // Log para verificar datos actualizados
-        setReportes(response.data);
-      }
-    } catch (error) {
-      console.error('Error al refrescar reportes:', error);
-    }
-  };
-
   useEffect(() => {
     fetchReportes();
   }, []);
@@ -51,7 +35,7 @@ const AdminReportes = () => {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       alert('Publicación eliminada correctamente');
-      fetchReportesActualizados();
+      setReportes((prevReportes) => prevReportes.filter(reporte => reporte.id !== postId));
     } catch (error) {
       console.error('Error al eliminar publicación:', error);
       alert('Error al eliminar publicación');
@@ -66,7 +50,8 @@ const AdminReportes = () => {
 
       if (response.status === 200) {
         alert('Reporte eliminado correctamente');
-        await fetchReportesActualizados(); // Refrescar lista después de eliminar reporte
+        // Eliminar el reporte del estado local para actualizar la lista inmediatamente
+        setReportes((prevReportes) => prevReportes.filter(reporte => reporte.id !== postId));
       } else {
         console.error('Error al eliminar reporte:', response.status);
       }

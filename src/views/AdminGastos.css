@@ -1,5 +1,3 @@
-/* AdminGastos.css */
-
 .admin-gastos-container {
   display: flex;
   flex-direction: column;
@@ -7,6 +5,8 @@
   padding: 20px;
   background-color: #f9f9f9;
   min-height: 100vh;
+  position: relative;
+  overflow-y: auto; /* Permite scroll en toda la página */
 }
 
 .admin-gastos-container h2 {
@@ -48,7 +48,7 @@ button:hover {
 button#guardar-button {
   background-color: #28a745;
   padding: 12px 24px;
-  margin-top: 20px; /* Margen superior para separar el botón de la tabla */
+  margin-top: 20px;
 }
 
 button#guardar-button:hover {
@@ -57,13 +57,30 @@ button#guardar-button:hover {
 
 .gastos-table {
   width: 100%;
-  max-width: 800px;
   border-collapse: collapse;
   margin-top: 20px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
+}
+
+/* Máximo de 4 filas visibles antes de activar el scroll */
+.table-scrollable {
+  max-height: 200px; /* Ajustado para mostrar solo 4 filas */
+  width: 100%;
+  max-width: 800px;
+  overflow-y: auto; /* Activa el scroll */
+  scrollbar-width: thin; /* Barra de desplazamiento fina */
+}
+
+.table-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-scrollable::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
 }
 
 .gastos-table th,
@@ -96,10 +113,23 @@ button#guardar-button:hover {
   border-bottom: none;
 }
 
+/* Tablas creadas: máximo 2 visibles antes de activar el scroll */
 .tables-list {
-  margin-top: 40px;
+  margin-top: 20px;
   width: 100%;
   max-width: 800px;
+  max-height: 250px; /* Ajustado para mostrar solo 2 tablas */
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.tables-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tables-list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
 }
 
 .tables-list h3 {
@@ -121,8 +151,60 @@ button#guardar-button:hover {
 
 .table-item button {
   background-color: #dc3545;
+  padding: 8px 12px;
 }
 
 .table-item button:hover {
   background-color: #c82333;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+@media screen and (max-width: 768px) {
+  .admin-gastos-container {
+    padding: 10px;
+  }
+
+  .titulo-input,
+  .button-container {
+    max-width: 100%;
+  }
+
+  .table-scrollable {
+    max-height: 150px; /* Menor altura en pantallas pequeñas */
+  }
+
+  .tables-list {
+    max-height: 100px; /* Menor altura para tablas creadas */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .titulo-input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .table-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
 }

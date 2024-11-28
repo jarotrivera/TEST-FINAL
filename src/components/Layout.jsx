@@ -149,7 +149,7 @@ const Layout = () => {
       showLogin: false,
     },
     "/comentarios/:postId": {
-      title: "",
+      title: "Comentarios",
       showVenta: true,
       showPregunta: true,
       showRegistro: false,
