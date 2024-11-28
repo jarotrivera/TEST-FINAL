@@ -1,129 +1,121 @@
-/* Sidebar */
-.sidebar {
-  width: 80px;
-  position: fixed;
-  top: 120px;
-  left: 0;
-  height: calc(100vh - 60px);
-  z-index: 20000;
-  transition: width 0.3s ease, box-shadow 0.3s ease;
-  background-color: #ffffff;
-  overflow-x: hidden;
-  border-radius: 0 15px 15px 0;
-  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2); /* Sombra cuando está cerrado */
-}
+import React, { useState } from 'react';
+import Sidebar from "../components/Menu";
+import RightPanel2 from "../components/RightPanel2";
+import "./VistaHacerUnPost.css";
 
-.sidebar.open {
-  width: 300px;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada cuando está abierto */
-}
+const VistaHacerUnPost = () => {
+  const [titulo, setTitulo] = useState('');
+  const [foto, setFoto] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [mensajeExito, setMensajeExito] = useState(''); // Estado para el mensaje de éxito
 
-/* Overlay para cubrir el contenido */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.1); /* Ajusta la opacidad si lo deseas */
-  z-index: 15000; /* Justo por debajo del sidebar */
-  display: none;
-}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Obtener el token del usuario
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Usuario no autenticado');
+      }
+  
+      // Decodificar el token para obtener el usuarioId
+      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+      const usuarioId = tokenPayload.id; // Obtén el usuarioId del token
+  
+      const nuevoPost = {
+        titulo,
+        foto,
+        descripcion,
+        usuarioId, // Agregar usuarioId a la solicitud
+      };
+  
+      const response = await fetch('https://forogeocentro-production.up.railway.app/api/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(nuevoPost),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error al crear la publicación');
+      }
+  
+      const data = await response.json();
+      console.log('Publicación creada:', data);
+  
+      // Limpiar los campos del formulario y mostrar el mensaje de éxito
+      setTitulo('');
+      setFoto('');
+      setDescripcion('');
+      setMensajeExito('Publicación creada con éxito');
+  
+      setTimeout(() => setMensajeExito(''), 3000);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
 
-.sidebar.open + .overlay {
-  display: block;
-}
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setFoto(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
 
-/* Contenedor del botón de menú */
-.menu-header {
-  position: relative;
-  width: 100%;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #ddd;
-}
+  return (
+    <div className="vista-hacer-un-post">
+      <main className="content">
+        <Sidebar />
+        <section className="main-panel">
+          <div className="form-wrapper">
+            <div className="form-container">
+              <form onSubmit={handleSubmit} className="post-form">
+                <div className="form-group">
+                  <label>Título:</label>
+                  <input
+                    type="text"
+                    value={titulo}
+                    onChange={(e) => setTitulo(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Foto:</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                  />
+                  {foto && (
+                    <div className="photo-preview">
+                      <img src={foto} alt="Vista previa" />
+                    </div>
+                  )}
+                </div>
+                <div className="form-group">
+                  <label>Descripción:</label>
+                  <textarea
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                    required
+                  />
+                </div>
+                <button type="submit">Agregar Publicación</button>
+              </form>
+              {/* Mostrar mensaje de éxito */}
+              {mensajeExito && <p className="mensaje-exito">{mensajeExito}</p>}
+            </div>
+          </div>
+        </section>
+        <RightPanel2 />
+      </main>
+    </div>
+  );
+};
 
-.menu-toggle-btn {
-  cursor: pointer;
-  color: #333;
-}
-
-/* Contenido del sidebar */
-.sidebar-content {
-  padding-top: 20px;
-  padding-left: 15px;
-}
-
-.title16, .title17 {
-  font-weight: bold;
-  margin-top: 16px;
-}
-
-.hidden {
-  display: none;
-}
-
-/* Ajustes para íconos */
-.MuiListItemIcon-root {
-  min-width: 40px;
-}
-
-.MuiListItemText-root {
-  font-size: 16px;
-}
-/* --- Responsividad adicional para el Sidebar --- */
-
-/* Pantallas medianas (tablets y pequeñas laptops) */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 60px; /* Reduce el ancho del sidebar en pantallas medianas */
-    top: 80px; /* Ajusta la posición superior si es necesario */
-  }
-
-  .sidebar.open {
-    width: 200px; /* Sidebar abierto ocupa menos espacio en pantallas medianas */
-  }
-
-  .menu-header {
-    padding: 5px; /* Reduce el padding del encabezado del menú */
-  }
-
-  .sidebar-content {
-    padding-left: 10px; /* Reduce el espacio de los contenidos */
-  }
-
-  .MuiListItemText-root {
-    font-size: 14px; /* Reduce el tamaño de texto de los ítems */
-  }
-}
-
-/* Pantallas pequeñas (teléfonos) */
-@media (max-width: 480px) {
-  .sidebar {
-    width: 50px; /* Reduce aún más el ancho del sidebar */
-    top: 60px; /* Ajusta la posición superior si es necesario */
-  }
-
-  .sidebar.open {
-    width: 150px; /* Sidebar abierto ocupa menos espacio en pantallas pequeñas */
-  }
-
-  .menu-header {
-    padding: 5px; /* Reduce el padding del encabezado */
-  }
-
-  .MuiListItemText-root {
-    font-size: 12px; /* Reduce el tamaño de texto aún más */
-  }
-
-  .sidebar-content {
-    padding-left: 8px; /* Menor espacio en el contenido */
-  }
-
-  .overlay {
-    background: rgba(0, 0, 0, 0.2); /* Aumenta ligeramente la opacidad del overlay */
-  }
-}
+export default VistaHacerUnPost;
