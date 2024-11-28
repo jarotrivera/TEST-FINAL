@@ -48,7 +48,7 @@
   width: 90%;
   max-width: 1000px;
   transition: box-shadow 0.3s ease;
-  margin-left: -92px;
+  margin-left: -30px;
 }
 
 .venta-card:hover {
@@ -99,4 +99,73 @@
 
 .scroll-container {
   scrollbar-width: none;
+}
+
+/* --- Responsividad --- */
+
+/* Pantallas grandes (1440px o más) */
+@media (min-width: 1440px) {
+  .venta-card {
+    margin-left: -50px; /* Ajusta el margen */
+    width: 85%; /* Ajusta el ancho */
+  }
+}
+
+/* Pantallas medianas (1200px a 768px) */
+@media (max-width: 1200px) {
+  .venta-card {
+    width: 90%; /* Más ancho en pantallas medianas */
+    margin-left: 0; /* Centra las tarjetas */
+  }
+
+  .venta-titulo {
+    font-size: 2.5em; /* Reduce el tamaño del título */
+  }
+
+  .venta-descripcion {
+    font-size: 1em; /* Ajusta el tamaño de la descripción */
+  }
+}
+
+/* Pantallas pequeñas (768px a 480px) */
+@media (max-width: 768px) {
+  .venta-card {
+    width: 95%;
+    margin: 20px auto; /* Centra la tarjeta */
+    padding: 20px;
+  }
+
+  .venta-titulo {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .venta-descripcion {
+    font-size: 0.95em;
+  }
+
+  .venta-precio {
+    font-size: 1em;
+  }
+}
+
+/* Teléfonos y pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+  .venta-card {
+    width: 100%; /* Ocupa todo el ancho */
+    margin: 15px auto;
+    padding: 15px;
+  }
+
+  .venta-titulo {
+    font-size: 1.8em;
+  }
+
+  .venta-descripcion {
+    font-size: 0.9em;
+  }
+
+  .venta-precio {
+    font-size: 0.95em;
+  }
 }

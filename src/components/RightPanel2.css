@@ -108,7 +108,7 @@
 /* --- Responsividad adicional para el Right Panel --- */
 
 /* Ocultar el panel en pantallas pequeñas */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1330px) {
   .right-panel5 {
     display: none; /* Oculta el panel completamente en pantallas menores a 768px */
   }

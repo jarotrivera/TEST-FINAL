@@ -1,61 +1,63 @@
 .gastos-comunes {
   display: flex;
-  justify-content: flex-start; /* Alinear todo a la izquierda */
-  align-items: flex-start; /* Asegurar que el contenido esté arriba y a la izquierda */
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 0;
   margin: 0;
   background-color: #f8f9fa;
   width: 100%;
-  padding-right: 100px;
-  height: 100vh; /* Asegurar altura completa */
-  overflow-y: auto; /* Forzar scroll vertical */
-  overflow-x: auto; /* Forzar scroll horizontal */
-  scrollbar-width: none; /* Ocultar barra en navegadores compatibles */
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
   padding-bottom: 50px;
 }
 
 .sidebar-and-table {
   display: flex;
   width: 100%;
-  overflow-x: auto; /* Forzar scroll horizontal si es necesario */
+  overflow-x: auto;
 }
 
 .sidebar-and-table-content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Alinear todo el contenido hacia la izquierda */
+  align-items: flex-start;
   padding: 0;
   margin: 0;
-  width: 100%; /* Asegurar que el contenido ocupe todo el ancho disponible */
-  height: auto; /* Dejar que la altura se ajuste */
-  overflow-x: auto; /* Habilitar scroll horizontal */
-  scrollbar-width: none; /* Ocultar barra en navegadores compatibles */
+  width: 100%;
+  height: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .table-container {
   width: 100%;
-  margin: 0; /* Eliminar cualquier margen */
-  padding: 0; /* Eliminar cualquier padding */
-  overflow-x: auto; /* Habilitar scroll horizontal */
-  scrollbar-width: none; /* Ocultar barra */
+  margin: 0 auto; /* Centra la tabla */
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .gastos-section {
   margin-bottom: 30px;
-  padding: 0;
+  padding: 0 15px; /* Añade un poco de espacio horizontal */
 }
+
 .gastos-section:last-child {
-  margin-bottom: 50px; /* Espacio adicional solo para la última tabla */
+  margin-bottom: 50px;
 }
+
 .gastos-section h2 {
   font-size: 24px;
-  margin: 0 0 15px 0; /* Asegurar márgenes limpios */
+  margin: 0 0 15px 0;
   color: #333;
-  text-align: center; /* Mantener título centrado */
+  text-align: center;
 }
 
 .gastos-table {
   width: 100%;
+  max-width: 100%; /* Asegura que la tabla no se extienda más allá del contenedor */
   border-collapse: collapse;
 }
 
@@ -75,31 +77,75 @@
   background-color: #f2f2f2;
 }
 
-/* Ocultar scroll en navegadores WebKit */
 .gastos-comunes::-webkit-scrollbar,
 .sidebar-and-table::-webkit-scrollbar,
 .sidebar-and-table-content::-webkit-scrollbar,
 .table-container::-webkit-scrollbar {
-  display: none; /* Ocultar barra de scroll en navegadores basados en WebKit */
+  display: none;
 }
 
 /* Responsividad */
-@media screen and (max-width: 768px) {
-  .sidebar-and-table-content {
-    align-items: flex-start;
-    padding: 0;
+@media screen and (max-width: 1024px) {
+  .gastos-section {
+    margin-bottom: 25px;
+    padding: 0 10px;
   }
 
+  .gastos-section h2 {
+    font-size: 22px;
+  }
+
+  .gastos-table {
+    width: 90%; /* Tabla se hace más pequeña en pantallas medianas */
+    margin: 0 auto;
+  }
+
+  .gastos-table th,
+  .gastos-table td {
+    padding: 8px;
+  }
+}
+
+@media screen and (max-width: 768px) {
   .gastos-section {
     margin-bottom: 20px;
+    padding: 0 8px;
   }
 
   .gastos-section h2 {
     font-size: 20px;
   }
 
+  .gastos-table {
+    width: 80%; /* Más pequeña para pantallas pequeñas */
+    margin: 0 auto;
+  }
+
   .gastos-table th,
   .gastos-table td {
-    padding: 8px;
+    padding: 6px;
+    font-size: 14px; /* Reducir el tamaño de la fuente */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .gastos-section {
+    margin-bottom: 15px;
+    padding: 0 5px;
+  }
+
+  .gastos-section h2 {
+    font-size: 18px;
+  }
+
+  .gastos-table {
+    width: 70%; /* Más pequeña para dispositivos muy pequeños */
+    margin: 0 auto;
+  }
+
+  .gastos-table th,
+  .gastos-table td {
+    padding: 4px;
+    font-size: 12px; /* Texto más pequeño para dispositivos pequeños */
   }
 }

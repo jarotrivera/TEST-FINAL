@@ -29,7 +29,7 @@
   align-items: center;
   gap: 20px;
   position: fixed;
-  top: 150px;
+  top: 150px; /* Posición predeterminada */
   z-index: 10;
   background-color: #fff;
   padding: 10px 20px;
@@ -106,4 +106,84 @@
   text-align: center;
   font-size: 14px;
   color: #333;
+}
+
+/* --- Responsividad --- */
+
+/* Pantallas medianas (1200px a 768px) */
+@media (max-width: 1200px) {
+  .estado-container {
+    top: 100px; /* Mueve el texto más arriba */
+    gap: 15px; /* Reduce el espacio entre indicadores */
+    padding: 8px 15px; /* Ajusta el padding */
+  }
+
+  .estacionamiento-grid {
+    grid-template-columns: repeat(3, 1fr); /* Reduce a 3 columnas */
+  }
+
+  .espacio {
+    width: 200px;
+    height: 200px;
+  }
+
+  .icono-carro {
+    font-size: 4rem;
+  }
+}
+
+/* Pantallas pequeñas (768px a 480px) */
+@media (max-width: 768px) {
+  .estado-container {
+    top: 50px; /* Mueve el texto aún más arriba */
+    gap: 10px; /* Reduce más el espacio entre indicadores */
+    padding: 5px 10px; /* Padding compacto */
+    font-size: 0.9rem; /* Ajusta el tamaño del texto */
+  }
+
+  .estacionamiento-grid {
+    grid-template-columns: repeat(2, 1fr); /* Reduce a 2 columnas */
+    gap: 15px;
+  }
+
+  .espacio {
+    width: 150px;
+    height: 150px;
+  }
+
+  .icono-carro {
+    font-size: 3rem;
+  }
+
+  .etiqueta-estacionamiento {
+    font-size: 12px; /* Reduce tamaño del texto */
+  }
+}
+
+/* Teléfonos y pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+  .estado-container {
+    top: 30px; /* Muy arriba en pantallas pequeñas */
+    gap: 5px;
+    padding: 5px; /* Sin padding adicional */
+    font-size: 0.8rem; /* Texto compacto */
+  }
+
+  .estacionamiento-grid {
+    grid-template-columns: repeat(1, 1fr); /* Una sola columna */
+    gap: 10px;
+  }
+
+  .espacio {
+    width: 120px;
+    height: 120px;
+  }
+
+  .icono-carro {
+    font-size: 2.5rem;
+  }
+
+  .etiqueta-estacionamiento {
+    font-size: 10px; /* Más pequeño para pantallas pequeñas */
+  }
 }

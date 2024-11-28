@@ -72,23 +72,8 @@
   min-height: 50px; /* Define una altura mínima fija */
 }
 
-/* Estilos de los botones */
 .botonpregunta,
-.botonventa {
-  font-family: 'Roboto', sans-serif;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  background-color: #007bff;
-  color: white;
-  width: 200px; /* Aumenta el ancho para hacerlos más grandes */
-  height: 50px;
-  white-space: nowrap; /* Evita que el texto se divida */
-  text-align: center; /* Centra el texto */
-  line-height: 50px; /* Alinea verticalmente el texto */
-  margin-top: 0; /* Asegura que los botones no tengan margen superior */
-}
-
+.botonventa,
 .botonregistro,
 .botonlogin {
   font-family: 'Roboto', sans-serif;
@@ -97,41 +82,39 @@
   font-size: 1rem;
   background-color: #007bff;
   color: white;
-  width: 150px;
+  width: 200px;
   height: 50px;
-  white-space: nowrap; /* Evita que el texto se divida */
-  text-align: center; /* Centra el texto */
-  line-height: 50px; /* Alinea verticalmente el texto */
-  margin-top: 0; /* Asegura que los botones no tengan margen superior */
-}
-
-/* Íconos dentro de los botones */
-.icon {
-  width: 20px;
-  height: 20px;
-  margin-bottom: 3px;
-  margin-right: 10px;
+  display: inline-flex; /* Asegura que sea un botón flexible y clickeable */
+  align-items: center; /* Centra verticalmente el contenido */
+  justify-content: center; /* Centra horizontalmente el contenido */
+  cursor: pointer; /* Asegura que todo el botón sea clickeable */
+  white-space: nowrap; /* Evita el salto de línea del texto */
+  position: relative; /* Asegura que el contenido del botón esté correctamente posicionado */
+  padding: 0; /* Elimina cualquier relleno innecesario */
 }
 
 .botonpregunta:hover,
 .botonventa:hover,
 .botonregistro:hover,
 .botonlogin:hover {
-  background-color: #0056b3; /* Color de fondo al pasar el mouse */
+  background-color: #0056b3; /* Cambia el color al pasar el mouse */
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px; /* Asegura espacio correcto entre ícono y texto */
+  flex-shrink: 0; /* Evita que el ícono cambie de tamaño */
 }
 
 /* --- Responsividad adicional --- */
 
 /* Pantallas medianas (tablets y pequeñas laptops) */
 @media (max-width: 1184px) {
-  .page-title-container {
-    text-align: center;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .logo2 {
-    margin-left: 15px;
+  .logo2, /* Oculta el logo */
+  .page-title-container, /* Oculta el título */
+  .comunidad-geocentro6 { /* Oculta la comunidad */
+    display: none;
   }
 
   .action-buttons {
@@ -157,12 +140,23 @@
 
 /* Pantallas pequeñas (teléfonos) */
 @media (max-width: 480px) {
+  .logo2, /* Oculta el logo */
+  .page-title-container, /* Oculta el título */
+  .comunidad-geocentro6 { /* Oculta la comunidad */
+    display: none;
+  }
+
   .botonpregunta,
   .botonventa,
   .botonregistro,
   .botonlogin {
-    width: 120px;
+    width: 120px; /* Tamaño ajustado para botones */
     height: 35px;
     font-size: 0.8rem;
+  }
+
+  .action-buttons {
+    justify-content: center; /* Centra los botones en pantallas pequeñas */
+    gap: 0.5rem; /* Ajusta el espacio entre botones */
   }
 }
