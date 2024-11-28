@@ -5,13 +5,22 @@
   padding: 0;
 }
 
-.content {
+.content2 {
   display: flex;
   flex: 1;
   position: relative;
-  margin: 0;
-  padding: 0;
-  justify-content: center; /* Centra el contenido horizontalmente */
+}
+
+.sidebar-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.sidebar-sticky::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 .main-panel {
@@ -20,54 +29,46 @@
   background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra los elementos dentro del panel */
+  align-items: center;
   justify-content: flex-start;
   width: 100%;
 }
 
-/* Contenedor del formulario */
-.formulario-container {
+.form-wrapper {
+  display: flex;
+  justify-content: flex-start; /* Mueve el formulario hacia la izquierda */
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.form-container {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 70%; /* Ancho del formulario */
-  max-width: 800px; /* Limita el tamaño máximo */
-  margin: 0 auto; /* Centra el formulario dentro del contenedor */
-  box-sizing: border-box;
-  transition: all 0.3s ease; /* Suaviza los cambios de posición */
+  width: 68%;
+  max-width: 900px;
+  margin-left: 440px; /* Mueve el formulario hacia la izquierda */
+  margin-top: 60px;
 }
 
-/* Estilos de los campos del formulario */
-.formulario {
+.post-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.formulario input,
-.formulario textarea {
+.post-form input,
+.post-form textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.formulario .form-group {
-  margin-bottom: 15px;
-}
-
-.formulario label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.formulario input[type="file"] {
-  margin-top: 5px;
-}
-
-.formulario button {
+.post-form button {
   padding: 10px;
   background-color: #1682FD;
   color: white;
@@ -76,7 +77,7 @@
   cursor: pointer;
 }
 
-.formulario button:hover {
+.post-form button:hover {
   background-color: #0a5ac6;
 }
 
@@ -94,50 +95,4 @@
   color: green;
   margin-top: 15px;
   text-align: center;
-}
-
-/* --- Responsividad --- */
-
-/* Pantallas grandes (1440px o más) */
-@media (min-width: 1440px) {
-  .formulario-container {
-    width: 70%; /* Ajusta el ancho del formulario */
-    margin: 0 auto; /* Centra el formulario */
-  }
-}
-
-/* Pantallas medianas (1200px a 768px) */
-@media (max-width: 1200px) {
-  .formulario-container {
-    width: 75%; /* Ajusta el ancho para pantallas medianas */
-    margin: 0 auto; /* Centra el formulario */
-  }
-}
-
-/* Pantallas pequeñas (768px a 480px) */
-@media (max-width: 768px) {
-  .formulario-container {
-    width: 90%; /* Más ancho en pantallas pequeñas */
-    margin: 0 auto; /* Centra el formulario */
-    padding: 15px; /* Reduce el padding */
-  }
-}
-
-/* Teléfonos y pantallas muy pequeñas (menos de 480px) */
-@media (max-width: 480px) {
-  .formulario-container {
-    width: 95%; /* Ocupa casi todo el ancho */
-    margin: 0 auto; /* Centrado */
-    padding: 10px; /* Padding reducido */
-  }
-
-  .formulario button {
-    font-size: 0.9rem;
-    padding: 8px;
-  }
-
-  .formulario input,
-  .formulario textarea {
-    padding: 10px;
-  }
 }

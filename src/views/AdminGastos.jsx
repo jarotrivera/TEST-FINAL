@@ -24,18 +24,9 @@ const AdminGastos = () => {
   };
 
   const agregarFila = () => setFilas([...filas, Array(columnas.length).fill('')]);
-  const eliminarFila = () => setFilas(filas.slice(0, -1));
-
   const agregarColumna = () => {
     setColumnas([...columnas, `Columna ${columnas.length + 1}`]);
     setFilas(filas.map(fila => [...fila, '']));
-  };
-
-  const eliminarColumna = () => {
-    if (columnas.length > 0) {
-      setColumnas(columnas.slice(0, -1));
-      setFilas(filas.map(fila => fila.slice(0, -1)));
-    }
   };
 
   const handleInputChange = (filaIdx, colIdx, value) => {
@@ -45,16 +36,6 @@ const AdminGastos = () => {
   };
 
   const handleGuardar = async () => {
-    // Validar que todas las celdas estén rellenas y el título no esté vacío
-    const tieneCamposVacios = filas.some((fila) =>
-      fila.some((celda) => celda.trim() === '')
-    );
-
-    if (tieneCamposVacios || tablaTitulo.trim() === '') {
-      alert('Por favor, rellena todas las celdas y asigna un título a la tabla antes de guardar.');
-      return;
-    }
-
     try {
       const response = await fetch('https://forogeocentro-production.up.railway.app/api/gastos/crear', {
         method: 'POST',
@@ -68,16 +49,12 @@ const AdminGastos = () => {
 
       if (response.ok) {
         alert('Gastos guardados correctamente');
-        setTablaTitulo(''); // Reiniciar título
-        setColumnas(['Nombre', 'Monto', 'Descripción']); // Reiniciar columnas
-        setFilas([['', '', '']]); // Reiniciar filas
         fetchTablas(); // Recargar la lista de tablas
       } else {
         alert('Error al guardar los gastos');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Error al guardar los gastos. Inténtalo nuevamente.');
     }
   };
 
@@ -127,49 +104,44 @@ const AdminGastos = () => {
       <div className="button-container">
         <button onClick={agregarColumna}>Agregar Columna</button>
         <button onClick={agregarFila}>Agregar Fila</button>
-        <button className="delete-button" onClick={eliminarColumna}>Eliminar Columna</button>
-        <button className="delete-button" onClick={eliminarFila}>Eliminar Fila</button>
       </div>
-
-      <div className="table-scrollable">
-        <table className="gastos-table">
-          <thead>
-            <tr>
-              {columnas.map((columna, idx) => (
-                <th key={idx} onClick={() => handleTitleEdit(idx)}>
-                  {isEditingTitle === idx ? (
-                    <input
-                      type="text"
-                      value={columna}
-                      onChange={(e) => handleTitleChange(idx, e.target.value)}
-                      onBlur={handleTitleBlur}
-                      autoFocus
-                    />
-                  ) : (
-                    columna
-                  )}
-                </th>
+      
+      <table className="gastos-table">
+        <thead>
+          <tr>
+            {columnas.map((columna, idx) => (
+              <th key={idx} onClick={() => handleTitleEdit(idx)}>
+                {isEditingTitle === idx ? (
+                  <input
+                    type="text"
+                    value={columna}
+                    onChange={(e) => handleTitleChange(idx, e.target.value)}
+                    onBlur={handleTitleBlur}
+                    autoFocus
+                  />
+                ) : (
+                  columna
+                )}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {filas.map((fila, filaIdx) => (
+            <tr key={filaIdx}>
+              {fila.map((dato, colIdx) => (
+                <td key={colIdx}>
+                  <input
+                    type="text"
+                    value={dato}
+                    onChange={(e) => handleInputChange(filaIdx, colIdx, e.target.value)}
+                  />
+                </td>
               ))}
             </tr>
-          </thead>
-          <tbody>
-            {filas.map((fila, filaIdx) => (
-              <tr key={filaIdx}>
-                {fila.map((dato, colIdx) => (
-                  <td key={colIdx}>
-                    <input
-                      type="text"
-                      value={dato}
-                      onChange={(e) => handleInputChange(filaIdx, colIdx, e.target.value)}
-                    />
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
+          ))}
+        </tbody>
+      </table>
       <button id="guardar-button" onClick={handleGuardar}>Guardar</button>
 
       <div className="tables-list">

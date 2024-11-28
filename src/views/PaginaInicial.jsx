@@ -235,7 +235,7 @@ return (
                       {publicacion.foto && (
                         <div className="pagina-inicial-image">
                           <img src={publicacion.foto} alt="Imagen de la publicación" />
-                          <Button onClick={() => openImageModal(publicacion.foto)} color="primary" className="ver-imagen-boton">
+                          <Button onClick={() => openImageModal(publicacion.foto)} color="primary" style={{ marginTop: '10px' }}>
                             Ver Imagen Completa
                           </Button>
                         </div>

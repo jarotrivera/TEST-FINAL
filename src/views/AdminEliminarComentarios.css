@@ -1,111 +1,61 @@
-.admin-eliminar-comentarios-container {
+.admin-eliminar-comentarios {
   display: flex;
+  flex-direction: column;
   height: 100vh;
 }
 
-.admin-eliminar-comentarios-content {
-  flex: 1;
+.content4 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-h2 {
+.admin-content {
+  flex: 1;
+  margin-left: 20px;
+  margin-top: 50px;
+}
+
+.table {
+  width: 80%; /* Reduce el ancho total de la tabla */
+  max-width: 1500px; /* Limita el ancho máximo para hacerla más pequeña */
+  margin-top: 20px;
+  margin-left: auto; /* Centrar la tabla horizontalmente */
+  margin-right: auto; /* Centrar la tabla horizontalmente */
+  font-size: 1.2rem; /* Reduce el tamaño del texto para hacerla más compacta */
+}
+
+.table th,
+.table td {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.5em;
-  color: #333;
+  vertical-align: middle;
 }
 
-/* Buscador */
-.search-container {
-  width: 80%;
-  max-width: 1200px;
-  margin-bottom: 20px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 8px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-
-/* Tabla */
-.admin-eliminar-comentarios-table {
-  width: 80%;
-  max-width: 1200px;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-}
-
-.admin-eliminar-comentarios-table th,
-.admin-eliminar-comentarios-table td {
-  padding: 12px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-
-.admin-eliminar-comentarios-table th {
+.table tbody tr:hover {
   background-color: #f5f5f5;
-  font-weight: bold;
-}
-
-.ver-comentarios-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-}
-
-.ver-comentarios-button:hover {
-  background-color: #0056b3;
-}
-
-/* Modal */
-.dialog-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
-  border: none;
   cursor: pointer;
 }
 
-.close-button:hover {
-  color: #c0392b;
-}
-
-.dialog-content {
-  max-height: 60vh;
-  overflow-y: auto;
+.admin-title {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .admin-comment-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
 }
 
-.delete-button {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+.admin-comment-text {
+  flex: 1;
+  margin-right: 10px;
 }
 
-.delete-button:hover {
-  background-color: #c0392b;
+.icon-button {
+  cursor: pointer;
 }

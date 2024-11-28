@@ -6,108 +6,26 @@
 .admin-eliminar-venta-content {
   flex: 1;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.5em;
-  color: #333;
-}
-
-/* Buscador */
-.search-container {
-  width: 80%;
-  max-width: 1200px;
-  margin-bottom: 20px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 8px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-
-/* Tabla */
 .admin-eliminar-venta-table {
-  width: 80%;
-  max-width: 1200px;
-  border-collapse: collapse;
-  font-size: 0.9rem;
+  width: 80%; /* Reduce el ancho total de la tabla */
+  max-width: 1500px; /* Limita el ancho máximo para hacerla más pequeña */
+  margin-top: 20px;
+  margin-left: auto; /* Centrar la tabla horizontalmente */
+  margin-right: auto; /* Centrar la tabla horizontalmente */
+  font-size: 1.2rem; /* Reduce el tamaño del texto para hacerla más compacta */
 }
 
-.admin-eliminar-venta-table th,
-.admin-eliminar-venta-table td {
+.admin-eliminar-venta-table th, .admin-eliminar-venta-table td {
   padding: 12px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-
-.admin-eliminar-venta-table th {
-  background-color: #f5f5f5;
-  font-weight: bold;
-}
-
-.ver-ventas-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-}
-
-.ver-ventas-button:hover {
-  background-color: #0056b3;
-}
-
-/* Modal */
-.dialog-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  position: relative;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  color: #333;
-}
-
-.close-button:hover {
-  color: #c0392b;
-}
-
-.dialog-content {
-  max-height: 60vh;
-  overflow-y: auto;
+  border: 1px solid #ddd;
 }
 
 .admin-venta-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-}
-
-.delete-button {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-}
-
-.delete-button:hover {
-  background-color: #c0392b;
+  margin: 10px 0;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
@@ -10,7 +10,6 @@ const Login = () => {
   });
 
   const [error, setError] = useState("");
-  const [showModal, setShowModal] = useState(false); // Estado para el modal
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -23,7 +22,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch("https://forogeocentro-production.up.railway.app/api/auth/login", {
         method: "POST",
@@ -35,30 +34,34 @@ const Login = () => {
           password: formData.contraseña,
         }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
+        // Verifica si el token y otros datos existen antes de guardarlos
         if (data.token && data.userId && data.role) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("userId", data.userId);
           localStorage.setItem("role", data.role);
+  
+          console.log("Token, userId y role guardados en localStorage");
+          console.log("userId:", data.userId, "role:", data.role);
+  
           navigate("/paginainicial");
         } else {
+          console.error("Datos incompletos recibidos del servidor");
           setError("Error en el servidor");
         }
       } else {
         setError(data.message || "Credenciales incorrectas");
       }
     } catch (error) {
+      console.error("Error:", error);
       setError("Ocurrió un error. Inténtalo nuevamente.");
     }
   };
-
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
-
+  
+  
   return (
     <div className="login">
       <main className="content3">
@@ -106,77 +109,15 @@ const Login = () => {
             </Form>
             <p
               className="forgot-password-link"
-              onClick={() => navigate("/recuperar")}
-              style={{
-                cursor: "pointer",
-                color: "blue",
-                textDecoration: "underline",
-                marginTop: "10px",
-              }}
+              onClick={() => navigate('/recuperar')}
+              style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline', marginTop: '10px' }}
             >
               ¿Olvidaste tu contraseña?
-            </p>
-            <p
-              className="rules-link"
-              onClick={toggleModal}
-              style={{
-                cursor: "pointer",
-                color: "blue",
-                textDecoration: "underline",
-                marginTop: "10px",
-              }}
-            >
-              Reglamento de la comunidad
             </p>
           </div>
         </div>
         <img className="image-icon" alt="" src="/image@2x.png" />
       </main>
-
-      {/* Modal de reglas */}
-      <Modal show={showModal} onHide={toggleModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Reglamento de la Comunidad GeoCentro</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <ul>
-            <li>
-              El respeto entre los miembros es primordial. No se permiten
-              insultos, lenguaje ofensivo ni conductas discriminatorias.
-            </li>
-            <li>
-              Las publicaciones deben estar relacionadas con temas relevantes
-              para la comunidad, como anuncios de ventas, eventos o discusiones
-              generales sobre el edificio.
-            </li>
-            <li>
-              Las ventas realizadas deben ser legítimas, claras y completas. No
-              se permiten fraudes ni productos ilícitos.
-            </li>
-            <li>
-              Cualquier comentario o publicación ofensiva será eliminada de
-              inmediato.
-            </li>
-            <li>
-              El administrador se reserva el derecho de eliminar publicaciones
-              o comentarios que incumplan las normas.
-            </li>
-            <li>
-              Si un usuario infringe las reglas más de 3 veces, será eliminado
-              permanentemente del foro, y sus publicaciones serán borradas.
-            </li>
-          </ul>
-          <p>
-            Al utilizar este foro, aceptas cumplir con estas reglas para
-            garantizar un espacio seguro y respetuoso para todos.
-          </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={toggleModal}>
-            Cerrar
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 };

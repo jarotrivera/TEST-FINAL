@@ -49,33 +49,6 @@
   font-weight: 700;
   color: #000;
   margin-bottom: 10px;
-  margin-top: 0; /* Asegura que no tenga margen superior extra */
-  text-align: center; /* Centra el título horizontalmente */
-  position: relative; /* Mantiene su posición en relación al flujo normal */
-}
-
-/* Ajuste para pantallas medianas */
-@media (max-width: 1200px) {
-  .title5 {
-    font-size: 18px; /* Ajusta el tamaño del título */
-    margin-top: 20px; /* Añade un margen superior para separarlo del navbar */
-  }
-}
-
-/* Ajuste para pantallas pequeñas */
-@media (max-width: 768px) {
-  .title5 {
-    font-size: 16px; /* Reduce aún más el tamaño del título */
-    margin-top: 30px; /* Incrementa la separación con el navbar */
-  }
-}
-
-/* Ajuste para pantallas muy pequeñas */
-@media (max-width: 480px) {
-  .title5 {
-    font-size: 14px; /* Texto más compacto */
-    margin-top: 40px; /* Máxima separación con el navbar */
-  }
 }
 
 /* Contenedor de las imágenes, ahora ocupa el ancho completo */

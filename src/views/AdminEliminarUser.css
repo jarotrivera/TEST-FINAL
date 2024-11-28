@@ -16,56 +16,6 @@ h2 {
   color: #333;
 }
 
-/* Campo de búsqueda */
-.search-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-/* Tabla de usuarios */
-.user-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.user-table th,
-.user-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.user-table th {
-  background-color: #f5f5f5;
-  font-weight: bold;
-}
-
-.user-table tr:hover {
-  background-color: #f9f9f9;
-}
-
-/* Botón de eliminar */
-.delete-button {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 0.9em;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.delete-button:hover {
-  background-color: #c0392b;
-}
-
-/* Lista de items */
 .item-list {
   list-style: none;
   padding: 0;
@@ -93,7 +43,21 @@ h2 {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Media queries para dispositivos móviles */
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
+
 @media (max-width: 768px) {
   .item-card {
     width: 90%;

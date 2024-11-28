@@ -4,8 +4,6 @@
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
-  position: relative;
-  z-index: 1; /* Asegura que el contenido esté por debajo del sidebar */
 }
 
 .content4 {
@@ -16,191 +14,49 @@
   overflow: hidden;
 }
 
-
-/* Contenedor principal para las tarjetas */
+/* Contenedor principal para las publicaciones */
 .pagina-inicial-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: calc(100% - 80px - 280px); /* Ancho restante entre menú y right panel */
-  margin-left: 80px; /* Espacio para el menú */
-  margin-right: 280px; /* Espacio para el right panel */
-  padding: 20px;
-  box-sizing: border-box;
+  align-items: center;
+  width: 100%;
+  max-width: 80%; /* Ajuste para ocupar más espacio */
+  margin: 0 auto;
   overflow-y: auto;
+  max-height: calc(100vh - 60px);
+  padding: 20px;
 }
 
-/* Tarjetas de publicaciones: Sin límite de ancho */
+/* Tarjeta de publicación */
 .pagina-inicial-card {
   margin: 20px auto;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 100%; /* Asegura que ocupe todo el ancho disponible */
-  max-width: 100%; /* Elimina restricciones de ancho */
+  width: 200%; 
+  max-width: 1100px; /* Aumenta el ancho máximo */
   transition: box-shadow 0.3s ease;
+  margin-right: 1000px;
 }
 
 .pagina-inicial-card:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.pagina-inicial-title {
+.pagina-inicial-title{
   text-align: left;
-}
-
-/* Ajustes para la imagen dentro de la publicación */
-.pagina-inicial-image {
-  display: flex;
-  justify-content: flex-start; /* Alinea la imagen a la izquierda */
-  margin-top: 10px;
-}
-
-.pagina-inicial-image img {
-  max-width: 50%; /* Ajusta el ancho si es necesario */
-  height: auto;
-  border-radius: 8px;
-  cursor: pointer;
-  object-fit: cover;
-  margin-right: auto; /* Asegura que la imagen se quede a la izquierda */
-}
-
-/* Ajustes para la sección de usuario y comentarios */
-.pagina-inicial-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  justify-content: flex-start;
-}
-
-.pagina-inicial-user-info {
-  margin-left: 10px;
-  flex-grow: 1;
-}
-
-.pagina-inicial-date {
-  font-size: 0.9rem;
-  color: #888;
-}
-
-.pagina-inicial-content {
-  margin-top: 10px;
-  text-align: left;
-}
-
-/* Botón para ver comentarios */
-.ver-comentarios-button {
-  margin-top: 10px;
-  display: flex;
-  justify-content: flex-start;
 }
 
 /* Ajustes para el Sidebar */
 .sidebar-sticky {
-  position: fixed;
+  position: sticky;
   top: 0;
   height: 100vh;
-  z-index: 10000;
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
 }
 
 .sidebar-sticky::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
-}
-.pagina-inicial-image {
-  display: flex; /* Para alinear el botón y la imagen en una fila */
-  align-items: center; /* Alinea verticalmente el contenido */
-  justify-content: flex-start; /* Alinea a la izquierda */
-  margin-top: 10px;
-}
-
-.pagina-inicial-image img {
-  max-width: auto; /* Ajusta el ancho de la imagen si es necesario */
-  height: auto;
-  margin-right: 10px; 
-  border-radius: 8px;
-}
-
-.ver-imagen-boton {
-  padding: 4px 8px; 
-  font-size: 0.8rem; 
-  height: 30px; 
-  min-width: 120px; 
-  margin-left: 10px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.ver-imagen-boton:hover {
-  background-color: #007bff; 
-  color: white;
-  transform: translateX(-3px); 
-}
-
-/* Responsividad para pantallas grandes (1920x1080 y similares) */
-@media screen and (min-width: 1440px) {
-  .pagina-inicial-container {
-    width: calc(100% - 80px - 280px); /* Respeta menú y panel derecho */
-    margin-left: 80px;
-    margin-right: 280px;
-  }
-
-  .pagina-inicial-card {
-    max-width: 100%; /* Tarjetas ocupan todo el espacio horizontal disponible */
-    padding: 25px; /* Agrega un poco más de padding */
-  }
-}
-
-/* Responsividad para pantallas medianas (1024px a 1440px) */
-@media screen and (max-width: 1440px) {
-  .pagina-inicial-container {
-    width: calc(100% - 80px - 200px); /* Reduce espacio del right panel */
-    margin-right: 200px;
-  }
-
-  .pagina-inicial-card {
-    max-width: 90%; /* Reduce ligeramente el tamaño en pantallas medianas */
-    padding: 20px;
-  }
-}
-
-/* Responsividad para tablets y laptops pequeñas */
-@media screen and (max-width: 1024px) {
-  .pagina-inicial-container {
-    width: calc(100% - 80px - 100px); /* Reduce más el espacio del right panel */
-    margin-right: 100px;
-  }
-
-  .pagina-inicial-card {
-    max-width: 85%; /* Reduce el ancho máximo */
-    padding: 15px; /* Ajusta el padding interno */
-  }
-}
-
-/* Responsividad para pantallas pequeñas (teléfonos y tablets pequeñas) */
-@media screen and (max-width: 768px) {
-  .pagina-inicial-container {
-    width: calc(100% - 80px); /* Ocupa todo el espacio cuando no hay right panel */
-    margin-right: 0; /* Elimina margen derecho */
-  }
-
-  .pagina-inicial-card {
-    max-width: 100%; /* Ocupa todo el ancho disponible */
-    padding: 10px; /* Reduce el padding interno */
-  }
-}
-
-/* Responsividad para pantallas extra pequeñas (teléfonos pequeños) */
-@media screen and (max-width: 480px) {
-  .pagina-inicial-container {
-    width: 100%; /* Ocupa todo el ancho */
-    margin: 0; /* Sin márgenes */
-    padding: 5px; /* Ajusta el padding */
-  }
-
-  .pagina-inicial-card {
-    max-width: 100%; /* Tarjetas ocupan todo el ancho */
-    padding: 8px; /* Reduce aún más el padding interno */
-  }
 }
