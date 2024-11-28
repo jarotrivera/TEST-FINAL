@@ -10,7 +10,7 @@ const GastosComunes = () => {
   useEffect(() => {
     const fetchGastos = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/gastos', {
+        const response = await fetch('https://forogeocentro-production.up.railway.app/api/gastos', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`, // Envía el token JWT
             'Content-Type': 'application/json',
