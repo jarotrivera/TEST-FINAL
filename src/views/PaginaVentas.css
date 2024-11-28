@@ -40,16 +40,16 @@
 }
 
 .venta-card {
-  margin: 30px 0;
+  margin: 20px 0; /* Ajusta el margen si es necesario */
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 24px;
-  width: 90%;
-  max-width: 1000px;
-  transition: box-shadow 0.3s ease;
-  margin-left: -30px;
+  width: 60%; /* Reduce el tamaño de la tarjeta */
+  max-width: 700px; /* Reduce el tamaño máximo de la tarjeta */
+  transition: box-shadow 0.3s ease;;
 }
+
 
 .venta-card:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
