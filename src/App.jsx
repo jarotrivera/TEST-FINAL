@@ -24,7 +24,6 @@ import Recuperar from './components/Recuperar';
 import ResetPassword from './components/ResetPassword';
 import AdminEliminarComentarios from './views/AdminEliminarComentarios';
 import Comentarios from './views/Comentarios';
-import ProtectedRoute from './components/ProtectedRoute';
 
 // Función para decodificar el token y obtener el rol
 function decodeTokenRole(token) {
@@ -45,19 +44,20 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} /> {/* Redirección a registro */}
-        <Route path="/" element={<Layout userRole={userRole} />}> {/* Pasar el rol como prop */}
-          <Route path="login" element={<Login />} />
-          <Route path="registro" element={<Registro />} />
+        {/* Rutas públicas */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/recuperar" element={<Recuperar />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-          {/* Rutas protegidas */}
-          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+        {/* Rutas protegidas */}
+        {isAuthenticated ? (
+          <Route path="/" element={<Layout userRole={userRole} />}> {/* Pasar el rol como prop */}
+            <Route path="paginainicial" element={<PaginaInicial />} />
             <Route path="areas-comunes" element={<AreasComunes />} />
             <Route path="tusventas" element={<TusVentas />} />
             <Route path="estacionamiento" element={<Estacionamiento />} />
             <Route path="vistahacerunpost" element={<VistaHacerUnPost />} />
             <Route path="vistahacerunaventa" element={<VistaHacerUnaVenta />} />
-            <Route path="paginainicial" element={<PaginaInicial />} />
             <Route path="tuspreguntas" element={<TusPreguntas />} />
             <Route path="paginaventas" element={<PaginaVentas />} />
             <Route path="gastoscomunes" element={<GastosComunes />} />
@@ -70,12 +70,13 @@ function App() {
             <Route path="admin-reportes" element={<AdminReportes />} />
             <Route path="admin-eliminar-comentarios" element={<AdminEliminarComentarios />} />
             <Route path="comentarios/:postId" element={<Comentarios />} />
+            {userRole === 'admin' && (
+              <Route path="registro" element={<Registro />} />
+            )}
           </Route>
-
-          {/* Ruta pública */}
-          <Route path="recuperar" element={<Recuperar />} />
-          <Route path="reset-password/:token" element={<ResetPassword />} />
-        </Route>
+        ) : (
+          <Route path="*" element={<Navigate to="/login" />} />
+        )}
       </Routes>
     </Router>
   );

@@ -34,7 +34,8 @@
 .content3 {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 86px);
+  min-height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+  width: 100%;
   width: 100%;
 }
 
@@ -59,8 +60,10 @@
 }
 
 .image-icon {
-  width: 60%;
-  height: 100%;
+  width: 100%;
+  height: 100vh; /* Asegura que cubra toda la pantalla */
+  object-fit: cover;
+  object-position: center;
   object-fit: cover;
   object-position: center;
 }
@@ -229,8 +232,9 @@
   }
 
   .image-icon {
-    height: 200px; /* Ajusta la altura de la imagen */
-    object-fit: contain; /* Asegura que la imagen mantenga proporción */
+    height: 300px; /* Ajusta la altura de la imagen para que cubra más */
+    width: 100%;
+    object-fit: cover; /* Asegura que la imagen mantenga proporción y cubra */
   }
 
   .bienvenido-a-la {
@@ -303,6 +307,8 @@
   }
 
   .image-icon {
-    height: 150px; /* Reduce la altura de la imagen */
+    height: 250px; /* Aumenta la altura de la imagen para cubrir más */
+    width: 100%;
+    object-fit: cover;
   }
 }
