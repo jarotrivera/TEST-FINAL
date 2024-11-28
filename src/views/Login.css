@@ -210,35 +210,99 @@
 .modal-footer {
   flex-shrink: 0; /* Asegura que el header y footer no se comprimen */
 }
+/* --- Responsividad adicional para Login --- */
 
-
-
-
+/* Pantallas medianas (tablets y pequeñas laptops) */
 @media screen and (max-width: 768px) {
+  .login {
+    padding: 1rem; /* Reduce el padding general */
+  }
+
   .content3 {
-    flex-direction: column;
-    height: auto;
+    flex-direction: column; /* Apila los elementos en columnas */
+    height: auto; /* Permite ajustar la altura */
   }
 
-  .info-wrapper,
-  .image-icon {
-    width: 100%;
+  .info-wrapper {
+    width: 100%; /* Asegura que el formulario ocupe todo el ancho */
+    padding: 1rem; /* Reduce el padding */
   }
 
   .image-icon {
-    height: 50vh;
+    height: 200px; /* Ajusta la altura de la imagen */
+    object-fit: contain; /* Asegura que la imagen mantenga proporción */
+  }
+
+  .bienvenido-a-la {
+    font-size: 1.5rem; /* Reduce el tamaño del texto del título */
+    margin-bottom: 20px; /* Reduce el margen inferior */
+  }
+
+  .geocentro-el-foro {
+    font-size: 1rem; /* Reduce el tamaño del subtítulo */
+    line-height: 1.5rem;
+  }
+
+  .login-form {
+    padding: 0.5rem; /* Reduce el padding del formulario */
+  }
+
+  .input-full {
+    font-size: 0.9rem; /* Reduce el tamaño del texto en los campos */
+    height: 45px; /* Reduce la altura de los inputs */
+  }
+
+  .input-full label {
+    font-size: 0.8rem; /* Reduce el tamaño del texto de las etiquetas */
+  }
+
+  .button-resize {
+    font-size: 0.9rem; /* Reduce el tamaño del texto del botón */
+    height: 40px; /* Reduce la altura del botón */
+  }
+
+  .rules-link {
+    font-size: 0.8rem; /* Reduce el tamaño del texto del link */
   }
 }
 
+/* Pantallas pequeñas (teléfonos) */
 @media screen and (max-width: 450px) {
-  .user-buttons {
-    display: none;
-  }
-  .bienvenido-a-la {
-    font-size: var(--font-size-lgi);
-  }
   .navbar2 {
-    padding-left: var(--padding-9xl);
-    box-sizing: border-box;
+    padding: 0.5rem; /* Reduce el padding del navbar */
+  }
+
+  .bienvenido-a-la {
+    font-size: 1.2rem; /* Reduce aún más el tamaño del título */
+  }
+
+  .geocentro-el-foro {
+    font-size: 0.9rem; /* Ajusta el tamaño del subtítulo */
+  }
+
+  .login-form {
+    padding: 0.5rem; /* Reduce aún más el padding del formulario */
+  }
+
+  .input-full {
+    font-size: 0.8rem; /* Reduce el tamaño del texto de los campos */
+    height: 40px; /* Ajusta la altura */
+  }
+
+  .input-full label {
+    font-size: 0.7rem; /* Reduce el tamaño del texto de las etiquetas */
+  }
+
+  .button-resize {
+    font-size: 0.8rem; /* Ajusta el tamaño del texto del botón */
+    height: 35px; /* Ajusta la altura del botón */
+  }
+
+  .rules-link {
+    font-size: 0.7rem; /* Ajusta el tamaño del texto del link */
+  }
+
+  .image-icon {
+    height: 150px; /* Reduce la altura de la imagen */
   }
 }

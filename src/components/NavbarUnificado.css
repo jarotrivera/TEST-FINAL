@@ -13,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem; 
+  margin-bottom: 0; /* Eliminamos margen innecesario */
   width: 100%;
 }
 
@@ -27,33 +27,35 @@
 .logo-icon-11 {
   width: 50px;
   height: auto;
-  margin-right: 15px; 
+  margin-right: 15px;
   margin-left: 30px;
 }
 
 .comunidad-geocentro6 {
   font-size: 1.3rem;
-  color: #000000; 
-  text-decoration: none; 
+  color: #000000;
+  text-decoration: none;
   font-family: 'Roboto', sans-serif;
-  font-weight: 700; 
+  font-weight: 700;
   margin-top: 10px;
 }
 
-/* Contenedor título */
 .page-title-container {
-  flex-grow: 1; 
-  text-align: center; 
-  margin-left: 200px;
+  flex-grow: 1; /* Permite que ocupe el espacio restante */
+  text-align: center; /* Centra el texto horizontalmente */
+  margin: 0; /* Elimina márgenes */
+  position: relative; /* Mantén el título dentro del flujo del navbar */
+  margin-right: 280px;
 }
+
+
 
 /* Estilos del título */
 .title15 {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #000000; 
-  margin: 0; 
-  margin-right: 500px;
+  color: #000000;
+  margin: 0;
   font-family: 'Roboto', sans-serif;
   text-decoration: none; /* Elimina el subrayado */
 }
@@ -61,20 +63,16 @@
 /* Contenedor botones */
 .action-buttons {
   display: flex;
-  gap: 1rem;
-  align-items: center;
-  margin-left: auto; 
-  margin-top: -55px;
-  flex-shrink: 0; 
+  gap: 1rem; /* Espacio entre botones */
+  align-items: center; /* Centra verticalmente los botones */
+  justify-content: flex-end; /* Mantiene los botones alineados a la derecha */
+  flex-wrap: nowrap; /* Evita que los botones se vayan hacia abajo */
+  height: auto; /* Permite ajuste dinámico de altura */
+  margin-top: -45px; /* Ajusta según tu preferencia */
+  min-height: 50px; /* Define una altura mínima fija */
 }
 
-.icon {
-  width: 20px; /* Ajusta el tamaño del ícono */
-  height: 20px; /* Ajusta el tamaño del ícono */;
-  margin-bottom: 3px;
-  margin-right: 10px;
-}
-
+/* Estilos de los botones */
 .botonpregunta,
 .botonventa {
   font-family: 'Roboto', sans-serif;
@@ -82,9 +80,13 @@
   border-radius: 5px;
   font-size: 1rem;
   background-color: #007bff;
-  color: white; 
-  width: 200px;
+  color: white;
+  width: 200px; /* Aumenta el ancho para hacerlos más grandes */
   height: 50px;
+  white-space: nowrap; /* Evita que el texto se divida */
+  text-align: center; /* Centra el texto */
+  line-height: 50px; /* Alinea verticalmente el texto */
+  margin-top: 0; /* Asegura que los botones no tengan margen superior */
 }
 
 .botonregistro,
@@ -94,9 +96,21 @@
   border-radius: 5px;
   font-size: 1rem;
   background-color: #007bff;
-  color: white; 
+  color: white;
   width: 150px;
   height: 50px;
+  white-space: nowrap; /* Evita que el texto se divida */
+  text-align: center; /* Centra el texto */
+  line-height: 50px; /* Alinea verticalmente el texto */
+  margin-top: 0; /* Asegura que los botones no tengan margen superior */
+}
+
+/* Íconos dentro de los botones */
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 3px;
+  margin-right: 10px;
 }
 
 .botonpregunta:hover,
@@ -109,26 +123,35 @@
 /* --- Responsividad adicional --- */
 
 /* Pantallas medianas (tablets y pequeñas laptops) */
-@media (max-width: 768px) {
+@media (max-width: 1184px) {
   .page-title-container {
-    display: none; /* Oculta el título de la página */
+    text-align: center;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .logo2 {
-    display: none; /* Oculta el logo y comunidad */
+    margin-left: 15px;
   }
 
   .action-buttons {
     justify-content: center;
+    gap: 0.5rem; /* Reduce el espacio entre botones */
+    margin-top: -10px; /* Aseguramos que no descienda en pantallas medianas */
   }
 
   .botonpregunta,
-  .botonventa,
+  .botonventa {
+    width: 170px; /* Ajusta el ancho en pantallas medianas */
+    height: 40px; /* Ajusta la altura */
+    font-size: 0.9rem;
+  }
+
   .botonregistro,
   .botonlogin {
-    width: 150px; /* Ajusta el ancho de los botones */
-    height: 40px; /* Ajusta la altura de los botones */
-    font-size: 0.9rem; /* Reduce el tamaño de la fuente */
+    width: 130px; /* Ajusta el ancho en pantallas medianas */
+    height: 40px;
+    font-size: 0.9rem;
   }
 }
 
@@ -138,8 +161,8 @@
   .botonventa,
   .botonregistro,
   .botonlogin {
-    width: 120px; /* Ajusta el ancho de los botones */
-    height: 35px; /* Ajusta la altura de los botones */
-    font-size: 0.8rem; /* Reduce el tamaño de la fuente aún más */
+    width: 120px;
+    height: 35px;
+    font-size: 0.8rem;
   }
 }

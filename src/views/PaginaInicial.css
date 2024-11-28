@@ -17,31 +17,31 @@
 }
 
 
-/* Contenedor principal para las publicaciones */
+/* Contenedor principal para las tarjetas */
 .pagina-inicial-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 80%; /* Ajuste para ocupar más espacio */
-  margin: 0 auto;
-  overflow-y: auto;
-  max-height: calc(100vh - 60px);
+  align-items: flex-start;
+  width: calc(100% - 80px - 280px); /* Ancho restante entre menú y right panel */
+  margin-left: 80px; /* Espacio para el menú */
+  margin-right: 280px; /* Espacio para el right panel */
   padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-/* Tarjeta de publicación */
+/* Tarjetas de publicaciones: Sin límite de ancho */
 .pagina-inicial-card {
   margin: 20px auto;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 200%; 
-  max-width: 1100px; /* Aumenta el ancho máximo */
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+  max-width: 100%; /* Elimina restricciones de ancho */
   transition: box-shadow 0.3s ease;
-  margin-right: 1000px;
 }
+
 .pagina-inicial-card:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
@@ -136,4 +136,71 @@
   background-color: #007bff; 
   color: white;
   transform: translateX(-3px); 
+}
+
+/* Responsividad para pantallas grandes (1920x1080 y similares) */
+@media screen and (min-width: 1440px) {
+  .pagina-inicial-container {
+    width: calc(100% - 80px - 280px); /* Respeta menú y panel derecho */
+    margin-left: 80px;
+    margin-right: 280px;
+  }
+
+  .pagina-inicial-card {
+    max-width: 100%; /* Tarjetas ocupan todo el espacio horizontal disponible */
+    padding: 25px; /* Agrega un poco más de padding */
+  }
+}
+
+/* Responsividad para pantallas medianas (1024px a 1440px) */
+@media screen and (max-width: 1440px) {
+  .pagina-inicial-container {
+    width: calc(100% - 80px - 200px); /* Reduce espacio del right panel */
+    margin-right: 200px;
+  }
+
+  .pagina-inicial-card {
+    max-width: 90%; /* Reduce ligeramente el tamaño en pantallas medianas */
+    padding: 20px;
+  }
+}
+
+/* Responsividad para tablets y laptops pequeñas */
+@media screen and (max-width: 1024px) {
+  .pagina-inicial-container {
+    width: calc(100% - 80px - 100px); /* Reduce más el espacio del right panel */
+    margin-right: 100px;
+  }
+
+  .pagina-inicial-card {
+    max-width: 85%; /* Reduce el ancho máximo */
+    padding: 15px; /* Ajusta el padding interno */
+  }
+}
+
+/* Responsividad para pantallas pequeñas (teléfonos y tablets pequeñas) */
+@media screen and (max-width: 768px) {
+  .pagina-inicial-container {
+    width: calc(100% - 80px); /* Ocupa todo el espacio cuando no hay right panel */
+    margin-right: 0; /* Elimina margen derecho */
+  }
+
+  .pagina-inicial-card {
+    max-width: 100%; /* Ocupa todo el ancho disponible */
+    padding: 10px; /* Reduce el padding interno */
+  }
+}
+
+/* Responsividad para pantallas extra pequeñas (teléfonos pequeños) */
+@media screen and (max-width: 480px) {
+  .pagina-inicial-container {
+    width: 100%; /* Ocupa todo el ancho */
+    margin: 0; /* Sin márgenes */
+    padding: 5px; /* Ajusta el padding */
+  }
+
+  .pagina-inicial-card {
+    max-width: 100%; /* Tarjetas ocupan todo el ancho */
+    padding: 8px; /* Reduce aún más el padding interno */
+  }
 }

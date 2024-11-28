@@ -74,3 +74,56 @@
 .MuiListItemText-root {
   font-size: 16px;
 }
+/* --- Responsividad adicional para el Sidebar --- */
+
+/* Pantallas medianas (tablets y pequeñas laptops) */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px; /* Reduce el ancho del sidebar en pantallas medianas */
+    top: 80px; /* Ajusta la posición superior si es necesario */
+  }
+
+  .sidebar.open {
+    width: 200px; /* Sidebar abierto ocupa menos espacio en pantallas medianas */
+  }
+
+  .menu-header {
+    padding: 5px; /* Reduce el padding del encabezado del menú */
+  }
+
+  .sidebar-content {
+    padding-left: 10px; /* Reduce el espacio de los contenidos */
+  }
+
+  .MuiListItemText-root {
+    font-size: 14px; /* Reduce el tamaño de texto de los ítems */
+  }
+}
+
+/* Pantallas pequeñas (teléfonos) */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 50px; /* Reduce aún más el ancho del sidebar */
+    top: 60px; /* Ajusta la posición superior si es necesario */
+  }
+
+  .sidebar.open {
+    width: 150px; /* Sidebar abierto ocupa menos espacio en pantallas pequeñas */
+  }
+
+  .menu-header {
+    padding: 5px; /* Reduce el padding del encabezado */
+  }
+
+  .MuiListItemText-root {
+    font-size: 12px; /* Reduce el tamaño de texto aún más */
+  }
+
+  .sidebar-content {
+    padding-left: 8px; /* Menor espacio en el contenido */
+  }
+
+  .overlay {
+    background: rgba(0, 0, 0, 0.2); /* Aumenta ligeramente la opacidad del overlay */
+  }
+}
