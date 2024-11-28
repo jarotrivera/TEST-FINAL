@@ -1,6 +1,6 @@
 // App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Login from './views/Login';
 import Registro from './views/Registro';
@@ -40,21 +40,10 @@ function App() {
   const token = localStorage.getItem('token');
   const userRole = token ? decodeTokenRole(token) : null;
   const isAuthenticated = !!token;
-  const navigate = useNavigate();
-
-  // Función para manejar el cierre de sesión
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('role');
-    navigate('/login');
-  };
 
   return (
     <Router>
       <Routes>
-        {/* Ruta para redirigir a login si no está autenticado */}
-        <Route path="/" element={<Navigate to="/login" />} />
         {/* Rutas públicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/recuperar" element={<Recuperar />} />
@@ -62,27 +51,33 @@ function App() {
 
         {/* Rutas protegidas */}
         {isAuthenticated ? (
-          <Route path="/" element={<Layout userRole={userRole} onLogout={handleLogout} />}> {/* Pasar el rol y la función de logout como props */}
-            <Route path="paginainicial" element={<PaginaInicial />} />
-            <Route path="areas-comunes" element={<AreasComunes />} />
-            <Route path="tusventas" element={<TusVentas />} />
-            <Route path="estacionamiento" element={<Estacionamiento />} />
-            <Route path="vistahacerunpost" element={<VistaHacerUnPost />} />
-            <Route path="vistahacerunaventa" element={<VistaHacerUnaVenta />} />
-            <Route path="tuspreguntas" element={<TusPreguntas />} />
-            <Route path="paginaventas" element={<PaginaVentas />} />
-            <Route path="gastoscomunes" element={<GastosComunes />} />
-            <Route path="admin-gastos" element={<AdminGastos />} />
-            <Route path="admindashboard" element={<AdminDashboard />} />
-            <Route path="admin-eliminar-user" element={<AdminEliminarUser />} />
-            <Route path="admin-eliminar-post" element={<AdminEliminarPost />} />
-            <Route path="admin-eliminar-venta" element={<AdminEliminarVenta />} />
-            <Route path="admin-roles" element={<AdminRoles />} />
-            <Route path="admin-reportes" element={<AdminReportes />} />
-            <Route path="admin-eliminar-comentarios" element={<AdminEliminarComentarios />} />
-            <Route path="comentarios/:postId" element={<Comentarios />} />
+          <Route element={<Layout userRole={userRole} onLogout={() => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('userId');
+              localStorage.removeItem('role');
+            }} />}
+          >
+            <Route path="/" element={<Navigate to="/paginainicial" />} />
+            <Route path="/paginainicial" element={<PaginaInicial />} />
+            <Route path="/areas-comunes" element={<AreasComunes />} />
+            <Route path="/tusventas" element={<TusVentas />} />
+            <Route path="/estacionamiento" element={<Estacionamiento />} />
+            <Route path="/vistahacerunpost" element={<VistaHacerUnPost />} />
+            <Route path="/vistahacerunaventa" element={<VistaHacerUnaVenta />} />
+            <Route path="/tuspreguntas" element={<TusPreguntas />} />
+            <Route path="/paginaventas" element={<PaginaVentas />} />
+            <Route path="/gastoscomunes" element={<GastosComunes />} />
+            <Route path="/admin-gastos" element={<AdminGastos />} />
+            <Route path="/admindashboard" element={<AdminDashboard />} />
+            <Route path="/admin-eliminar-user" element={<AdminEliminarUser />} />
+            <Route path="/admin-eliminar-post" element={<AdminEliminarPost />} />
+            <Route path="/admin-eliminar-venta" element={<AdminEliminarVenta />} />
+            <Route path="/admin-roles" element={<AdminRoles />} />
+            <Route path="/admin-reportes" element={<AdminReportes />} />
+            <Route path="/admin-eliminar-comentarios" element={<AdminEliminarComentarios />} />
+            <Route path="/comentarios/:postId" element={<Comentarios />} />
             {userRole === 'admin' && (
-              <Route path="registro" element={<Registro />} />
+              <Route path="/registro" element={<Registro />} />
             )}
           </Route>
         ) : (
