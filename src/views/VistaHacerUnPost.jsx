@@ -29,7 +29,7 @@ const VistaHacerUnPost = () => {
         usuarioId, // Agregar usuarioId a la solicitud
       };
 
-      const response = await fetch('http://localhost:3000/api/posts', {
+      const response = await fetch('https://forogeocentro-production.up.railway.app/api/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
