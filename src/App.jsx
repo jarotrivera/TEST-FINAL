@@ -1,6 +1,6 @@
 // App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Login from './views/Login';
 import Registro from './views/Registro';
@@ -40,6 +40,15 @@ function App() {
   const token = localStorage.getItem('token');
   const userRole = token ? decodeTokenRole(token) : null;
   const isAuthenticated = !!token;
+  const navigate = useNavigate();
+
+  // Función para manejar el cierre de sesión
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('role');
+    navigate('/login');
+  };
 
   return (
     <Router>
@@ -53,7 +62,7 @@ function App() {
 
         {/* Rutas protegidas */}
         {isAuthenticated ? (
-          <Route path="/" element={<Layout userRole={userRole} />}> {/* Pasar el rol como prop */}
+          <Route path="/" element={<Layout userRole={userRole} onLogout={handleLogout} />}> {/* Pasar el rol y la función de logout como props */}
             <Route path="paginainicial" element={<PaginaInicial />} />
             <Route path="areas-comunes" element={<AreasComunes />} />
             <Route path="tusventas" element={<TusVentas />} />
