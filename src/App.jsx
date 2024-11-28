@@ -54,7 +54,7 @@ function App() {
     <Router>
       <Routes>
         {/* Ruta para redirigir a login si no está autenticado */}
-        <Route path="/" element={<Navigate to={isAuthenticated ? "/paginainicial" : "/login"} />} />
+        <Route path="/" element={<Navigate to="/login" />} />
         {/* Rutas públicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/recuperar" element={<Recuperar />} />
