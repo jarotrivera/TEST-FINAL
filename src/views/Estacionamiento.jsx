@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "../components/Menu";
-import RightPanel2 from "../components/RightPanel2";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCar } from '@fortawesome/free-solid-svg-icons';
 import "./Estacionamiento.css";
@@ -66,7 +65,6 @@ const Estacionamiento = () => {
             ))}
           </div>
         </section>
-        <RightPanel2 />
       </div>
     </div>
   );

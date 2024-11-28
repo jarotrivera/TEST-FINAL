@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Menu";
-import RightPanel2 from "../components/RightPanel2";
 import "./VistaHacerUnaVenta.css";
 
 const VistaHacerUnaVenta = () => {
@@ -100,7 +99,6 @@ const VistaHacerUnaVenta = () => {
             {mensajeExito && <p className="mensaje-exito">{mensajeExito}</p>}
           </div>
         </section>
-        <RightPanel2 />
       </main>
     </div>
   );
