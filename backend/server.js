@@ -1,4 +1,4 @@
-// server.js
+// server.js 
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
@@ -14,6 +14,7 @@ const reportRoutes = require('./routes/reportRoutes');
 require('./models/associations');
 require('dotenv').config();
 const commentRoutes = require('./routes/commentRoutes');
+const { authenticateUser } = require('./middlewares/authMiddleware');
 
 // Importar modelos para sincronizar las asociaciones
 const User = require('./models/userModel');
@@ -29,14 +30,14 @@ app.use(express.json({ limit: '10mb' }));
 
 // Registrar rutas
 app.use('/api/auth', authRoutes);
-app.use('/api/posts', postRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/ventas', ventaRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/gastos', gastosRoutes);
-app.use('/api/parking', parkingRoutes);
-app.use('/api', reportRoutes);
-app.use('/api/comments', commentRoutes);
+app.use('/api/posts', authenticateUser, postRoutes);
+app.use('/api/users', authenticateUser, userRoutes);
+app.use('/api/ventas', authenticateUser, ventaRoutes);
+app.use('/api/admin', authenticateUser, adminRoutes);
+app.use('/api/gastos', authenticateUser, gastosRoutes);
+app.use('/api/parking', authenticateUser, parkingRoutes);
+app.use('/api', authenticateUser, reportRoutes);
+app.use('/api/comments', authenticateUser, commentRoutes);
 
 // ** Servir el frontend compilado solo en producción **
 if (process.env.NODE_ENV === 'production') {
