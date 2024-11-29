@@ -94,17 +94,26 @@ const AdminGastos = () => {
     try {
       const response = await fetch(`https://forogeocentro-production.up.railway.app/api/gastos/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Agrega el token de autenticación
+          'Content-Type': 'application/json', // Opcional, pero buena práctica
+        },
       });
+  
       if (response.ok) {
         alert('Tabla eliminada con éxito');
-        fetchTablas();
+        fetchTablas(); // Actualiza las tablas después de la eliminación
+      } else if (response.status === 401) {
+        alert('No autorizado. Verifique su token.');
       } else {
-        alert('Error al eliminar la tabla');
+        alert(`Error al eliminar la tabla: ${response.statusText}`);
       }
     } catch (error) {
       console.error('Error al eliminar la tabla:', error);
+      alert('Ocurrió un error al intentar eliminar la tabla.');
     }
   };
+  
 
   return (
     <div className="admin-gastos-container">
