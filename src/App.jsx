@@ -23,17 +23,30 @@ import ResetPassword from './components/ResetPassword';
 import AdminEliminarComentarios from './views/AdminEliminarComentarios';
 import Comentarios from './views/Comentarios';
 
-
-
 // Función para decodificar el token y obtener el rol
 function decodeTokenRole(token) {
   try {
     const payload = JSON.parse(atob(token.split('.')[1])); // Decodifica el payload en base64
-    return payload.role; // Retorna el rol del usuario si existe
+    if (!payload || !payload.exp || payload.exp < Date.now() / 1000) {
+      console.error('Token expirado o inválido');
+      return null;
+    }
+    return payload.role; // Retorna el rol del usuario si existe y el token es válido
   } catch (error) {
     console.error('Error al decodificar el token:', error);
     return null;
   }
+}
+
+// Componente de Ruta Protegida
+function ProtectedRoute({ element, userRole, rolesPermitidos }) {
+  if (!userRole) {
+    return <Navigate to="/login" replace />; // Redirige al login si no hay usuario autenticado
+  }
+  if (rolesPermitidos && !rolesPermitidos.includes(userRole)) {
+    return <Navigate to="/paginainicial" replace />; // Redirige si el rol del usuario no está permitido
+  }
+  return element;
 }
 
 function App() {
@@ -47,28 +60,26 @@ function App() {
         <Route path="/" element={<Layout userRole={userRole} />}> {/* Pasar el rol como prop */}
           <Route path="login" element={<Login />} />   
           <Route path="registro" element={<Registro />} />
-          <Route path="areas-comunes" element={<AreasComunes />} />
-          <Route path="tusventas" element={<TusVentas />} />
-          <Route path="estacionamiento" element={<Estacionamiento />} />
-          <Route path="vistahacerunpost" element={<VistaHacerUnPost />} />
-          <Route path="vistahacerunaventa" element={<VistaHacerUnaVenta />} />
-          <Route path="paginainicial" element={<PaginaInicial />} />
-          <Route path="tuspreguntas" element={<TusPreguntas />} />
-          <Route path="paginaventas" element={<PaginaVentas />} />
-          <Route path="gastoscomunes" element={<GastosComunes />} />
-          <Route path="admin-gastos" element={<AdminGastos />} />
-          <Route path="admindashboard" element={<AdminDashboard />} /> 
-          <Route path="admin-eliminar-user" element={<AdminEliminarUser />} />
-          <Route path="admin-eliminar-post" element={<AdminEliminarPost />} />
-          <Route path="admin-eliminar-venta" element={<AdminEliminarVenta />} />
-          <Route path="admin-roles" element={<AdminRoles />} />
-          <Route path="admin-reportes" element={<AdminReportes />} />
+          <Route path="areas-comunes" element={<ProtectedRoute element={<AreasComunes />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
+          <Route path="tusventas" element={<ProtectedRoute element={<TusVentas />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
+          <Route path="estacionamiento" element={<ProtectedRoute element={<Estacionamiento />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
+          <Route path="vistahacerunpost" element={<ProtectedRoute element={<VistaHacerUnPost />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
+          <Route path="vistahacerunaventa" element={<ProtectedRoute element={<VistaHacerUnaVenta />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
+          <Route path="paginainicial" element={<ProtectedRoute element={<PaginaInicial />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
+          <Route path="tuspreguntas" element={<ProtectedRoute element={<TusPreguntas />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
+          <Route path="paginaventas" element={<ProtectedRoute element={<PaginaVentas />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
+          <Route path="gastoscomunes" element={<ProtectedRoute element={<GastosComunes />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
+          <Route path="admin-gastos" element={<ProtectedRoute element={<AdminGastos />} userRole={userRole} rolesPermitidos={['admin']} />} />
+          <Route path="admindashboard" element={<ProtectedRoute element={<AdminDashboard />} userRole={userRole} rolesPermitidos={['admin']} />} /> 
+          <Route path="admin-eliminar-user" element={<ProtectedRoute element={<AdminEliminarUser />} userRole={userRole} rolesPermitidos={['admin']} />} />
+          <Route path="admin-eliminar-post" element={<ProtectedRoute element={<AdminEliminarPost />} userRole={userRole} rolesPermitidos={['admin']} />} />
+          <Route path="admin-eliminar-venta" element={<ProtectedRoute element={<AdminEliminarVenta />} userRole={userRole} rolesPermitidos={['admin']} />} />
+          <Route path="admin-roles" element={<ProtectedRoute element={<AdminRoles />} userRole={userRole} rolesPermitidos={['admin']} />} />
+          <Route path="admin-reportes" element={<ProtectedRoute element={<AdminReportes />} userRole={userRole} rolesPermitidos={['admin']} />} />
           <Route path="recuperar" element={<Recuperar />} />
           <Route path="reset-password/:token" element={<ResetPassword />} />
-          <Route path="admin-eliminar-comentarios" element={<AdminEliminarComentarios />} />
-          <Route path="comentarios/:postId" element={<Comentarios />} />
-
-
+          <Route path="admin-eliminar-comentarios" element={<ProtectedRoute element={<AdminEliminarComentarios />} userRole={userRole} rolesPermitidos={['admin']} />} />
+          <Route path="comentarios/:postId" element={<ProtectedRoute element={<Comentarios />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
         </Route>
       </Routes>
     </Router>
