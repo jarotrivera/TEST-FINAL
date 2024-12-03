@@ -16,7 +16,7 @@ const AdminGastos = () => {
 
   const fetchTablas = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/gastos', {
+      const response = await fetch('https://forogeocentro-production.up.railway.app/api/gastos', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json',
@@ -61,8 +61,18 @@ const AdminGastos = () => {
   };
 
   const handleGuardar = async () => {
+    // Verificar si todos los campos están llenos
+    if (!tablaTitulo.trim()) {
+      alert('El título de la tabla no puede estar vacío.');
+      return;
+    }
+    if (filas.some(fila => fila.some(celda => !celda.trim()))) {
+      alert('Todos los campos de la tabla deben estar llenos.');
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:3000/api/gastos/crear', {
+      const response = await fetch('https://forogeocentro-production.up.railway.app/api/gastos/crear', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +102,7 @@ const AdminGastos = () => {
 
   const handleDeleteTable = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/gastos/${id}`, {
+      const response = await fetch(`https://forogeocentro-production.up.railway.app/api/gastos/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {

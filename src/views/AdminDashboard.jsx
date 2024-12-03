@@ -9,11 +9,11 @@ import {
   Report as ReportIcon, 
   History as HistoryIcon,
   Comment as CommentIcon,
-  SupervisorAccount as SupervisorAccountIcon // Importar el icono para asignar roles
+  SupervisorAccount as SupervisorAccountIcon, // Importar el icono para asignar roles
+  ShoppingCart as ShoppingCartIcon // Icono de carritpao ra ventas
 } from '@mui/icons-material';
 import Sidebar from '../components/Menu';
 import './AdminDashboard.css';
-
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const AdminDashboard = () => {
             <button className="module-button">Ir a Publicaciones</button>
           </div>
           <div className="module-card" onClick={() => navigate('/admin-eliminar-venta')}>
-            <BuildIcon className="module-icon" />
+            <ShoppingCartIcon className="module-icon" />
             <p className="module-title">Eliminar Ventas</p>
             <button className="module-button">Ir a Ventas</button>
           </div>

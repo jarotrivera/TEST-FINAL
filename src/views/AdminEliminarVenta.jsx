@@ -17,7 +17,7 @@ const AdminEliminarVenta = () => {
 
   const fetchUsersWithVentas = async () => {
     try {
-      const response = await fetch('https://forogeocentro-production.up.railway.appapi/admin/usersWithVentas', {
+      const response = await fetch('https://forogeocentro-production.up.railway.app/api/admin/usersWithVentas', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       const data = await response.json();
