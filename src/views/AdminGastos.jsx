@@ -16,7 +16,7 @@ const AdminGastos = () => {
 
   const fetchTablas = async () => {
     try {
-      const response = await fetch('https://forogeocentro-production.up.railway.app/api/gastos', {
+      const response = await fetch('http://localhost:3000/api/gastos', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ const AdminGastos = () => {
 
   const handleGuardar = async () => {
     try {
-      const response = await fetch('https://forogeocentro-production.up.railway.app/api/gastos/crear', {
+      const response = await fetch('http://localhost:3000/api/gastos/crear', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,28 +92,19 @@ const AdminGastos = () => {
 
   const handleDeleteTable = async (id) => {
     try {
-      const response = await fetch(`https://forogeocentro-production.up.railway.app/api/gastos/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/gastos/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Agrega el token de autenticación
-          'Content-Type': 'application/json', // Opcional, pero buena práctica
-        },
       });
-  
       if (response.ok) {
         alert('Tabla eliminada con éxito');
-        fetchTablas(); // Actualiza las tablas después de la eliminación
-      } else if (response.status === 401) {
-        alert('No autorizado. Verifique su token.');
+        fetchTablas();
       } else {
-        alert(`Error al eliminar la tabla: ${response.statusText}`);
+        alert('Error al eliminar la tabla');
       }
     } catch (error) {
       console.error('Error al eliminar la tabla:', error);
-      alert('Ocurrió un error al intentar eliminar la tabla.');
     }
   };
-  
 
   return (
     <div className="admin-gastos-container">
