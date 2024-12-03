@@ -59,7 +59,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" />} /> {/* Redirección a registro */}
         <Route path="/" element={<Layout userRole={userRole} />}> {/* Pasar el rol como prop */}
           <Route path="login" element={<Login />} />   
-          <Route path="registro" element={<Registro userRole={userRole} rolesPermitidos={['admin']}/>} />
+          <Route path="registro" element={<ProtectedRoute element={<Registro />} userRole={userRole} rolesPermitidos={['admin']} />} />
           <Route path="areas-comunes" element={<ProtectedRoute element={<AreasComunes />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
           <Route path="tusventas" element={<ProtectedRoute element={<TusVentas />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
           <Route path="estacionamiento" element={<ProtectedRoute element={<Estacionamiento />} userRole={userRole} rolesPermitidos={['user', 'admin']} />} />
