@@ -4,7 +4,17 @@ import Sidebar from "../components/Menu";
 import RightPanel2 from "../components/RightPanel2";
 import "./AreasComunes.css";
 
-// Importa las imágenes
+// Importa las imágenes (versiones miniatura y de alta resolución)
+import areaSaludable1Thumb from "../img/thumbnails/areasaludable1_thumb.webp";
+import areaSaludable2Thumb from "../img/thumbnails/areasaludable2_thumb.webp";
+import areaSaludable3Thumb from "../img/thumbnails/areasaludable3_thumb.webp";
+import areasComunitarias1Thumb from "../img/thumbnails/areascomunitarias1_thumb.webp";
+import areasComunitarias2Thumb from "../img/thumbnails/areascomunitarias2_thumb.webp";
+import areasComunitarias3Thumb from "../img/thumbnails/areascomunitarias3_thumb.webp";
+import areaRecreativa1Thumb from "../img/thumbnails/arearecreativa1_thumb.webp";
+import areaRecreativa2Thumb from "../img/thumbnails/arearecreativa2_thumb.webp";
+import areaRecreativa3Thumb from "../img/thumbnails/arearecreativa3_thumb.webp";
+
 import areaSaludable1 from "../img/areasaludable1.webp";
 import areaSaludable2 from "../img/areasaludable2.webp";
 import areaSaludable3 from "../img/areasaludable3.webp";
@@ -25,15 +35,27 @@ const AreasComunes = () => {
   const areas = [
     {
       nombre: "Áreas Recreativas",
-      imagenes: [areaRecreativa1, areaRecreativa2, areaRecreativa3],
+      imagenes: [
+        { thumb: areaRecreativa1Thumb, full: areaRecreativa1 },
+        { thumb: areaRecreativa2Thumb, full: areaRecreativa2 },
+        { thumb: areaRecreativa3Thumb, full: areaRecreativa3 },
+      ],
     },
     {
       nombre: "Áreas Saludables",
-      imagenes: [areaSaludable1, areaSaludable2, areaSaludable3],
+      imagenes: [
+        { thumb: areaSaludable1Thumb, full: areaSaludable1 },
+        { thumb: areaSaludable2Thumb, full: areaSaludable2 },
+        { thumb: areaSaludable3Thumb, full: areaSaludable3 },
+      ],
     },
     {
       nombre: "Áreas Comunitarias",
-      imagenes: [areasComunitarias1, areasComunitarias2, areasComunitarias3],
+      imagenes: [
+        { thumb: areasComunitarias1Thumb, full: areasComunitarias1 },
+        { thumb: areasComunitarias2Thumb, full: areasComunitarias2 },
+        { thumb: areasComunitarias3Thumb, full: areasComunitarias3 },
+      ],
     },
   ];
 
@@ -67,10 +89,10 @@ const AreasComunes = () => {
                   {area.imagenes.map((imagen, imgIndex) => (
                     <div className="image-container" key={imgIndex}>
                       <img
-                        src={imagen}
+                        src={imagen.thumb}
                         alt={`${area.nombre} ${imgIndex + 1}`}
                         className="area-image"
-                        onClick={() => openImageModal(imagen)}
+                        onClick={() => openImageModal(imagen.full)}
                       />
                     </div>
                   ))}
