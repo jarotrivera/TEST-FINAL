@@ -141,49 +141,53 @@ const AdminGastos = () => {
         <button style={{ backgroundColor: 'red', color: 'white' }} onClick={eliminarFila}>Eliminar Fila</button>
       </div>
 
-      <table className="gastos-table">
-        <thead>
-          <tr>
-            {columnas.map((columna, idx) => (
-              <th key={idx} onClick={() => setIsEditingTitle(idx)}>
-                {isEditingTitle === idx ? (
-                  <input
-                    type="text"
-                    value={columna}
-                    onChange={(e) => {
-                      const nuevasColumnas = [...columnas];
-                      nuevasColumnas[idx] = e.target.value;
-                      setColumnas(nuevasColumnas);
-                    }}
-                    onBlur={() => setIsEditingTitle(null)}
-                    autoFocus
-                  />
-                ) : (
-                  columna
-                )}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {filas.map((fila, filaIdx) => (
-            <tr key={filaIdx}>
-              {fila.map((dato, colIdx) => (
-                <td key={colIdx}>
-                  <input
-                    type="text"
-                    value={dato}
-                    onChange={(e) => handleInputChange(filaIdx, colIdx, e.target.value)}
-                  />
-                </td>
+      {/* Tabla con scroll horizontal y vertical */}
+      <div className="table-scrollable">
+        <table className="gastos-table">
+          <thead>
+            <tr>
+              {columnas.map((columna, idx) => (
+                <th key={idx} onClick={() => setIsEditingTitle(idx)}>
+                  {isEditingTitle === idx ? (
+                    <input
+                      type="text"
+                      value={columna}
+                      onChange={(e) => {
+                        const nuevasColumnas = [...columnas];
+                        nuevasColumnas[idx] = e.target.value;
+                        setColumnas(nuevasColumnas);
+                      }}
+                      onBlur={() => setIsEditingTitle(null)}
+                      autoFocus
+                    />
+                  ) : (
+                    columna
+                  )}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filas.map((fila, filaIdx) => (
+              <tr key={filaIdx}>
+                {fila.map((dato, colIdx) => (
+                  <td key={colIdx}>
+                    <input
+                      type="text"
+                      value={dato}
+                      onChange={(e) => handleInputChange(filaIdx, colIdx, e.target.value)}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <button id="guardar-button" onClick={handleGuardar}>Guardar</button>
 
+      {/* Lista de tablas creadas con scroll vertical */}
       <div className="tables-list">
         <h3>Tablas Creadas</h3>
         {error ? (
