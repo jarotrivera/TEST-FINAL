@@ -47,6 +47,7 @@ const AdminGastos = () => {
     setColumnas([...columnas, `Columna ${columnas.length + 1}`]);
     setFilas(filas.map((fila) => [...fila, ''])); // Añade una celda vacía en cada fila
   };
+
   const eliminarColumna = () => {
     if (columnas.length > 0) {
       setColumnas(columnas.slice(0, -1)); // Elimina la última columna
@@ -61,7 +62,6 @@ const AdminGastos = () => {
   };
 
   const handleGuardar = async () => {
-    // Verificar si todos los campos están llenos
     if (!tablaTitulo.trim()) {
       alert('El título de la tabla no puede estar vacío.');
       return;
@@ -84,7 +84,7 @@ const AdminGastos = () => {
           filas,
         }),
       });
-  
+
       if (response.ok) {
         alert('Gastos guardados correctamente');
         fetchTablas(); // Recargar la lista de tablas
@@ -98,18 +98,23 @@ const AdminGastos = () => {
       alert('Ocurrió un error al intentar guardar los datos.');
     }
   };
-  
 
   const handleDeleteTable = async (id) => {
     try {
       const response = await fetch(`https://forogeocentro-production.up.railway.app/api/gastos/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Agregar token JWT en el encabezado
+          'Content-Type': 'application/json',
+        },
       });
       if (response.ok) {
         alert('Tabla eliminada con éxito');
         fetchTablas();
+      } else if (response.status === 401) {
+        alert('No autorizado. Verifique sus credenciales.');
       } else {
-        alert('Error al eliminar la tabla');
+        alert('Error al eliminar la tabla.');
       }
     } catch (error) {
       console.error('Error al eliminar la tabla:', error);
@@ -131,9 +136,9 @@ const AdminGastos = () => {
 
       <div className="button-container">
         <button onClick={agregarColumna}>Agregar Columna</button>
-        <button style={{ backgroundColor: 'red', color: 'white' }} onClick={eliminarColumna}>Eliminar Columna</button> {/* Botón rojo para eliminar columna */}
+        <button style={{ backgroundColor: 'red', color: 'white' }} onClick={eliminarColumna}>Eliminar Columna</button>
         <button onClick={agregarFila}>Agregar Fila</button>
-        <button style={{ backgroundColor: 'red', color: 'white' }} onClick={eliminarFila}>Eliminar Fila</button> {/* Botón rojo para eliminar fila */}
+        <button style={{ backgroundColor: 'red', color: 'white' }} onClick={eliminarFila}>Eliminar Fila</button>
       </div>
 
       <table className="gastos-table">
