@@ -88,6 +88,11 @@ const AdminGastos = () => {
       if (response.ok) {
         alert('Gastos guardados correctamente');
         fetchTablas(); // Recargar la lista de tablas
+
+        // Reiniciar los estados para limpiar el formulario
+        setTablaTitulo('');
+        setColumnas(['Nombre', 'Monto', 'Descripción']);
+        setFilas([['', '', '']]);
       } else if (response.status === 401) {
         alert('No autorizado. Verifique sus credenciales.');
       } else {
@@ -104,7 +109,7 @@ const AdminGastos = () => {
       const response = await fetch(`https://forogeocentro-production.up.railway.app/api/gastos/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Agregar token JWT en el encabezado
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json',
         },
       });
@@ -141,29 +146,12 @@ const AdminGastos = () => {
         <button style={{ backgroundColor: 'red', color: 'white' }} onClick={eliminarFila}>Eliminar Fila</button>
       </div>
 
-      {/* Tabla con scroll horizontal y vertical */}
       <div className="table-scrollable">
         <table className="gastos-table">
           <thead>
             <tr>
               {columnas.map((columna, idx) => (
-                <th key={idx} onClick={() => setIsEditingTitle(idx)}>
-                  {isEditingTitle === idx ? (
-                    <input
-                      type="text"
-                      value={columna}
-                      onChange={(e) => {
-                        const nuevasColumnas = [...columnas];
-                        nuevasColumnas[idx] = e.target.value;
-                        setColumnas(nuevasColumnas);
-                      }}
-                      onBlur={() => setIsEditingTitle(null)}
-                      autoFocus
-                    />
-                  ) : (
-                    columna
-                  )}
-                </th>
+                <th key={idx}>{columna}</th>
               ))}
             </tr>
           </thead>
@@ -187,22 +175,17 @@ const AdminGastos = () => {
 
       <button id="guardar-button" onClick={handleGuardar}>Guardar</button>
 
-      {/* Lista de tablas creadas con scroll vertical */}
       <div className="tables-list">
         <h3>Tablas Creadas</h3>
         {error ? (
           <p style={{ color: 'red' }}>{error}</p>
         ) : (
-          Array.isArray(tablas) && tablas.length > 0 ? (
-            tablas.map((tabla) => (
-              <div key={tabla.id} className="table-item">
-                <span>{tabla.titulo}</span>
-                <button onClick={() => handleDeleteTable(tabla.id)}>Eliminar</button>
-              </div>
-            ))
-          ) : (
-            <p>No hay tablas disponibles.</p>
-          )
+          tablas.map((tabla) => (
+            <div key={tabla.id} className="table-item">
+              <span>{tabla.titulo}</span>
+              <button onClick={() => handleDeleteTable(tabla.id)}>Eliminar</button>
+            </div>
+          ))
         )}
       </div>
     </div>

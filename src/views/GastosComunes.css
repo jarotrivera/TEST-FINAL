@@ -20,6 +20,7 @@
 .table-container {
   width: 100%;
   max-width: 800px;
+  overflow-x: auto; /* Habilita scroll horizontal */
 }
 
 .table-container h2 {
@@ -58,4 +59,13 @@
   margin-top: 0;
   color: #333;
   text-align: left;
+}
+
+/* Habilitar scroll horizontal */
+.gastos-section {
+  overflow-x: auto; /* Permite desplazar la tabla horizontalmente */
+}
+
+.gastos-section table {
+  min-width: 600px; /* Ancho mínimo para forzar scroll si es necesario */
 }
