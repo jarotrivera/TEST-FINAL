@@ -1,41 +1,63 @@
 .gastos-comunes {
   display: flex;
-  justify-content: center;
-  padding: 20px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
   background-color: #f8f9fa;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 50px;
 }
 
 .sidebar-and-table {
   display: flex;
   width: 100%;
+  overflow-x: auto;
 }
 
 .sidebar-and-table-content {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .table-container {
   width: 100%;
-  max-width: 800px;
-  overflow-x: auto; /* Habilita scroll horizontal */
+  margin: 0 auto; /* Centra la tabla */
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.table-container h2 {
+.gastos-section {
+  margin-bottom: 30px;
+  padding: 0 15px; /* Añade un poco de espacio horizontal */
+}
+
+.gastos-section:last-child {
+  margin-bottom: 50px;
+}
+
+.gastos-section h2 {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin: 0 0 15px 0;
   color: #333;
   text-align: center;
 }
 
-.gastos-table-wrapper {
-  margin-bottom: 30px;
-}
-
 .gastos-table {
   width: 100%;
+  max-width: 100%; /* Asegura que la tabla no se extienda más allá del contenedor */
   border-collapse: collapse;
 }
 
@@ -55,17 +77,75 @@
   background-color: #f2f2f2;
 }
 
-.gastos-table-wrapper h3 {
-  margin-top: 0;
-  color: #333;
-  text-align: left;
+.gastos-comunes::-webkit-scrollbar,
+.sidebar-and-table::-webkit-scrollbar,
+.sidebar-and-table-content::-webkit-scrollbar,
+.table-container::-webkit-scrollbar {
+  display: none;
 }
 
-/* Habilitar scroll horizontal */
-.gastos-section {
-  overflow-x: auto; /* Permite desplazar la tabla horizontalmente */
+/* Responsividad */
+@media screen and (max-width: 1024px) {
+  .gastos-section {
+    margin-bottom: 25px;
+    padding: 0 10px;
+  }
+
+  .gastos-section h2 {
+    font-size: 22px;
+  }
+
+  .gastos-table {
+    width: 90%; /* Tabla se hace más pequeña en pantallas medianas */
+    margin: 0 auto;
+  }
+
+  .gastos-table th,
+  .gastos-table td {
+    padding: 8px;
+  }
 }
 
-.gastos-section table {
-  min-width: 600px; /* Ancho mínimo para forzar scroll si es necesario */
+@media screen and (max-width: 768px) {
+  .gastos-section {
+    margin-bottom: 20px;
+    padding: 0 8px;
+  }
+
+  .gastos-section h2 {
+    font-size: 20px;
+  }
+
+  .gastos-table {
+    width: 80%; /* Más pequeña para pantallas pequeñas */
+    margin: 0 auto;
+  }
+
+  .gastos-table th,
+  .gastos-table td {
+    padding: 6px;
+    font-size: 14px; /* Reducir el tamaño de la fuente */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .gastos-section {
+    margin-bottom: 15px;
+    padding: 0 5px;
+  }
+
+  .gastos-section h2 {
+    font-size: 18px;
+  }
+
+  .gastos-table {
+    width: 70%; /* Más pequeña para dispositivos muy pequeños */
+    margin: 0 auto;
+  }
+
+  .gastos-table th,
+  .gastos-table td {
+    padding: 4px;
+    font-size: 12px; /* Texto más pequeño para dispositivos pequeños */
+  }
 }
