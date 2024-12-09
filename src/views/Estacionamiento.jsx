@@ -19,13 +19,26 @@ const Estacionamiento = () => {
 
   const actualizarEstadoEspacios = async () => {
     try {
-      const response = await fetch('https://forogeocentro-production.up.railway.app/api/parking');
+      const token = localStorage.getItem('token'); // Obtener el token desde localStorage
+      const response = await fetch('https://forogeocentro-production.up.railway.app/api/parking', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`, // Incluye el token en el encabezado
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        console.error('Error en la solicitud:', response.statusText);
+        return;
+      }
+
       const data = await response.json();
 
       setEspacios(prevEspacios =>
         prevEspacios.map((espacio, index) => ({
           ...espacio,
-          ocupado: index === 0 ? data[0]?.ocupado : false // Solo actualiza el estado del primer bloque
+          ocupado: data[index]?.ocupado || false, // Actualiza el estado de acuerdo a la respuesta
         }))
       );
     } catch (error) {
@@ -43,7 +56,6 @@ const Estacionamiento = () => {
       <div className="content4">
         <Sidebar />
         <section className="main-content">
-          {/* Indicadores de estado arriba centrados */}
           <div className="estado-container">
             <div className="estado libre"></div>
             <span>Estacionamiento Disponible</span>
