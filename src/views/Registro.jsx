@@ -38,18 +38,28 @@ const Registro = () => {
     setSuccess("");
 
     try {
-      const response = await fetch("https://forogeocentro-production.up.railway.app/api/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nombre: formData.usuario,
-          email: formData.email,
-          password: formData.contraseña,
-          departamento: formData.departamento,
-        }),
-      });
+      const token = localStorage.getItem("token"); // Obtener el token desde localStorage
+      if (!token) {
+        setError("No tienes permisos para realizar esta acción.");
+        return;
+      }
+
+      const response = await fetch(
+        "https://forogeocentro-production.up.railway.app/api/users/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+          },
+          body: JSON.stringify({
+            nombre: formData.usuario,
+            email: formData.email,
+            password: formData.contraseña,
+            departamento: formData.departamento,
+          }),
+        }
+      );
 
       const data = await response.json();
 
