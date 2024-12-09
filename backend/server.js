@@ -35,7 +35,7 @@ app.use('/api/users', authenticateUser, userRoutes);
 app.use('/api/ventas', authenticateUser, ventaRoutes);
 app.use('/api/admin', authenticateUser, adminRoutes);
 app.use('/api/gastos', authenticateUser, gastosRoutes);
-app.use('/api/parking', authenticateUser, parkingRoutes);
+app.use('/api/parking', parkingRoutes);
 app.use('/api', authenticateUser, reportRoutes);
 app.use('/api/comments', authenticateUser, commentRoutes);
 
