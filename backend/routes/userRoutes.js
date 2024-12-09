@@ -4,21 +4,20 @@ const { login } = require('../controllers/authController');
 const { authenticateUser } = require('../middlewares/authMiddleware');
 const router = express.Router();
 
-// Ruta para registrar un nuevo usuario
-router.post('/register', registerUser);
+// Ruta para registrar un nuevo usuario (solo accesible para administradores)
+router.post('/register', authenticateUser, (req, res, next) => {
+  // Verificar si el usuario autenticado es administrador
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Acceso denegado. Solo los administradores pueden registrar usuarios.' });
+  }
+  next(); // Permitir acceso si el rol es admin
+}, registerUser);
 
-// Ruta para iniciar sesión
+// Otras rutas
 router.post('/login', login);
-
-// Ruta para obtener todas las publicaciones
 router.get('/posts', getPosts);
-
-// Ruta para eliminar un usuario (solo accesible para administradores)
 router.delete('/users/:id', authenticateUser, deleteUser);
-
-// Ruta para obtener todos los usuarios
 router.get('/', authenticateUser, obtenerUsuarios);
-
 router.put('/:id/role', authenticateUser, cambiarRol);
 
 module.exports = router;
